@@ -1,0 +1,383 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>How to bypass Settings catalog limitation - Maciej Horbacz</title>
+<meta name="description" content="I needed to configure quite a long list of allowed urls but then I hit a wall">
+
+
+  <meta name="author" content="Hi">
+  
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Maciej Horbacz">
+<meta property="og:title" content="How to bypass Settings catalog limitation">
+<meta property="og:url" content="http://localhost:4000/_posts/2021-08-27-Edge-allowed-cookies/">
+
+
+  <meta property="og:description" content="I needed to configure quite a long list of allowed urls but then I hit a wall">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/head_image_big.png">
+
+
+
+  <meta name="twitter:site" content="@UniverseCitiz3n">
+  <meta name="twitter:title" content="How to bypass Settings catalog limitation">
+  <meta name="twitter:description" content="I needed to configure quite a long list of allowed urls but then I hit a wall">
+  <meta name="twitter:url" content="http://localhost:4000/_posts/2021-08-27-Edge-allowed-cookies/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="http://localhost:4000/assets/head_image_big.png">
+    
+  
+
+  
+
+
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/_posts/2021-08-27-Edge-allowed-cookies/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Maciej Horbacz",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Maciej Horbacz Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+<!-- Twitter cards -->
+<meta name="twitter:site"    content="@">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:title"   content="How to bypass Settings catalog limitation">
+
+
+<meta name="twitter:description" content="My ideas and solutions to sysadmin problems">
+
+
+
+<meta name="twitter:card"  content="summary">
+<meta name="twitter:image" content="/assets/head_image_big.png">
+
+<!-- end of Twitter cards -->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--page">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/logo.png" alt=""></a>
+        
+        <a class="site-title" href="/">
+          Maciej Horbacz
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/autopilot/">Autopilot</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/events/">Events</a>
+            </li><li class="masthead__menu-item">
+              <a href="https://leanpub.com/psconfbook3/">Publications</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/terms/">Terms & Conditions</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      <h1 id="intro">Intro</h1>
+
+<p>Configuring Intune MDM polices sometimes is tricky.
+Especially when you are migrating baseline Group Policies.
+First of all, do not migrate everything AS IS 😣.
+Take a look at the Microsoft Security Baseline, tweak it to your needs, apply it to some pilot group and then build-up.</p>
+
+<p>But what’s about Settings catalog limitation?</p>
+
+<h1 id="list-of-items">List of items</h1>
+
+<p>I want to configure <code class="language-plaintext highlighter-rouge">Allow cookies on specific sites</code> and with help of Settings catalog it seems fairly easy! 😎</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-08-28-Edge/1.png" alt="1" /></p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-08-28-Edge/2.png" alt="2" /></p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-08-28-Edge/3.png" alt="3" /></p>
+
+<p>There you can enter desired sites or import whole bunch of them.
+In my case I’m going to import over 100 dummy sites 😏.</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-08-28-Edge/4.png" alt="4" /></p>
+
+<p>Click Next, assign, create!</p>
+
+<p>Wait what!? 🤨</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-08-28-Edge/5.png" alt="5" /></p>
+
+<p>As you may guess now I know what’s the issue but it was not so obvious from the start…
+There is a limit of 100 items on that list…</p>
+
+<p>Alright let’s create one policy with 100 and then another policy with the rest! 💡</p>
+
+<p>Nope…as soon as policies are digested by the device it reports with <code class="language-plaintext highlighter-rouge">Conflict</code> status!</p>
+
+<p>What now? 🤔</p>
+
+<h1 id="custom-policy">Custom policy</h1>
+
+<p>It must be possible to implement such long and probably even longer list!
+I’ve started to search for OMA-Uri for that setting.
+And found it - <code class="language-plaintext highlighter-rouge">./Vendor/MSFT/Policy/Config/microsoft_edge~Policy~microsoft_edge~ContentSettings/CookiesAllowedForUrls</code></p>
+
+<p>Now for creating custom policy</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-08-28-Edge/6.png" alt="6" /></p>
+
+<p>Enter desired name for policy and continue</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-08-28-Edge/7.png" alt="7" /></p>
+
+<p>Now what should I do with <code class="language-plaintext highlighter-rouge">Value</code> ??</p>
+
+<p>I’ve created policy with a few urls using <code class="language-plaintext highlighter-rouge">Settings catalog</code> and applied them to the device.
+Then I took a look at the events from DeviceManagement-Enterprise-Diagnostics-Provider and found out that <code class="language-plaintext highlighter-rouge">value</code> should look like</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;enabled/&gt;&lt;data</span> <span class="na">id=</span><span class="s">"CookiesAllowedForUrlsDesc"</span> <span class="na">value=</span><span class="s">"1 [*.]cemLT.pl 2 [*.]asdrW.pl"</span><span class="nt">/&gt;</span>
+</code></pre></div></div>
+
+<p>Not bad.</p>
+
+<p>But!</p>
+
+<p>This separation between number, link and another item is not SPACE BAR ❗❗
+It is special character encoded as <code class="language-plaintext highlighter-rouge">&amp;#xF000;</code>, and with that it all should be <code class="language-plaintext highlighter-rouge">glued</code></p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;enabled/&gt;&lt;data</span> <span class="na">id=</span><span class="s">"CookiesAllowedForUrlsDesc"</span> <span class="na">value=</span><span class="s">"1&amp;#xF000;[*.]cemLT.pl&amp;#xF000;2&amp;#xF000;[*.]asdrW.pl"</span><span class="nt">/&gt;</span>
+</code></pre></div></div>
+
+<p>Knowing that, finally I can create my policy with 100 and more items!</p>
+
+<h1 id="dummy-items">Dummy items</h1>
+
+<p>For my dev environment I’ve created this teeny-tiny script to generate some dummy urls for this policy:</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$String</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kr">for</span><span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="nv">$i</span><span class="o">-lt</span><span class="w"> </span><span class="mi">104</span><span class="p">;</span><span class="nv">$i</span><span class="o">++</span><span class="p">){</span><span class="w">
+ </span><span class="s2">"</span><span class="nv">$i</span><span class="s2">&amp;#xF000;[*.]</span><span class="si">$(</span><span class="o">-join</span><span class="w"> </span><span class="p">((</span><span class="mi">65</span><span class="o">..</span><span class="mi">90</span><span class="si">)</span><span class="s2"> + (97..122) | Get-Random -Count 5 | ForEach-Object {[char]</span><span class="bp">$_</span><span class="s2">})).pl&amp;#xF000;"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="nv">$String</span><span class="w"> </span><span class="o">-join</span><span class="w"> </span><span class="s1">''</span><span class="w">
+</span></code></pre></div></div>
+
+<h1 id="summary">Summary</h1>
+
+<p>I hope that I’ve helped you with this tip!
+You won’t find any information in MS Docs about such limitation…</p>
+
+<p>See you in next! 😉 🧠</p>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/UniverseCitiz3n" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/UniverseCitiz3n" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 Maciej Horbacz. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/_posts/2021-08-27-Edge-allowed-cookies/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = ""; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://uc3n.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

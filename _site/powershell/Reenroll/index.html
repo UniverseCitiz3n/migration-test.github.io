@@ -1,0 +1,779 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Reenroll HAADJ Device to Intune - Maciej Horbacz</title>
+<meta name="description" content="When you don’t want to loose any data on the device try this method">
+
+
+  <meta name="author" content="Hi">
+  
+  <meta property="article:author" content="Hi">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Maciej Horbacz">
+<meta property="og:title" content="Reenroll HAADJ Device to Intune">
+<meta property="og:url" content="http://localhost:4000/powershell/Reenroll/">
+
+
+  <meta property="og:description" content="When you don’t want to loose any data on the device try this method">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/head_image_big.png">
+
+
+
+  <meta name="twitter:site" content="@UniverseCitiz3n">
+  <meta name="twitter:title" content="Reenroll HAADJ Device to Intune">
+  <meta name="twitter:description" content="When you don’t want to loose any data on the device try this method">
+  <meta name="twitter:url" content="http://localhost:4000/powershell/Reenroll/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="http://localhost:4000/assets/head_image_big.png">
+    
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2021-06-22T00:00:00+02:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/powershell/Reenroll/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Maciej Horbacz",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Maciej Horbacz Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+<!-- Twitter cards -->
+<meta name="twitter:site"    content="@">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:title"   content="Reenroll HAADJ Device to Intune">
+
+
+<meta name="twitter:description" content="My ideas and solutions to sysadmin problems">
+
+
+
+<meta name="twitter:card"  content="summary">
+<meta name="twitter:image" content="/assets/head_image_big.png">
+
+<!-- end of Twitter cards -->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide2">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/logo.png" alt=""></a>
+        
+        <a class="site-title" href="/">
+          Maciej Horbacz
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/autopilot/">Autopilot</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/events/">Events</a>
+            </li><li class="masthead__menu-item">
+              <a href="https://leanpub.com/psconfbook3/">Publications</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/terms/">Terms & Conditions</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Reenroll HAADJ Device to Intune">
+    <meta itemprop="description" content="When you don’t want to loose any data on the device try this method">
+    <meta itemprop="datePublished" content="2021-06-22T00:00:00+02:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Reenroll HAADJ Device to Intune
+</h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Table of contents</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#intro">Intro</a></li>
+  <li><a href="#the-script">The Script</a></li>
+  <li><a href="#summary">Summary</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <h1 id="intro">Intro</h1>
+
+<p>Hey!</p>
+
+<p>I will start with notice that this method should be your last resort in fixing the problem with lost device in Intune or when sync ends with <code class="language-plaintext highlighter-rouge">sync could not be initiated 0x80072f0c</code>.</p>
+
+<p>Based on this post - <a href="https://www.maximerastello.com/manually-re-enroll-a-co-managed-or-hybrid-azure-ad-join-windows-10-pc-to-microsoft-intune-without-loosing-current-configuration/">link</a> - I’ve created script to run on affected device to jump start enrollment again.</p>
+
+<p>You will find it in the section below.</p>
+<h1 id="the-script">The Script</h1>
+
+<p>So this is it:</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$</span><span class="nn">Global</span><span class="p">:</span><span class="nv">ErrorActionPreference</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Stop'</span><span class="w">
+</span><span class="n">Write-Host</span><span class="w"> </span><span class="s2">"Stopping Intune Service"</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Yellow</span><span class="w">
+</span><span class="n">Get-Service</span><span class="w"> </span><span class="o">*</span><span class="nx">intune</span><span class="o">*</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Stop-Service</span><span class="w">
+</span><span class="nx">Write-Host</span><span class="w"> </span><span class="s2">"Check if device is AAD Joined"</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Yellow</span><span class="w">
+</span><span class="nv">$DSREGCMD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dsregcmd</span><span class="w"> </span><span class="nx">/status</span><span class="w">
+</span><span class="nv">$AADJoinCheck</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">$null</span><span class="w">
+</span><span class="nv">$AADJoinCheck</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$DSREGCMD</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Select-String</span><span class="w"> </span><span class="nt">-Pattern</span><span class="w"> </span><span class="s1">'AzureAdJoined : YES'</span><span class="w">
+</span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="bp">$null</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="nv">$AADJoinCheck</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+	</span><span class="n">Write-Host</span><span class="w"> </span><span class="s2">"Device is not AAD Joined!!! Stopping!"</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Red</span><span class="w">
+	</span><span class="kr">Break</span><span class="w">
+</span><span class="p">}</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+	</span><span class="n">Write-Host</span><span class="w"> </span><span class="s2">"Device is AAD Joined - OK"</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Green</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="n">Write-Host</span><span class="w"> </span><span class="s2">"Searching for enrollment ID"</span><span class="w">
+</span><span class="nv">$Tasks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-ScheduledTask</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Where-Object</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nv">$psitem</span><span class="o">.</span><span class="nf">TaskPath</span><span class="w"> </span><span class="o">-like</span><span class="w"> </span><span class="s2">"\Microsoft\Windows\EnterpriseMgmt\*"</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="nv">$EnrollId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Tasks</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="nf">TaskPath</span><span class="o">.</span><span class="nf">Split</span><span class="p">(</span><span class="s1">'\\'</span><span class="p">)[</span><span class="nt">-2</span><span class="p">]</span><span class="w">
+</span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$EnrollID</span><span class="w"> </span><span class="o">-match</span><span class="w"> </span><span class="s1">'\w{8}-\w{4}-\w{4}-\w{4}-\w{12}'</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+	</span><span class="n">Write-Host</span><span class="w"> </span><span class="s2">"Found EnrollID - </span><span class="nv">$EnrollID</span><span class="s2">"</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Green</span><span class="w">
+</span><span class="p">}</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+	</span><span class="n">Write-Host</span><span class="w"> </span><span class="s2">"Error parsing EnrollID. Stopping"</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Red</span><span class="w">
+	</span><span class="kr">Break</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="n">Write-Host</span><span class="w"> </span><span class="s2">"Removing scheduledTasks"</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Yellow</span><span class="w">
+</span><span class="kr">Try</span><span class="w"> </span><span class="p">{</span><span class="w">
+	</span><span class="nv">$Tasks</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ForEach-Object</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Unregister-ScheduledTask</span><span class="w"> </span><span class="nt">-InputObject</span><span class="w"> </span><span class="nv">$psitem</span><span class="w"> </span><span class="nt">-Verbose</span><span class="w"> </span><span class="nt">-Confirm</span><span class="p">:</span><span class="bp">$false</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w"> </span><span class="kr">catch</span><span class="w"> </span><span class="p">{</span><span class="w">
+	</span><span class="kr">Throw</span><span class="w"> </span><span class="bp">$_</span><span class="o">.</span><span class="nf">Exception</span><span class="o">.</span><span class="nf">Message</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="n">Write-Host</span><span class="w"> </span><span class="s2">"Done"</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Green</span><span class="w">
+</span><span class="n">Write-Host</span><span class="w"> </span><span class="s2">"Trying to remove tasks folder"</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Yellow</span><span class="w">
+</span><span class="nv">$TaskFolder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Test-Path</span><span class="w"> </span><span class="s2">"C:\windows\System32\Tasks\Microsoft\Windows\EnterpriseMgmt\</span><span class="nv">$EnrollID</span><span class="s2">"</span><span class="w">
+</span><span class="kr">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+	</span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$TaskFolder</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+		</span><span class="n">Remove-Item</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="s2">"C:\windows\System32\Tasks\Microsoft\Windows\EnterpriseMgmt\</span><span class="nv">$EnrollID</span><span class="s2">"</span><span class="w"> </span><span class="nt">-Force</span><span class="w"> </span><span class="nt">-Verbose</span><span class="w"> 
+	</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w"> </span><span class="kr">catch</span><span class="w"> </span><span class="p">{</span><span class="w">
+	</span><span class="kr">Throw</span><span class="w"> </span><span class="bp">$_</span><span class="o">.</span><span class="nf">Exception</span><span class="o">.</span><span class="nf">Message</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="n">Write-Host</span><span class="w"> </span><span class="s2">"Removing registry keys"</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Yellow</span><span class="w">
+</span><span class="nv">$EnrollmentReg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Test-Path</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="nx">HKLM:\SOFTWARE\Microsoft\Enrollments\</span><span class="nv">$EnrollID</span><span class="w">
+</span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$EnrollmentReg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+	</span><span class="n">Remove-Item</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="nx">HKLM:\SOFTWARE\Microsoft\Enrollments\</span><span class="nv">$EnrollID</span><span class="w"> </span><span class="nt">-Recurse</span><span class="w"> </span><span class="nt">-Force</span><span class="w"> </span><span class="nt">-Verbose</span><span class="w"> 
+</span><span class="p">}</span><span class="w">
+</span><span class="nv">$EnrollmentReg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Test-Path</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="nx">HKLM:\SOFTWARE\Microsoft\Enrollments\Status\</span><span class="nv">$EnrollID</span><span class="w">
+</span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$EnrollmentReg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+	</span><span class="n">Remove-Item</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="nx">HKLM:\SOFTWARE\Microsoft\Enrollments\Status\</span><span class="nv">$EnrollID</span><span class="w"> </span><span class="nt">-Recurse</span><span class="w"> </span><span class="nt">-Force</span><span class="w"> </span><span class="nt">-Verbose</span><span class="w"> 
+</span><span class="p">}</span><span class="w">
+</span><span class="nv">$EnrollmentReg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Test-Path</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="nx">HKLM:\SOFTWARE\Microsoft\EnterpriseResourceManager\Tracked\</span><span class="nv">$EnrollID</span><span class="w">
+</span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$EnrollmentReg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+	</span><span class="n">Remove-Item</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="nx">HKLM:\SOFTWARE\Microsoft\EnterpriseResourceManager\Tracked\</span><span class="nv">$EnrollID</span><span class="w"> </span><span class="nt">-Recurse</span><span class="w"> </span><span class="nt">-Force</span><span class="w"> </span><span class="nt">-Verbose</span><span class="w"> 
+</span><span class="p">}</span><span class="w">
+</span><span class="nv">$EnrollmentReg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Test-Path</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="nx">HKLM:\SOFTWARE\Microsoft\PolicyManager\AdmxInstalled\</span><span class="nv">$EnrollID</span><span class="w">
+</span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$EnrollmentReg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+	</span><span class="n">Remove-Item</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="nx">HKLM:\SOFTWARE\Microsoft\PolicyManager\AdmxInstalled\</span><span class="nv">$EnrollID</span><span class="w"> </span><span class="nt">-Recurse</span><span class="w"> </span><span class="nt">-Force</span><span class="w"> </span><span class="nt">-Verbose</span><span class="w"> 
+</span><span class="p">}</span><span class="w">
+</span><span class="nv">$EnrollmentReg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Test-Path</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="nx">HKLM:\SOFTWARE\Microsoft\PolicyManager\Providers\</span><span class="nv">$EnrollID</span><span class="w">
+</span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$EnrollmentReg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+	</span><span class="n">Remove-Item</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="nx">HKLM:\SOFTWARE\Microsoft\PolicyManager\Providers\</span><span class="nv">$EnrollID</span><span class="w"> </span><span class="nt">-Recurse</span><span class="w"> </span><span class="nt">-Force</span><span class="w"> </span><span class="nt">-Verbose</span><span class="w"> 
+</span><span class="p">}</span><span class="w">
+</span><span class="nv">$EnrollmentReg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Test-Path</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="nx">HKLM:\SOFTWARE\Microsoft\Provisioning\OMADM\Accounts\</span><span class="nv">$EnrollID</span><span class="w">
+</span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$EnrollmentReg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+	</span><span class="n">Remove-Item</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="nx">HKLM:\SOFTWARE\Microsoft\Provisioning\OMADM\Accounts\</span><span class="nv">$EnrollID</span><span class="w"> </span><span class="nt">-Recurse</span><span class="w"> </span><span class="nt">-Force</span><span class="w"> </span><span class="nt">-Verbose</span><span class="w"> 
+</span><span class="p">}</span><span class="w">
+</span><span class="nv">$EnrollmentReg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Test-Path</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="nx">HKLM:\SOFTWARE\Microsoft\Provisioning\OMADM\Logger\</span><span class="nv">$EnrollID</span><span class="w">
+</span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$EnrollmentReg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+	</span><span class="n">Remove-Item</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="nx">HKLM:\SOFTWARE\Microsoft\Provisioning\OMADM\Logger\</span><span class="nv">$EnrollID</span><span class="w"> </span><span class="nt">-Recurse</span><span class="w"> </span><span class="nt">-Force</span><span class="w"> </span><span class="nt">-Verbose</span><span class="w"> 
+</span><span class="p">}</span><span class="w">
+</span><span class="nv">$EnrollmentReg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Test-Path</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="nx">HKLM:\SOFTWARE\Microsoft\Provisioning\OMADM\Sessions\</span><span class="nv">$EnrollID</span><span class="w">
+</span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$EnrollmentReg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+	</span><span class="n">Remove-Item</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="nx">HKLM:\SOFTWARE\Microsoft\Provisioning\OMADM\Sessions\</span><span class="nv">$EnrollID</span><span class="w"> </span><span class="nt">-Recurse</span><span class="w"> </span><span class="nt">-Force</span><span class="w"> </span><span class="nt">-Verbose</span><span class="w"> 
+</span><span class="p">}</span><span class="w">
+</span><span class="c">##### Run this if Remove-Item -Path "C:\windows\System32\Tasks\Microsoft\Windows\EnterpriseMgmt\$EnrollID" -Force -Verbose FAILED</span><span class="w">
+</span><span class="cm">&lt;#
+$EnrollmentReg = Test-Path -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\EnterpriseMgmt\$EnrollID"
+if ($EnrollmentReg) {
+	Remove-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\EnterpriseMgmt\$EnrollID" -Recurse -Force -Verbose 
+}
+#&gt;</span><span class="w">
+</span><span class="n">Write-Host</span><span class="w"> </span><span class="s2">"Checking for Intune MDM cert"</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Yellow</span><span class="w">
+</span><span class="nv">$Certs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">$null</span><span class="w">
+</span><span class="nv">$Certs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-ChildItem</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="nx">cert:\LocalMachine\My</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Where-Object</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nv">$psitem</span><span class="o">.</span><span class="nf">issuer</span><span class="w"> </span><span class="o">-like</span><span class="w"> </span><span class="s1">'*Intune*'</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="bp">$null</span><span class="w"> </span><span class="o">-ne</span><span class="w"> </span><span class="nv">$Certs</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+	</span><span class="err">$</span><span class="p">(</span><span class="n">Get-Item</span><span class="w"> </span><span class="p">(</span><span class="nv">$Certs</span><span class="p">)</span><span class="o">.</span><span class="nf">PSPath</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Remove-Item</span><span class="w"> </span><span class="nt">-Force</span><span class="w"> </span><span class="nt">-Verbose</span><span class="w"> 
+	</span><span class="n">Write-Host</span><span class="w"> </span><span class="s2">"Removed"</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Green</span><span class="w">
+</span><span class="p">}</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+	</span><span class="n">Write-Host</span><span class="w"> </span><span class="s2">"Not found"</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Yellow</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="n">Write-Host</span><span class="w"> </span><span class="s2">"Downloading psexec"</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Yellow</span><span class="w">
+</span><span class="n">Invoke-RestMethod</span><span class="w"> </span><span class="nt">-Uri</span><span class="w"> </span><span class="s1">'https://download.sysinternals.com/files/PSTools.zip'</span><span class="w"> </span><span class="nt">-OutFile</span><span class="w"> </span><span class="nv">$</span><span class="nn">env</span><span class="p">:</span><span class="nv">TEMP</span><span class="nx">\PSTools.zip</span><span class="w">
+</span><span class="n">Write-Host</span><span class="w"> </span><span class="s2">"Expanding psexec"</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Yellow</span><span class="w">
+</span><span class="n">Expand-Archive</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="nv">$</span><span class="nn">env</span><span class="p">:</span><span class="nv">TEMP</span><span class="nx">\PSTools.zip</span><span class="w"> </span><span class="nt">-DestinationPath</span><span class="w"> </span><span class="nv">$</span><span class="nn">env</span><span class="p">:</span><span class="nv">TEMP</span><span class="nx">\PSTools</span><span class="w"> </span><span class="nt">-Force</span><span class="w">
+</span><span class="n">Write-Host</span><span class="w"> </span><span class="s2">"Starting psexec with AutoEnrollMDM"</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Yellow</span><span class="w">
+</span><span class="nv">$Process</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Start-Process</span><span class="w"> </span><span class="nt">-FilePath</span><span class="w"> </span><span class="nv">$</span><span class="nn">env</span><span class="p">:</span><span class="nv">TEMP</span><span class="nx">\PSTools\psexec.exe</span><span class="w"> </span><span class="nt">-ArgumentList</span><span class="w"> </span><span class="s2">"-i -s -accepteula cmd  /c </span><span class="se">`"</span><span class="s2">deviceenroller.exe /c /AutoEnrollMDM</span><span class="se">`"</span><span class="s2">"</span><span class="w"> </span><span class="nt">-Wait</span><span class="w"> </span><span class="nt">-NoNewWindow</span><span class="w"> </span><span class="nt">-PassThru</span><span class="w">
+</span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$process</span><span class="o">.</span><span class="nf">ExitCode</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+	</span><span class="n">Write-Host</span><span class="w"> </span><span class="s2">"Started AutoEnrollMDM"</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Green</span><span class="w">
+
+</span><span class="p">}</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+	</span><span class="n">Write-Host</span><span class="w"> </span><span class="s2">"Exit code 1. Please verify manually"</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Red</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="kr">if</span><span class="w"> </span><span class="p">((</span><span class="n">Get-Service</span><span class="w"> </span><span class="o">*</span><span class="nx">intune</span><span class="o">*</span><span class="p">)</span><span class="o">.</span><span class="nf">Status</span><span class="w"> </span><span class="o">-ne</span><span class="w"> </span><span class="s1">'Running'</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+	</span><span class="n">Get-Service</span><span class="w"> </span><span class="o">*</span><span class="nx">intune</span><span class="o">*</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Start-Service</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>First section is to check if the device is AAD joined. If it is not, script will terminate and you will need to fix that first.
+Try running:</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dsregcmd</span><span class="w"> </span><span class="nx">/join</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Be sure to run this in SYSTEM context.
+If no issue is found in AAD join you will need to find enrollment ID.
+It will be needed for finding and wiping registry keys.
+If no enrollment ID is found script will terminate and I recommend doing re-enrollment with standard method which is disconnecting device from domain and reconnecting.</p>
+
+<p>With enrollment ID you can now un-register scheduledTasks that reside in <code class="language-plaintext highlighter-rouge">EnterpriseMgmt</code> folder.
+Then remove the folder itself.</p>
+
+<p>Next you will be searching for registry keys that match enrollment ID and then deleting them.
+There also should be a MDM certificate in <strong>Personal</strong> vault but if its not there then do not worry (if there is, remove it).</p>
+
+<p>Now that you have cleared all traces of enrollment you will need <code class="language-plaintext highlighter-rouge">psexec</code> to impersonate SYSTEM to jump start enrollment.
+Download it, extract the psexec from archive and run it:</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">psexec.exe</span><span class="w"> </span><span class="nt">-i</span><span class="w"> </span><span class="nt">-s</span><span class="w"> </span><span class="nt">-accepteula</span><span class="w"> </span><span class="nx">cmd</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Then in the new window you can begin enrollment</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">deviceenroller.exe</span><span class="w"> </span><span class="nx">/c</span><span class="w"> </span><span class="nx">/AutoEnrollMDM</span><span class="w">
+</span></code></pre></div></div>
+
+<p>All the things that you deleted will be recreated and new enrollment ID will be assigned.
+After minute or so you will see device in Intune portal again.</p>
+
+<h1 id="summary">Summary</h1>
+
+<p>While this method is not supported I’ve reconnected 3 devices using this script and it worked.
+So if you are at the dead end may it serve you well!</p>
+
+<p>See you in next! 😉 🧠</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#intune" class="page__taxonomy-item" rel="tag">Intune</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#powershell" class="page__taxonomy-item" rel="tag">Powershell</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-06-22T00:00:00+02:00">June 22, 2021</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=UniverseCitiz3n&text=Reenroll+HAADJ+Device+to+Intune%20http%3A%2F%2Flocalhost%3A4000%2Fpowershell%2FReenroll%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fpowershell%2FReenroll%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fpowershell%2FReenroll%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/intune/Bluetooth/" class="pagination--pager" title="Have a cake and eat it too
+">Previous</a>
+    
+    
+      <a href="/intune/Edge-allowed-cookies/" class="pagination--pager" title="How to bypass Settings catalog limitation
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You may also enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/intune/User-driven-Autopilot/" rel="permalink">Truly user-driven Windows Autopilot
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          6 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Brilliant but kind of risky alternative to group tags 🪄🚀
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/intune/SettingsCatalog-PowerShell/" rel="permalink">Export, Fix, Import - Settings Catalog
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">At first it looked easy but then…
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/intune/IntuneSecurityBaseline-Move/" rel="permalink">How to easily move MDM Security Baseline profile
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">This is a game changer for me 😲
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/powershell/SettingsCatalog-Move/" rel="permalink">How to easily move Settings Catalog profile
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">With this simple trick, you can save a lot of time 😁
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/UniverseCitiz3n" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/UniverseCitiz3n" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 Maciej Horbacz. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/powershell/Reenroll/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/powershell/Reenroll"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://uc3n.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

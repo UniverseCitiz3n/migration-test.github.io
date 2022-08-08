@@ -1,0 +1,773 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Upload files with Intune to Azure file share - Maciej Horbacz</title>
+<meta name="description" content="One of the features of Azure Storage account is hosting cloud file share. With Powershell it can be mapped as temporary drive">
+
+
+  <meta name="author" content="Hi">
+  
+  <meta property="article:author" content="Hi">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Maciej Horbacz">
+<meta property="og:title" content="Upload files with Intune to Azure file share">
+<meta property="og:url" content="http://localhost:4000/intune/Intune-Logs-SMB/">
+
+
+  <meta property="og:description" content="One of the features of Azure Storage account is hosting cloud file share. With Powershell it can be mapped as temporary drive">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/head_image_big.png">
+
+
+
+  <meta name="twitter:site" content="@UniverseCitiz3n">
+  <meta name="twitter:title" content="Upload files with Intune to Azure file share">
+  <meta name="twitter:description" content="One of the features of Azure Storage account is hosting cloud file share. With Powershell it can be mapped as temporary drive">
+  <meta name="twitter:url" content="http://localhost:4000/intune/Intune-Logs-SMB/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="http://localhost:4000/assets/head_image_big.png">
+    
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2021-02-24T00:00:00+01:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/intune/Intune-Logs-SMB/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Maciej Horbacz",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Maciej Horbacz Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+<!-- Twitter cards -->
+<meta name="twitter:site"    content="@">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:title"   content="Upload files with Intune to Azure file share">
+
+
+<meta name="twitter:description" content="My ideas and solutions to sysadmin problems">
+
+
+
+<meta name="twitter:card"  content="summary">
+<meta name="twitter:image" content="/assets/head_image_big.png">
+
+<!-- end of Twitter cards -->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide2">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/logo.png" alt=""></a>
+        
+        <a class="site-title" href="/">
+          Maciej Horbacz
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/autopilot/">Autopilot</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/events/">Events</a>
+            </li><li class="masthead__menu-item">
+              <a href="https://leanpub.com/psconfbook3/">Publications</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/terms/">Terms & Conditions</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Upload files with Intune to Azure file share">
+    <meta itemprop="description" content="One of the features of Azure Storage account is hosting cloud file share. With Powershell it can be mapped as temporary drive">
+    <meta itemprop="datePublished" content="2021-02-24T00:00:00+01:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Upload files with Intune to Azure file share
+</h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Table of contents</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#intro">Intro</a></li>
+  <li><a href="#azure-file-share">Azure file share</a></li>
+  <li><a href="#copy-logs-using-intune">Copy logs using Intune</a></li>
+  <li><a href="#summary">Summary</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <h1 id="intro">Intro</h1>
+
+<p>Getting logs for troubleshooting deployments and configurations driven by Intune may be difficult when device is off-prem (which nowadays is most of the times). In this post I will show you how to create Azure file share, map it as network drive and make Intune do the copying. ☁</p>
+
+<h1 id="azure-file-share">Azure file share</h1>
+
+<p>Creating Azure file share is very simple!
+Go to <a href="https://portal.azure.com/#create/Microsoft.StorageAccount">portal azure</a> and fil lout required boxes</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-02-24-SMB/SMB1.png" alt="smb1" /></p>
+
+<p>After storage account is deployed navigate to <strong>Overview</strong> and then <strong>File shares</strong>:</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-02-24-SMB/SMB2.png" alt="smb2" /></p>
+
+<p>Create new file share</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-02-24-SMB/SMB3.png" alt="smb3" /></p>
+
+<p>Enter desired <strong>name</strong>, <strong>quota</strong> and click <strong>create</strong></p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-02-24-SMB/SMB4.png" alt="smb4" /></p>
+
+<p>Go to created share and click on <strong>connect</strong></p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-02-24-SMB/SMB5.png" alt="smb5" /></p>
+
+<p>You will get <code class="language-plaintext highlighter-rouge">Powershell</code> which performs connection test to the share over 445 port, saves credentials for it and permanently maps drive for you.
+In this solution permanent mapping is not necessary so you will need to make some modifications this script.</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$connectTestResult</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Test-NetConnection</span><span class="w"> </span><span class="nt">-ComputerName</span><span class="w"> </span><span class="nx">intunelogssmb.file.core.windows.net</span><span class="w"> </span><span class="nt">-Port</span><span class="w"> </span><span class="nx">445</span><span class="w">
+</span><span class="nv">$Password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'AutomaticallyGeneratedAccessKey'</span><span class="w">
+</span><span class="nv">$secret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ConvertTo-SecureString</span><span class="w"> </span><span class="nv">$Password</span><span class="w"> </span><span class="nt">-AsPlainText</span><span class="w"> </span><span class="nt">-Force</span><span class="w">
+</span><span class="nv">$psCred</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">New-Object</span><span class="w"> </span><span class="nx">System.Management.Automation.PSCredential</span><span class="w"> </span><span class="nt">-ArgumentList</span><span class="w"> </span><span class="p">(</span><span class="s1">'Azure\intunelogssmb'</span><span class="p">,</span><span class="w"> </span><span class="nv">$secret</span><span class="p">)</span><span class="w">
+</span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$connectTestResult</span><span class="o">.</span><span class="nf">TcpTestSucceeded</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="c"># Mount the drive</span><span class="w">
+    </span><span class="n">New-PSDrive</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="nx">W</span><span class="w"> </span><span class="nt">-PSProvider</span><span class="w"> </span><span class="nx">FileSystem</span><span class="w"> </span><span class="nt">-Root</span><span class="w"> </span><span class="s2">"\\intunelogssmb.file.core.windows.net\logs"</span><span class="w"> </span><span class="nt">-Credential</span><span class="w"> </span><span class="nv">$psCred</span><span class="w">
+</span><span class="p">}</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">Write-Error</span><span class="w"> </span><span class="nt">-Message</span><span class="w"> </span><span class="s2">"Unable to reach the Azure storage account via port 445. Check to make sure your organization or ISP is not blocking port 445, or use Azure P2S VPN, Azure S2S VPN, or Express Route to tunnel SMB traffic over a different port."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>In my environment I’ve came upon issue while trying to map disc using method from above.
+My issue was that <code class="language-plaintext highlighter-rouge">HKLM:SYSTEM\CurrentControlSet\Control\Lsa\LmCompatibilityLevel</code> was set to <code class="language-plaintext highlighter-rouge">1</code>.
+After I’ve changed it to <code class="language-plaintext highlighter-rouge">3</code> it worked! 😄<br />
+For additional troubleshooting visit <a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-troubleshoot-windows-file-connection-problems">docs</a>.</p>
+
+<h1 id="copy-logs-using-intune">Copy logs using Intune</h1>
+
+<p>To deploy <code class="language-plaintext highlighter-rouge">Powershell</code> script with Intune you can create <strong>Powershell script</strong> profile or <strong>Win32 App</strong> (which is my personal favorite).
+If you want to learn more about deploying <code class="language-plaintext highlighter-rouge">Powershell</code> scripts using <strong>Win32 App</strong> stop here and checkout my previous post - <a href="https://universecitiz3n.tech/intune/Intune-Win32-CustomScript/">Harness Intune Win32 app installer</a> - I will wait… ⌚</p>
+
+<p>3</p>
+
+<p>2</p>
+
+<p>1</p>
+
+<p>Back already? Cool so let’s continue!
+Begin with creating your <code class="language-plaintext highlighter-rouge">Powershell</code> script.
+Feel free to use my <a href="https://github.com/UniverseCitiz3n/Intune-App-Sandbox/blob/master/Intune-App-Sandbox/Helpers/Install-ProgramScriptTemplate.ps1">template</a>.
+For example if you want to generate <strong>mdmdiagnostics</strong> and upload them to your file share it would look like:</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Parameters</span><span class="w">
+</span><span class="nv">$Tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'IntuneLogs'</span><span class="w">
+</span><span class="nv">$OperatingFolder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'C:\Program Files (x86)\Microsoft\Temp'</span><span class="w">
+</span><span class="nv">$InstallFailCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1618</span><span class="w">
+</span><span class="nv">$InstallSuccessCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1707</span><span class="w">
+
+</span><span class="c"># Log</span><span class="w">
+</span><span class="nv">$LogFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"</span><span class="nv">$OperatingFolder</span><span class="s2">\IntuneSoftwareInstall.log"</span><span class="w">
+</span><span class="nv">$LogFileError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"</span><span class="nv">$OperatingFolder</span><span class="s2">\IntuneSoftwareInstallError.log"</span><span class="w">
+
+</span><span class="c">#Info</span><span class="w">
+</span><span class="o">.</span><span class="w"> </span><span class="bp">$PSScriptRoot</span><span class="n">\Write-FileLog.ps1</span><span class="w">
+
+</span><span class="c">#Custom exit</span><span class="w">
+</span><span class="kr">function</span><span class="w"> </span><span class="nf">Exit-WithCode</span><span class="w"> </span><span class="p">{</span><span class="w">
+ </span><span class="kr">param</span><span class="w">
+ </span><span class="p">(</span><span class="w">
+  </span><span class="nv">$exitcode</span><span class="w">
+ </span><span class="p">)</span><span class="w">
+
+ </span><span class="nv">$host</span><span class="o">.</span><span class="nf">SetShouldExit</span><span class="p">(</span><span class="nv">$exitcode</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="c">#######################################################################</span><span class="w">
+</span><span class="c">#Check for folder</span><span class="w">
+</span><span class="kr">If</span><span class="w"> </span><span class="p">(</span><span class="n">Test-Path</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="nv">$OperatingFolder</span><span class="w"> </span><span class="nt">-PathType</span><span class="w"> </span><span class="nx">Container</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+ </span><span class="n">Write-FileLog</span><span class="w"> </span><span class="nt">-FunctionStart</span><span class="w"> </span><span class="nt">-LogFile</span><span class="w"> </span><span class="nv">$LogFile</span><span class="w">
+</span><span class="p">}</span><span class="w"> </span><span class="kr">Else</span><span class="w"> </span><span class="p">{</span><span class="w">
+ </span><span class="n">New-Item</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="nv">$OperatingFolder</span><span class="w"> </span><span class="nt">-ItemType</span><span class="w"> </span><span class="nx">Directory</span><span class="w">
+ </span><span class="n">Write-FileLog</span><span class="w"> </span><span class="nt">-Message</span><span class="w"> </span><span class="s2">"</span><span class="nv">$OperatingFolder</span><span class="s2"> created"</span><span class="w"> </span><span class="nt">-LogFile</span><span class="w"> </span><span class="nv">$LogFile</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="c">#Process</span><span class="w">
+</span><span class="n">Write-FileLog</span><span class="w"> </span><span class="nt">-FunctionStart</span><span class="w"> </span><span class="nt">-LogFile</span><span class="w"> </span><span class="nv">$LogFile</span><span class="w">
+</span><span class="kr">Try</span><span class="w"> </span><span class="p">{</span><span class="w">
+ </span><span class="n">Write-FileLog</span><span class="w"> </span><span class="nt">-Message</span><span class="w"> </span><span class="s2">"Mounting network drive"</span><span class="w"> </span><span class="nt">-LogFile</span><span class="w"> </span><span class="nv">$LogFile</span><span class="w">
+ </span><span class="nv">$connectTestResult</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Test-NetConnection</span><span class="w"> </span><span class="nt">-ComputerName</span><span class="w"> </span><span class="nx">intunelogssmb.file.core.windows.net</span><span class="w"> </span><span class="nt">-Port</span><span class="w"> </span><span class="nx">445</span><span class="w">
+ </span><span class="nv">$Password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'AutomaticallyGeneratedAccessKey'</span><span class="w">
+ </span><span class="nv">$secret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ConvertTo-SecureString</span><span class="w"> </span><span class="nv">$Password</span><span class="w"> </span><span class="nt">-AsPlainText</span><span class="w"> </span><span class="nt">-Force</span><span class="w">
+ </span><span class="nv">$psCred</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">New-Object</span><span class="w"> </span><span class="nx">System.Management.Automation.PSCredential</span><span class="w"> </span><span class="nt">-ArgumentList</span><span class="w"> </span><span class="p">(</span><span class="s1">'Azure\intunelogssmb'</span><span class="p">,</span><span class="w"> </span><span class="nv">$secret</span><span class="p">)</span><span class="w">
+ </span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$connectTestResult</span><span class="o">.</span><span class="nf">TcpTestSucceeded</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="c"># Mount the drive</span><span class="w">
+  </span><span class="n">New-PSDrive</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="nx">W</span><span class="w"> </span><span class="nt">-PSProvider</span><span class="w"> </span><span class="nx">FileSystem</span><span class="w"> </span><span class="nt">-Root</span><span class="w"> </span><span class="s2">"\\intunelogssmb.file.core.windows.net\logs"</span><span class="w"> </span><span class="nt">-Credential</span><span class="w"> </span><span class="nv">$psCred</span><span class="w">
+ </span><span class="p">}</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">Write-FileLog</span><span class="w"> </span><span class="nt">-Type</span><span class="w"> </span><span class="nx">Error</span><span class="w"> </span><span class="nt">-Message</span><span class="w"> </span><span class="s2">"Unable to reach the Azure storage account via port 445"</span><span class="w"> </span><span class="nt">-LogFileError</span><span class="w"> </span><span class="nv">$LogFileError</span><span class="w">
+  </span><span class="n">Exit-WithCode</span><span class="w"> </span><span class="nt">-exitcode</span><span class="w"> </span><span class="nv">$InstallFailCode</span><span class="w">
+ </span><span class="p">}</span><span class="w">
+ </span><span class="n">Write-FileLog</span><span class="w"> </span><span class="nt">-Message</span><span class="w"> </span><span class="s2">"Generating mdmdiagnostics"</span><span class="w"> </span><span class="nt">-LogFile</span><span class="w"> </span><span class="nv">$LogFile</span><span class="w">
+ </span><span class="n">MdmDiagnosticsTool.exe</span><span class="w"> </span><span class="nt">-area</span><span class="w"> </span><span class="s1">'Autopilot;DeviceEnrollment;DeviceProvisioning;TPM'</span><span class="w"> </span><span class="nt">-zip</span><span class="w"> </span><span class="s2">"</span><span class="nv">$OperatingFolder</span><span class="s2">\mdmdiagnostics.zip"</span><span class="w">
+ </span><span class="n">Write-FileLog</span><span class="w"> </span><span class="nt">-Message</span><span class="w"> </span><span class="s2">"Uploading logs to file share"</span><span class="w"> </span><span class="nt">-LogFile</span><span class="w"> </span><span class="nv">$LogFile</span><span class="w">
+ </span><span class="n">Move-Item</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="s2">"</span><span class="nv">$OperatingFolder</span><span class="s2">\mdmdiagnostics.zip"</span><span class="w"> </span><span class="nt">-Destination</span><span class="w"> </span><span class="nx">W:\</span><span class="w"> </span><span class="nt">-Force</span><span class="w">
+</span><span class="p">}</span><span class="w"> </span><span class="kr">Catch</span><span class="w"> </span><span class="p">{</span><span class="w">
+ </span><span class="n">Write-FileLog</span><span class="w"> </span><span class="nt">-Type</span><span class="w"> </span><span class="nx">Error</span><span class="w"> </span><span class="nt">-Message</span><span class="w"> </span><span class="s2">"Script ERROR"</span><span class="w"> </span><span class="nt">-LogFileError</span><span class="w"> </span><span class="nv">$LogFileError</span><span class="w">
+ </span><span class="bp">$_</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Out-File</span><span class="w"> </span><span class="nt">-FilePath</span><span class="w"> </span><span class="nv">$LogFileError</span><span class="w"> </span><span class="nt">-Append</span><span class="w"> </span><span class="nt">-Encoding</span><span class="w"> </span><span class="nx">ASCII</span><span class="w">
+ </span><span class="n">Write-FileLog</span><span class="w"> </span><span class="nt">-Type</span><span class="w"> </span><span class="nx">Warn</span><span class="w"> </span><span class="nt">-Message</span><span class="w"> </span><span class="s2">"Script TERMINATION"</span><span class="w"> </span><span class="nt">-LogFileError</span><span class="w"> </span><span class="nv">$LogFileError</span><span class="w">
+ </span><span class="n">Write-FileLog</span><span class="w"> </span><span class="nt">-Type</span><span class="w"> </span><span class="nx">Warn</span><span class="w"> </span><span class="nt">-Message</span><span class="w"> </span><span class="s2">"Exitcode </span><span class="nv">$InstallFailCode</span><span class="s2">"</span><span class="w"> </span><span class="nt">-LogFileError</span><span class="w"> </span><span class="nv">$LogFileError</span><span class="w">
+ </span><span class="n">Exit-WithCode</span><span class="w"> </span><span class="nt">-exitcode</span><span class="w"> </span><span class="nv">$InstallFailCode</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>To test your script it’s the best to use <a href="https://github.com/UniverseCitiz3n/Intune-App-Sandbox">Intune-App-Sandbox</a> - great tool to test <code class="language-plaintext highlighter-rouge">Powershell</code> scripts in <code class="language-plaintext highlighter-rouge">Windows Sandbox</code> in a matter of seconds!</p>
+
+<p>After your package successfully passed the test you can create deployment profile!
+Upload <code class="language-plaintext highlighter-rouge">.intunewin</code> file and enter install command</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-02-24-SMB/SMB6.png" alt="smb6" /></p>
+
+<p>For detection let’s check for our file in networkshare</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-02-24-SMB/SMB7.png" alt="smb7" /></p>
+
+<p>Complete the rest of configuration and you are ready!
+To access uploaded logs just map this file share on your device 😎</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-02-24-SMB/SMB8.png" alt="smb8" /></p>
+
+<h1 id="summary">Summary</h1>
+
+<p>I love it! It’s so brilliant in it’s simplicity!
+I hope that it will help you with gartering required files from endpoints.
+See you in next! 😉 🧠</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#azure" class="page__taxonomy-item" rel="tag">Azure</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#powershell" class="page__taxonomy-item" rel="tag">Powershell</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#intune" class="page__taxonomy-item" rel="tag">Intune</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-02-24T00:00:00+01:00">February 24, 2021</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=UniverseCitiz3n&text=Upload+files+with+Intune+to+Azure+file+share%20http%3A%2F%2Flocalhost%3A4000%2Fintune%2FIntune-Logs-SMB%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fintune%2FIntune-Logs-SMB%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fintune%2FIntune-Logs-SMB%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/powershell/Graph-Bitlocker/" class="pagination--pager" title="Verify Azure AD Bitlocker Keys with Microsoft Graph
+">Previous</a>
+    
+    
+      <a href="/azure/Azure-workbook/" class="pagination--pager" title="Create powerful dashboards with Azure Workbooks
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You may also enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/intune/User-driven-Autopilot/" rel="permalink">Truly user-driven Windows Autopilot
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          6 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Brilliant but kind of risky alternative to group tags 🪄🚀
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/intune/SettingsCatalog-PowerShell/" rel="permalink">Export, Fix, Import - Settings Catalog
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">At first it looked easy but then…
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/intune/IntuneSecurityBaseline-Move/" rel="permalink">How to easily move MDM Security Baseline profile
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">This is a game changer for me 😲
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/powershell/SettingsCatalog-Move/" rel="permalink">How to easily move Settings Catalog profile
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">With this simple trick, you can save a lot of time 😁
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/UniverseCitiz3n" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/UniverseCitiz3n" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 Maciej Horbacz. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/intune/Intune-Logs-SMB/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/intune/Intune-Logs-SMB"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://uc3n.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

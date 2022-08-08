@@ -1,0 +1,361 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Integrating Lansweeper and Office 365 - Maciej Horbacz</title>
+<meta name="description" content="A better way to see licenses, groups and users from Office 365">
+
+
+  <meta name="author" content="Hi">
+  
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Maciej Horbacz">
+<meta property="og:title" content="Integrating Lansweeper and Office 365">
+<meta property="og:url" content="http://localhost:4000/_posts/2019-09-15-LS-Office365/">
+
+
+  <meta property="og:description" content="A better way to see licenses, groups and users from Office 365">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/head_image_big.png">
+
+
+
+  <meta name="twitter:site" content="@UniverseCitiz3n">
+  <meta name="twitter:title" content="Integrating Lansweeper and Office 365">
+  <meta name="twitter:description" content="A better way to see licenses, groups and users from Office 365">
+  <meta name="twitter:url" content="http://localhost:4000/_posts/2019-09-15-LS-Office365/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="http://localhost:4000/assets/head_image_big.png">
+    
+  
+
+  
+
+
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/_posts/2019-09-15-LS-Office365/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Maciej Horbacz",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Maciej Horbacz Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+<!-- Twitter cards -->
+<meta name="twitter:site"    content="@">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:title"   content="Integrating Lansweeper and Office 365">
+
+
+<meta name="twitter:description" content="My ideas and solutions to sysadmin problems">
+
+
+
+<meta name="twitter:card"  content="summary">
+<meta name="twitter:image" content="/assets/head_image_big.png">
+
+<!-- end of Twitter cards -->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--page">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/logo.png" alt=""></a>
+        
+        <a class="site-title" href="/">
+          Maciej Horbacz
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/autopilot/">Autopilot</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/events/">Events</a>
+            </li><li class="masthead__menu-item">
+              <a href="https://leanpub.com/psconfbook3/">Publications</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/terms/">Terms & Conditions</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      <h1 id="intro">Intro</h1>
+
+<p>Lansweeper is a great IT assets management tool! This new feature was introduced in version 7.1. Scanning is done using Powershell cmdlets and provides you with data of organizations, domains, users, admins, password enforcement settings, groups, licenses, mailbox lists, ActiveSync devices and more. So it is nice to have it all in one console.
+<img src="http://localhost:4000/assets/images/posts/how-to-scan-office-365-accounts-3.jpg" alt="Summary" /></p>
+
+<h1 id="prerequisites">Prerequisites</h1>
+
+<p>There are a few things you should do and check before implementing this feature. Requirements:</p>
+
+<ul>
+  <li>Lansweeper 7.1 or above - I recommend installing the newest update which is 7.2 it was released on 7th of September</li>
+  <li>Azure AD account -  which credentials will be used for scanning. Also this account <strong>cannot be included in MFA policy</strong> in your organization</li>
+  <li>If you restrictions to view Azure AD by users you may need to exclude this scanning account from policy.</li>
+  <li>Account should have assigned permissions to use Exchange Online cmdlets. But we will get back to that later.</li>
+</ul>
+
+<p>Beside those there are requirements which should apply to on-prem scanning server:</p>
+
+<ul>
+  <li>Your Lansweeper scanning server must be able to access the Internet to connect to your Office 365 environment. A connection is made to outlook.office365.com.</li>
+  <li>Your Lansweeper scanning server must be running Windows 7 or a more recent operating system.</li>
+  <li>Your Lansweeper scanning server must have a 64-bit architecture.</li>
+  <li>Your Lansweeper scanning server must have PowerShell version 5. If you only just installed this PowerShell version, make sure to reboot your machine.</li>
+  <li>Your Lansweeper scanning server’s WinRM client configuration must have Basic authentication enabled.</li>
+  <li>Your Lansweeper scanning server must be configured to allow scripts that are signed by a trusted publisher.</li>
+</ul>
+
+<p>If you meet those requirements you will can proceed with configuration!</p>
+
+<h1 id="scanning-credentials">Scanning credentials</h1>
+
+<p>First things first, create account in your AD or Azure AD if you are not using hybrid environment.
+<strong>Funny thing</strong>, in official Lansweeper knowledge base they are recommending that the account you will be using to scan Office 365 should have tenant Global Administrator role assigned!😂 <br />I think it is giant <span style="color:red">over-exaggeration</span>!<br />
+Lets be smarter than that… As I mentioned before, if you applied any restrictions to Azure AD you need to add this account to built-in Azure AD role <strong>Directory readers</strong> or your custom role if you have.<br />
+This will be enough to fill tabs: Summary, Groups, Licenses, Users with data. The rest of the tabs (Mailboxes, Contacts, Active Sync Devices) is processed by Exchange Online cmdlets and to handle that you will need to create <strong>Management Role</strong>.</p>
+
+<p>To do that you need to connect to Exchange Online with privileged credentials and then run this code:</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">New-ManagementRole</span><span class="w"> </span><span class="s2">"LanSweeperRole"</span><span class="w"> </span><span class="nt">-Parent</span><span class="w"> </span><span class="s2">"Mail Recipients"</span><span class="w">
+</span><span class="n">Get-ManagementRoleEntry</span><span class="w"> </span><span class="s2">"LanSweeperRole\*"</span><span class="w"> </span><span class="o">|</span><span class="err">`</span><span class="w">
+    </span><span class="n">Where-Object</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="bp">$PSItem</span><span class="o">.</span><span class="nf">Name</span><span class="w"> </span><span class="o">-notlike</span><span class="w"> </span><span class="s1">'Get-mailbox'</span><span class="w"> </span><span class="o">-or</span><span class="w"> </span><span class="bp">$PSItem</span><span class="o">.</span><span class="nf">Name</span><span class="w"> </span><span class="o">-notlike</span><span class="w"> </span><span class="s1">'Get-mailContact'</span><span class="w"> </span><span class="o">-or</span><span class="w"> </span><span class="bp">$PSItem</span><span class="o">.</span><span class="nf">Name</span><span class="w"> </span><span class="o">-notlike</span><span class="w"> </span><span class="s1">'Get-MobileDevice'</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">|</span><span class="err">`</span><span class="w">
+    </span><span class="n">ForEach-Object</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Remove-ManagementRoleEntry</span><span class="w"> </span><span class="nt">-Identity</span><span class="w"> </span><span class="s2">"</span><span class="si">$(</span><span class="bp">$PSItem</span><span class="o">.</span><span class="nf">id</span><span class="si">)</span><span class="s2">\</span><span class="si">$(</span><span class="bp">$PSItem</span><span class="o">.</span><span class="nf">name</span><span class="si">)</span><span class="s2">"</span><span class="w"> </span><span class="nt">-Confirm</span><span class="p">:</span><span class="bp">$false</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="n">New-RoleGroup</span><span class="w"> </span><span class="s1">'LanSweeperScan'</span><span class="w"> </span><span class="nt">-Role</span><span class="w"> </span><span class="s1">'LanSweeperRole'</span><span class="w"> </span><span class="nt">-Member</span><span class="w"> </span><span class="s1">'sa_Lansweeper_O365'</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Thanks to that I’ve created new role which allows users assigned to group <strong>‘LanSweeperScan’</strong> to run only those three cmdlets: Get-Mailbox, Get-MailContact, Get-ActiveSyncDevice. And that will be enough to get things done!
+<img src="http://localhost:4000/assets/images/posts/Office365.jpg" alt="Contacts" /></p>
+
+<h1 id="configurations-in-lansweeper">Configurations in Lansweeper</h1>
+
+<p>Now that we’ve met all requirements we can proceed with configurations in Lansweeper Web Console. Those last steps are the easiest in whole process!</p>
+<ul>
+  <li>Go to scanning targets
+<img src="http://localhost:4000/assets/images/posts/menu-scanning-scanning-targets.jpg" alt="Config-1" /></li>
+  <li>Click on ‘Add Scanning Target’. You will see new window where you will be able to provide created scanning credentials
+<img src="http://localhost:4000/assets/images/posts/target.jpg" alt="Config-2" /></li>
+</ul>
+
+<h2 id="and-you-are-ready-to-go">And you are ready to go</h2>
+
+<h1 id="pro-tip">Pro tip</h1>
+
+<p>If you would like to check scanning credentials before configuring feature in production you can use great test tool which is located in Lansweeper installation on your server.
+[…]\Lansweeper\Service\Lansweeper.TestTools.App
+<img src="http://localhost:4000/assets/images/posts/testtool.jpg" alt="TestTool" /></p>
+
+<p>See you in next! 😉 🧠</p>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/UniverseCitiz3n" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/UniverseCitiz3n" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 Maciej Horbacz. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/_posts/2019-09-15-LS-Office365/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = ""; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://uc3n.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

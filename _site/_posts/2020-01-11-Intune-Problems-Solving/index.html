@@ -1,0 +1,451 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Intune - dealing with ErrorCode 0x8018002b - Maciej Horbacz</title>
+<meta name="description" content="A few things you should try that might help you 👨‍💻">
+
+
+  <meta name="author" content="Hi">
+  
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Maciej Horbacz">
+<meta property="og:title" content="Intune - dealing with ErrorCode 0x8018002b">
+<meta property="og:url" content="http://localhost:4000/_posts/2020-01-11-Intune-Problems-Solving/">
+
+
+  <meta property="og:description" content="A few things you should try that might help you 👨‍💻">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/head_image_big.png">
+
+
+
+  <meta name="twitter:site" content="@UniverseCitiz3n">
+  <meta name="twitter:title" content="Intune - dealing with ErrorCode 0x8018002b">
+  <meta name="twitter:description" content="A few things you should try that might help you 👨‍💻">
+  <meta name="twitter:url" content="http://localhost:4000/_posts/2020-01-11-Intune-Problems-Solving/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="http://localhost:4000/assets/head_image_big.png">
+    
+  
+
+  
+
+
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/_posts/2020-01-11-Intune-Problems-Solving/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Maciej Horbacz",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Maciej Horbacz Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+<!-- Twitter cards -->
+<meta name="twitter:site"    content="@">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:title"   content="Intune - dealing with ErrorCode 0x8018002b">
+
+
+<meta name="twitter:description" content="My ideas and solutions to sysadmin problems">
+
+
+
+<meta name="twitter:card"  content="summary">
+<meta name="twitter:image" content="/assets/head_image_big.png">
+
+<!-- end of Twitter cards -->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--page">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/logo.png" alt=""></a>
+        
+        <a class="site-title" href="/">
+          Maciej Horbacz
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/autopilot/">Autopilot</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/events/">Events</a>
+            </li><li class="masthead__menu-item">
+              <a href="https://leanpub.com/psconfbook3/">Publications</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/terms/">Terms & Conditions</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      <h1 id="intro">Intro</h1>
+
+<p>Happy New Year!🥳 Starting 2020 I promised myself to increase frequency of the posts so fingers crossed that it works out😉</p>
+
+<p>In this post you will find couple of steps that are worth to try if your device is having problems enrolling to Intune. I can’t guaranty that it will help with every device. That’s why you should think of this post as check list of things to keep in mind while debugging workstation.</p>
+
+<p>My environment configuration:</p>
+
+<ul>
+  <li>Hybrid Azure AD Join</li>
+  <li>Auto-enrollment to Intune with GPO</li>
+</ul>
+
+<p>Things that will come in handy during troubleshooting:</p>
+
+<ul>
+  <li>dsregcmd /status - cmdlet which shows is device is AAD joined. More <a href="https://docs.microsoft.com/pl-pl/azure/active-directory/devices/troubleshoot-device-dsregcmd">details</a></li>
+  <li>Event Viewer - Application and Services Logs:
+    <ul>
+      <li>Microsoft/Windows/AAD</li>
+      <li>Microsoft/Windows/DeviceManagement-Enterprise-Diagnostics-Provider</li>
+      <li>Microsoft/Windows/User Device Registration</li>
+    </ul>
+  </li>
+  <li>Systeminfo</li>
+</ul>
+
+<h1 id="bios-update">BIOS update</h1>
+
+<p>Check if your device has up-to date BIOS version. Sometimes simple plain update will get things moving. If you are using Dell laptops it is best to use <strong>Dell Command | Update</strong> tool. Version <strong>3.1.0</strong> brought a lot of nice improvements and features! I like using it from Powershell terminal and it is very simple:</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#Go to location of installation</span><span class="w">
+</span><span class="n">cd</span><span class="w"> </span><span class="s1">'C:\Program Files (x86)\Dell\CommandUpdate'</span><span class="w">
+</span><span class="c">#Firstly you need to set bios password if you have one</span><span class="w">
+</span><span class="o">.</span><span class="n">\dcu-cli.exe</span><span class="w"> </span><span class="nx">/configure</span><span class="w"> </span><span class="nt">-biospassword</span><span class="o">=</span><span class="s2">"YourBiosPass"</span><span class="w">
+</span><span class="c">#Response should be</span><span class="w">
+</span><span class="s1">'-biospassword'</span><span class="w"> </span><span class="n">setting</span><span class="w"> </span><span class="nx">updated</span><span class="w"> </span><span class="nx">with</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="s1">'YourBiosPass'</span><span class="o">.</span><span class="w">
+</span><span class="n">Execution</span><span class="w"> </span><span class="nx">completed.</span><span class="w">
+</span><span class="n">Program</span><span class="w"> </span><span class="nx">exited</span><span class="w"> </span><span class="nx">with</span><span class="w"> </span><span class="nx">return</span><span class="w"> </span><span class="nx">code:</span><span class="w"> </span><span class="nx">0</span><span class="w">
+</span><span class="c">#Updating BIOS</span><span class="w">
+</span><span class="o">.</span><span class="n">\dcu-cli.exe</span><span class="w"> </span><span class="nx">/applyupdates</span><span class="w"> </span><span class="nt">-autoSuspendBitLocker</span><span class="w">
+</span><span class="c">#Tool will scan device for any drivers that need update. For BIOS update laptop needs to connected to power source and -autoSuspendBitLocker is needed too.</span><span class="w">
+</span></code></pre></div></div>
+
+<p>after reboot update will be applied.</p>
+
+<h1 id="boot-mode">Boot mode</h1>
+
+<p>Some devices might have been configured so long time age that its partition style is <strong>MBR</strong> and it still runs in <strong>Legacy mode</strong> with <strong>Secure boot Off</strong>. It can be changed without reinstalling OS! Conversion to GPT feels like a huge risk so if you have a way to backup whole disk I <strong>recommend</strong> that. But I’ve done it on two different laptops in: FullOS Mode and in Windows 10 Safe Mode with Command-prompt and it worked both times! More details about the tool <a href="https://docs.microsoft.com/en-us/windows/deployment/mbr-to-gpt">here</a>. Keep in mind that changes cannot be undone and device will only boot in <strong>UEFI mode</strong>. So if you are doing it remotely you will need <strong>Dell Command | PowerShell Provider</strong> to make changes in BIOS from Windows.</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#It is good to run validate parameter first</span><span class="w">
+</span><span class="n">c:\Windows\System32</span><span class="err">&gt;</span><span class="o">.</span><span class="nx">\mbr2gpt</span><span class="w"> </span><span class="nx">/validate</span><span class="w">
+</span><span class="n">MBR2GPT:</span><span class="w"> </span><span class="nx">Attempting</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">validate</span><span class="w"> </span><span class="nx">disk</span><span class="w"> </span><span class="nx">0</span><span class="w">
+</span><span class="n">MBR2GPT:</span><span class="w"> </span><span class="nx">Retrieving</span><span class="w"> </span><span class="nx">layout</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">disk</span><span class="w">
+</span><span class="n">MBR2GPT:</span><span class="w"> </span><span class="nx">Validating</span><span class="w"> </span><span class="nx">layout</span><span class="p">,</span><span class="w"> </span><span class="nx">disk</span><span class="w"> </span><span class="nx">sector</span><span class="w"> </span><span class="nx">size</span><span class="w"> </span><span class="nx">is:</span><span class="w"> </span><span class="nx">512</span><span class="w">
+</span><span class="n">MBR2GPT:</span><span class="w"> </span><span class="nx">Validation</span><span class="w"> </span><span class="nx">completed</span><span class="w"> </span><span class="nx">successfully</span><span class="w">
+</span><span class="c">#If you are doing this from Widnows use /allowFullOS</span><span class="w">
+</span><span class="n">c:\Windows\System32</span><span class="err">&gt;</span><span class="o">.</span><span class="nx">\mbr2gpt</span><span class="w"> </span><span class="nx">/convert</span><span class="w"> </span><span class="nx">/allowFullOS</span><span class="w">
+
+</span><span class="n">MBR2GPT</span><span class="w"> </span><span class="nx">will</span><span class="w"> </span><span class="nx">now</span><span class="w"> </span><span class="nx">attempt</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">convert</span><span class="w"> </span><span class="nx">disk</span><span class="w"> </span><span class="nx">0.</span><span class="w">
+</span><span class="kr">If</span><span class="w"> </span><span class="n">conversion</span><span class="w"> </span><span class="nx">is</span><span class="w"> </span><span class="nx">successful</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">disk</span><span class="w"> </span><span class="nx">can</span><span class="w"> </span><span class="nx">only</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="nx">booted</span><span class="w"> </span><span class="nx">in</span><span class="w"> </span><span class="nx">GPT</span><span class="w"> </span><span class="nx">mode.</span><span class="w">
+</span><span class="n">These</span><span class="w"> </span><span class="nx">changes</span><span class="w"> </span><span class="nx">cannot</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="nx">undone</span><span class="o">!</span><span class="w">
+
+</span><span class="n">MBR2GPT:</span><span class="w"> </span><span class="nx">Attempting</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">convert</span><span class="w"> </span><span class="nx">disk</span><span class="w"> </span><span class="nx">0</span><span class="w">
+</span><span class="n">MBR2GPT:</span><span class="w"> </span><span class="nx">Retrieving</span><span class="w"> </span><span class="nx">layout</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">disk</span><span class="w">
+</span><span class="n">MBR2GPT:</span><span class="w"> </span><span class="nx">Validating</span><span class="w"> </span><span class="nx">layout</span><span class="p">,</span><span class="w"> </span><span class="nx">disk</span><span class="w"> </span><span class="nx">sector</span><span class="w"> </span><span class="nx">size</span><span class="w"> </span><span class="nx">is:</span><span class="w"> </span><span class="nx">512</span><span class="w"> </span><span class="nx">bytes</span><span class="w">
+</span><span class="n">MBR2GPT:</span><span class="w"> </span><span class="nx">Trying</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">shrink</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">system</span><span class="w"> </span><span class="nx">partition</span><span class="w">
+</span><span class="n">MBR2GPT:</span><span class="w"> </span><span class="nx">Trying</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">shrink</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">OS</span><span class="w"> </span><span class="nx">partition</span><span class="w">
+</span><span class="n">MBR2GPT:</span><span class="w"> </span><span class="nx">Creating</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">EFI</span><span class="w"> </span><span class="nx">system</span><span class="w"> </span><span class="nx">partition</span><span class="w">
+</span><span class="n">MBR2GPT:</span><span class="w"> </span><span class="nx">Installing</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">new</span><span class="w"> </span><span class="nx">boot</span><span class="w"> </span><span class="nx">files</span><span class="w">
+</span><span class="n">MBR2GPT:</span><span class="w"> </span><span class="nx">Performing</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">layout</span><span class="w"> </span><span class="nx">conversion</span><span class="w">
+</span><span class="n">MBR2GPT:</span><span class="w"> </span><span class="nx">Migrating</span><span class="w"> </span><span class="nx">default</span><span class="w"> </span><span class="nx">boot</span><span class="w"> </span><span class="nx">entry</span><span class="w">
+</span><span class="n">MBR2GPT:</span><span class="w"> </span><span class="nx">Adding</span><span class="w"> </span><span class="nx">recovery</span><span class="w"> </span><span class="nx">boot</span><span class="w"> </span><span class="nx">entry</span><span class="w">
+</span><span class="n">MBR2GPT:</span><span class="w"> </span><span class="nx">Fixing</span><span class="w"> </span><span class="nx">drive</span><span class="w"> </span><span class="nx">letter</span><span class="w"> </span><span class="nx">mapping</span><span class="w">
+</span><span class="n">MBR2GPT:</span><span class="w"> </span><span class="nx">Conversion</span><span class="w"> </span><span class="nx">completed</span><span class="w"> </span><span class="nx">successfully</span><span class="w">
+</span><span class="n">MBR2GPT:</span><span class="w"> </span><span class="nx">Before</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">new</span><span class="w"> </span><span class="nx">system</span><span class="w"> </span><span class="nx">can</span><span class="w"> </span><span class="nx">boot</span><span class="w"> </span><span class="nx">properly</span><span class="w"> </span><span class="nx">you</span><span class="w"> </span><span class="nx">need</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">switch</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">firmware</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">boot</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">UEFI</span><span class="w"> </span><span class="nx">mode</span><span class="o">!</span><span class="w">
+
+</span></code></pre></div></div>
+
+<p>Now with the help of another awesome Dell tool I will be changing boot mode</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Install-Module</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="nx">DellBIOSProvider</span><span class="w">
+</span><span class="c">#Check what options are available and how does BIOS objects look like</span><span class="w">
+</span><span class="n">Get-Item</span><span class="w"> </span><span class="nx">DellSmbios:\BootSequence\BootList</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">select</span><span class="w"> </span><span class="o">*</span><span class="w">
+
+</span><span class="n">PSPath</span><span class="w">                    </span><span class="p">:</span><span class="w"> </span><span class="nx">DellBIOSProvider\DellSmbiosProv::DellSmbios:\BootSequence\BootList</span><span class="w">
+</span><span class="n">PSParentPath</span><span class="w">              </span><span class="p">:</span><span class="w"> </span><span class="nx">DellBIOSProvider\DellSmbiosProv::DellSmbios:\BootSequence</span><span class="w">
+</span><span class="n">PSChildName</span><span class="w">               </span><span class="p">:</span><span class="w"> </span><span class="nx">BootList</span><span class="w">
+</span><span class="n">PSDrive</span><span class="w">                   </span><span class="p">:</span><span class="w"> </span><span class="nx">DellSmbios</span><span class="w">
+</span><span class="n">PSProvider</span><span class="w">                </span><span class="p">:</span><span class="w"> </span><span class="nx">DellBIOSProvider\DellSmbiosProv</span><span class="w">
+</span><span class="n">PSIsContainer</span><span class="w">             </span><span class="p">:</span><span class="w"> </span><span class="nx">False</span><span class="w">
+</span><span class="n">Attribute</span><span class="w">                 </span><span class="p">:</span><span class="w"> </span><span class="nx">BootList</span><span class="w">
+</span><span class="n">CurrentValue</span><span class="w">              </span><span class="p">:</span><span class="w"> </span><span class="nx">UEFI</span><span class="w"> </span><span class="nx">BOOT</span><span class="w">
+</span><span class="n">ShortDescription</span><span class="w">          </span><span class="p">:</span><span class="w"> </span><span class="nx">Boot</span><span class="w"> </span><span class="nx">List</span><span class="w"> </span><span class="nx">Option</span><span class="w">
+</span><span class="n">PossibleValues</span><span class="w">            </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">Legacy</span><span class="p">,</span><span class="w"> </span><span class="nx">Uefi</span><span class="p">}</span><span class="w">
+</span><span class="n">UnsupportedPossibleValues</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="n">Description</span><span class="w">               </span><span class="p">:</span><span class="w"> </span><span class="nx">Boot</span><span class="w"> </span><span class="nx">List</span><span class="w"> </span><span class="nx">option</span><span class="w"> </span><span class="nx">determines</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">boot</span><span class="w"> </span><span class="nx">mode</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">system.</span><span class="w"> </span><span class="nx">Uefi</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">Enables</span><span class="w"> </span><span class="nx">booting</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">Unified</span><span class="w">
+                            </span><span class="n">Extensible</span><span class="w"> </span><span class="nx">Firmware</span><span class="w"> </span><span class="nx">Interface</span><span class="w"> </span><span class="p">(</span><span class="n">UEFI</span><span class="p">)</span><span class="w"> </span><span class="n">capable</span><span class="w"> </span><span class="nx">operating</span><span class="w"> </span><span class="nx">systems.</span><span class="w"> </span><span class="nx">Legacy</span><span class="w"> </span><span class="p">(</span><span class="n">the</span><span class="w"> </span><span class="nx">default</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Ensu</span><span class="w">
+                            </span><span class="nx">res</span><span class="w"> </span><span class="nx">compatibility</span><span class="w"> </span><span class="nx">with</span><span class="w"> </span><span class="nx">OSes</span><span class="w"> </span><span class="nx">that</span><span class="w"> </span><span class="nx">do</span><span class="w"> </span><span class="nx">not</span><span class="w"> </span><span class="nx">support</span><span class="w"> </span><span class="nx">UEFI.</span><span class="w"> </span><span class="nx">NOTE:</span><span class="w"> </span><span class="nx">Legacy</span><span class="w"> </span><span class="nx">boot</span><span class="w"> </span><span class="nx">mode</span><span class="w"> </span><span class="nx">is</span><span class="w"> </span><span class="nx">not</span><span class="w"> </span><span class="nx">allowed</span><span class="w">
+                             </span><span class="n">when</span><span class="w"> </span><span class="nx">secure</span><span class="w"> </span><span class="nx">boot</span><span class="w"> </span><span class="nx">is</span><span class="w"> </span><span class="nx">enabled</span><span class="w"> </span><span class="nx">or</span><span class="w"> </span><span class="nx">Legacy</span><span class="w"> </span><span class="nx">Option</span><span class="w"> </span><span class="nx">ROM</span><span class="w"> </span><span class="nx">is</span><span class="w"> </span><span class="nx">disabled.</span><span class="w">
+</span><span class="c">#Setting boot mode to UEFI</span><span class="w">
+</span><span class="n">Set-Item</span><span class="w"> </span><span class="nx">DellSmbios:\BootSequence\BootList</span><span class="w"> </span><span class="nt">-Value</span><span class="w"> </span><span class="nx">Uefi</span><span class="w">
+</span><span class="c">#Checking setting of Secureboot</span><span class="w">
+</span><span class="n">Get-Item</span><span class="w"> </span><span class="nx">DellSmbios:\SecureBoot\SecureBoot</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">select</span><span class="w"> </span><span class="o">*</span><span class="w">                                           
+
+</span><span class="n">PSPath</span><span class="w">                    </span><span class="p">:</span><span class="w"> </span><span class="nx">DellBIOSProvider\DellSmbiosProv::DellSmbios:\SecureBoot\SecureBoot</span><span class="w">
+</span><span class="n">PSParentPath</span><span class="w">              </span><span class="p">:</span><span class="w"> </span><span class="nx">DellBIOSProvider\DellSmbiosProv::DellSmbios:\SecureBoot</span><span class="w">
+</span><span class="n">PSChildName</span><span class="w">               </span><span class="p">:</span><span class="w"> </span><span class="nx">SecureBoot</span><span class="w">
+</span><span class="n">PSDrive</span><span class="w">                   </span><span class="p">:</span><span class="w"> </span><span class="nx">DellSmbios</span><span class="w">
+</span><span class="n">PSProvider</span><span class="w">                </span><span class="p">:</span><span class="w"> </span><span class="nx">DellBIOSProvider\DellSmbiosProv</span><span class="w">
+</span><span class="n">PSIsContainer</span><span class="w">             </span><span class="p">:</span><span class="w"> </span><span class="nx">False</span><span class="w">
+</span><span class="n">Attribute</span><span class="w">                 </span><span class="p">:</span><span class="w"> </span><span class="nx">SecureBoot</span><span class="w">
+</span><span class="n">CurrentValue</span><span class="w">              </span><span class="p">:</span><span class="w"> </span><span class="nx">Enabled</span><span class="w">
+</span><span class="n">ShortDescription</span><span class="w">          </span><span class="p">:</span><span class="w"> </span><span class="nx">Secure</span><span class="w"> </span><span class="nx">Boot</span><span class="w"> </span><span class="nx">Enable</span><span class="w">
+</span><span class="n">PossibleValues</span><span class="w">            </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="n">Enabled</span><span class="p">,</span><span class="w"> </span><span class="nx">Disabled</span><span class="p">}</span><span class="w">
+</span><span class="n">UnsupportedPossibleValues</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="n">Description</span><span class="w">               </span><span class="p">:</span><span class="w"> </span><span class="nx">Enables</span><span class="w"> </span><span class="nx">or</span><span class="w"> </span><span class="nx">disables</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">secure</span><span class="w"> </span><span class="nx">boot</span><span class="w"> </span><span class="nx">feature.</span><span class="w"> </span><span class="nx">For</span><span class="w"> </span><span class="nx">secure</span><span class="w"> </span><span class="nx">boot</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="nx">enabled</span><span class="p">,</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">system</span><span class="w"> </span><span class="nx">need</span><span class="w">
+                            </span><span class="n">s</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="nx">in</span><span class="w"> </span><span class="nx">UEFI</span><span class="w"> </span><span class="nx">boot</span><span class="w"> </span><span class="nx">mode</span><span class="w"> </span><span class="nx">and</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">Enable</span><span class="w"> </span><span class="nx">Legacy</span><span class="w"> </span><span class="nx">Option</span><span class="w"> </span><span class="nx">ROMs</span><span class="w"> </span><span class="nx">option</span><span class="w"> </span><span class="nx">needs</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="nx">turned</span><span class="w"> </span><span class="nx">off.</span><span class="w">
+                            </span><span class="n">CAUTION:</span><span class="w"> </span><span class="nx">Using</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">Dell</span><span class="w"> </span><span class="nx">Command</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">PowerShell</span><span class="w"> </span><span class="nx">Provider</span><span class="p">,</span><span class="w"> </span><span class="nx">you</span><span class="w"> </span><span class="nx">cannot</span><span class="w"> </span><span class="nx">disable</span><span class="w"> </span><span class="nx">this</span><span class="w"> </span><span class="nx">feature.</span><span class="w"> </span><span class="nx">NOT</span><span class="w">
+                            </span><span class="n">E:</span><span class="w"> </span><span class="nx">One</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">methods</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">configuring</span><span class="w"> </span><span class="nx">this</span><span class="w"> </span><span class="nx">feature</span><span class="w"> </span><span class="nx">is</span><span class="w"> </span><span class="nx">from</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">BIOS</span><span class="w"> </span><span class="nx">setup</span><span class="w"> </span><span class="nx">screen.</span><span class="w">
+</span><span class="c">#Turn on SecureBoot</span><span class="w">
+</span><span class="n">Set-Item</span><span class="w"> </span><span class="nx">DellSmbios:\SecureBoot\SecureBoot</span><span class="w"> </span><span class="nt">-Value</span><span class="w"> </span><span class="nx">Enabled</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Now it is safe to reboot!</p>
+
+<h1 id="clear-tpm">Clear TPM</h1>
+
+<p>All above steps are necessary for OS to correctly communicate with Trusted Platform Module chip. If those steps do still did not do a thing just try to clear microcontroller. It can be easily done from Windows or in BIOS.<br />🔥🔥<strong>Before proceeding remember to backup your Bitlocker key to safe location</strong>🔥🔥<br /> also I recommend suspending Bitlocker because it will allow to automatically save recovery key in TPM again after wiping chip.</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#Run powershell as local admin</span><span class="w">
+</span><span class="n">Suspend-BitLocker</span><span class="w"> </span><span class="nt">-MountPoint</span><span class="w"> </span><span class="nx">C</span><span class="w"> </span><span class="c">#provide OS disk letter</span><span class="w">
+</span><span class="n">Clear-Tpm</span><span class="w">
+</span><span class="c">#And you are done</span><span class="w">
+</span></code></pre></div></div>
+
+<h1 id="work-and-school-account">Work and school account</h1>
+
+<p>We’ve gone so far and if device did not join AzureAD at this point we need to give it one last kick-start! If on your device there are Office 365 family apps installed open one of them (it really should not matter but I prefer Word) and go to Account Settings and then click sign out.</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/intune-problems.jpg" alt="pic1" /></p>
+
+<p><img src="http://localhost:4000/assets/images/posts/intune-problems2.jpg" alt="pic2" /></p>
+
+<p>If previous steps did their magic when you sign-in you should see window:</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/intune-problems3.png" alt="pic3" /></p>
+
+<p>Click <strong>Yes</strong> and you device should now join AzureAD and after couple of minutes and reboot Intune too. If you bump into error message which says <span style="color:red"><strong>Your device is already managed by an organization</strong></span> and you are sure that there are no Work or School accounts added in settings your last resort might be to reinstall Windows 😫. It happened to me once and I found no other resolution…</p>
+
+<h1 id="summary">Summary</h1>
+
+<p>In modern desktop management I think that it all comes down to health of device TPM and Windows ability to communicate with chip.</p>
+
+<p>I hope that you will find those steps useful. Some cases might work after applying one of the remediation’s and others will need to be diagnosed and fixed thoroughly. Unless there are some hardware issues with device I think that all the issues can be fixed 😉</p>
+
+<p>See you in next! 😉 🧠</p>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/UniverseCitiz3n" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/UniverseCitiz3n" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 Maciej Horbacz. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/_posts/2020-01-11-Intune-Problems-Solving/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = ""; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://uc3n.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

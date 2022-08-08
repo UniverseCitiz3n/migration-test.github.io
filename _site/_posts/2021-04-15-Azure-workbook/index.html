@@ -1,0 +1,465 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Create powerful dashboards with Azure Workbooks - Maciej Horbacz</title>
+<meta name="description" content="Learn how to bring fun to data crunching">
+
+
+  <meta name="author" content="Hi">
+  
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Maciej Horbacz">
+<meta property="og:title" content="Create powerful dashboards with Azure Workbooks">
+<meta property="og:url" content="http://localhost:4000/_posts/2021-04-15-Azure-workbook/">
+
+
+  <meta property="og:description" content="Learn how to bring fun to data crunching">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/head_image_big.png">
+
+
+
+  <meta name="twitter:site" content="@UniverseCitiz3n">
+  <meta name="twitter:title" content="Create powerful dashboards with Azure Workbooks">
+  <meta name="twitter:description" content="Learn how to bring fun to data crunching">
+  <meta name="twitter:url" content="http://localhost:4000/_posts/2021-04-15-Azure-workbook/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="http://localhost:4000/assets/head_image_big.png">
+    
+  
+
+  
+
+
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/_posts/2021-04-15-Azure-workbook/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Maciej Horbacz",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Maciej Horbacz Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+<!-- Twitter cards -->
+<meta name="twitter:site"    content="@">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:title"   content="Create powerful dashboards with Azure Workbooks">
+
+
+<meta name="twitter:description" content="My ideas and solutions to sysadmin problems">
+
+
+
+<meta name="twitter:card"  content="summary">
+<meta name="twitter:image" content="/assets/head_image_big.png">
+
+<!-- end of Twitter cards -->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--page">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/logo.png" alt=""></a>
+        
+        <a class="site-title" href="/">
+          Maciej Horbacz
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/autopilot/">Autopilot</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/events/">Events</a>
+            </li><li class="masthead__menu-item">
+              <a href="https://leanpub.com/psconfbook3/">Publications</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/terms/">Terms & Conditions</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      <h1 id="intro">Intro</h1>
+
+<p>What value brings maintenance if we do not monitor its results?
+In this post I will show you how you can easily create <code class="language-plaintext highlighter-rouge">Azure workbook</code> with data from <code class="language-plaintext highlighter-rouge">Log analytics</code>. 📊</p>
+
+<p>The data we will take a look at are generated by runbook from this post - <a href="https://universecitiz3n.tech/powershell/Graph-Bitlocker/">Verify Azure AD Bitlocker Keys with Microsoft Graph</a>.
+One last thing…I’ve updated code in that post to provide more useful data and seamless compliance with <code class="language-plaintext highlighter-rouge">log analytics</code>.</p>
+
+<h1 id="log-analytics">Log analytics</h1>
+
+<p>Log Analytics is a tool in the Azure portal to edit and run log queries from data collected by Azure Monitor Logs and interactively analyze their results.
+You can use Log Analytics queries to retrieve records matching particular criteria, identify trends, analyze patterns, and provide a variety of insights into your data.
+To be able to understand and create your own queries you will need to get familiar with <code class="language-plaintext highlighter-rouge">Kusto query language</code> (<strong>KQL</strong>).</p>
+
+<p>For that and more visit - <a href="https://docs.microsoft.com/en-us/azure/azure-monitor/logs/log-analytics-tutorial">Log Analytics tutorial</a>.</p>
+
+<p>The fastest way to read outputs from your runbooks is to enable <strong>diagnostic settings</strong>.
+Navigate to your automation account and proceed with adding new diagnostic settings:</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-04-15/azure1.png" alt="azure1" /></p>
+
+<p>Then, enter name for your setting and choose log analytics workspace:</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-04-15/azure2.png" alt="azure2" /></p>
+
+<p>Sending and processing data for the first time might take some time so go grab a cup of your favorite drink 😉
+When ready, navigate to your logs workspace and try to run that simple query:</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-04-15/azure3.png" alt="azure3" /></p>
+
+<p>If you see data it means that you can proceed with expanding your query!
+Logs contain data generated by all your runbooks within automation account connected to this workspace.
+Firstly you will need to filter through <strong>runbookname</strong> and then <strong>category</strong> because we are interested only in script output</p>
+
+<pre><code class="language-kusto">AzureDiagnostics 
+| where RunbookName_s == "BitlockerRecoveryKeysMaintenance"
+| where Category == "JobStreams"
+</code></pre>
+
+<p>Raw output has a lots of currently unnecessary data and the good stuff is wrapped in JSON in column <strong>ResultDescription</strong>.
+Expand this JSON and show only columns that I want ✨:</p>
+
+<pre><code class="language-kusto">| extend DeviceName = tostring(parse_json(ResultDescription).DeviceName)
+| extend ReferenceId = tostring(parse_json(ResultDescription).DeviceId)
+| extend RecoveryKeyInAAD = tostring(parse_json(ResultDescription).RecoveryKeyInAAD)
+| extend Action = tostring(parse_json(ResultDescription).Action)
+| extend AdditionalInfo = tostring(parse_json(ResultDescription).AdditionalInfo)
+| project DeviceName,UserName,RecoveryKeyInAAD,Action,AdditionalInfo,AADDeviceId = ReferenceId,DeviceId,TimeGenerated
+</code></pre>
+
+<p>With those simple steps you have got nicely formatted table with results of maintenance task:</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-04-15/azure4.png" alt="azure4" /></p>
+
+<h1 id="azure-workbook">Azure workbook</h1>
+
+<p>Opening log analytics every time and paste some query to analyse data is not for me…thankfully you can create workbook which will allow you to see that data instantaneously and do much more!</p>
+
+<p>Go to Azure Monitor, then Workbooks:</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-04-15/azure5.png" alt="azure5" /></p>
+
+<p>There you will find some templates and you can also browse gallery or search through community github repo.
+This helps a lot at the beginning 😉
+When ready create a new workbook!</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-04-15/azure6.png" alt="azure6" /></p>
+
+<p>You can start with providing some description</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-04-15/azure7.png" alt="Azure7" /></p>
+
+<p>Next, add <strong>parameter section</strong>.
+It allows you to easily manipulate data and visualizations that are presented in your report.</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-04-15/azure8.png" alt="Azure8" /></p>
+
+<p>Parameters can take many different types, for this report you will need:</p>
+
+<ul>
+  <li>textbox - for searching string</li>
+  <li>dropdown (JSON) - for filtering true/false values</li>
+  <li>dropdown (KQL) - for filtering dates of maintenance if they are custom</li>
+</ul>
+
+<p>While first two are rather simple the last one might be tricky.
+Here take a look how it can be done:</p>
+
+<pre><code class="language-kusto">AzureDiagnostics 
+| where TimeGenerated &gt; ago(30d) 
+| where RunbookName_s == "BitlockerRecoveryKeysMaintenance"
+| where Category == "JobStreams"
+| extend DeviceName_ = tostring(parse_json(ResultDescription).DeviceName)
+| extend DeviceId_ = tostring(parse_json(ResultDescription).DeviceId)
+| extend RecoveryKeyInAAD_ = tostring(parse_json(ResultDescription).RecoveryKeyInAAD)
+| extend Action_ = tostring(parse_json(ResultDescription).Action)
+| extend AdditionalInfo_ = tostring(parse_json(ResultDescription).AdditionalInfo)
+| project Date = format_datetime(TimeGenerated,'yyyy/MM/dd')
+| summarize by Date
+| sort by Date desc
+</code></pre>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-04-15/azure9.png" alt="azure9" /></p>
+
+<p>Now you can create query section and use KQL from previous paragraph to search for maintenance results.
+Remember to choose correct workspace as source point of your data!</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-04-15/azure10.png" alt="azure10" /></p>
+
+<p>Query:</p>
+
+<pre><code class="language-kusto">AzureDiagnostics 
+| where format_datetime(TimeGenerated,'yyyy/MM/dd') in ({Date}) 
+| where RunbookName_s == "BitlockerRecoveryKeysMaintenance"
+| where Category == "JobStreams"
+| extend DeviceName = tostring(parse_json(ResultDescription).DeviceName)
+| extend ReferenceId = tostring(parse_json(ResultDescription).DeviceId)
+| extend RecoveryKeyInAAD = tostring(parse_json(ResultDescription).RecoveryKeyInAAD)
+| extend Action = tostring(parse_json(ResultDescription).Action)
+| extend AdditionalInfo = tostring(parse_json(ResultDescription).AdditionalInfo)
+| join IntuneDevices on ReferenceId
+| project DeviceName,UserName,RecoveryKeyInAAD,Action,AdditionalInfo,AADDeviceId = ReferenceId,DeviceId,TimeGenerated
+| where DeviceName startswith "{DeviceName}" and RecoveryKeyInAAD in ({RecoveryKey})
+| distinct *
+</code></pre>
+
+<blockquote>
+  <p>NOTICE that using parameters in KQL query is as simple as providing paramter name in {Name}</p>
+</blockquote>
+
+<p>In query above I’m also loading data from <code class="language-plaintext highlighter-rouge">log analytics</code> containing details fetched from <code class="language-plaintext highlighter-rouge">Intune Data Warehouse</code>.
+You should be able to see results in form of table:</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-04-15/azure11.png" alt="azure11" /></p>
+
+<p>Another great feature of <code class="language-plaintext highlighter-rouge">azure workbooks</code> is that you can create actions within report!
+Lets say that you want to select device on a list and take a quick look on it in Intune console.</p>
+
+<p>YES YOU CAN 😁</p>
+
+<p>Start with modifying query section to allow it to export data as parameters:</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-04-15/azure12.png" alt="azure12" /></p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-04-15/azure13.png" alt="azure13" /></p>
+
+<p>Now, create a new section of type links/tabs, select action <strong>custom view</strong> and tick <strong>context pane</strong> box:</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-04-15/azure14.png" alt="azure14" /></p>
+
+<p>In configuration pane for custom view choose <strong>url</strong> and pase this</p>
+
+<p><a href="https://portal.azure.com/#blade/Microsoft_Intune_Devices/DeviceSettingsBlade/overview/mdmDeviceId/">https://portal.azure.com/#blade/Microsoft_Intune_Devices/DeviceSettingsBlade/overview/mdmDeviceId/</a></p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-04-15/azure15.png" alt="azure15" /></p>
+
+<p>After you click <strong>initialize</strong> your view should look like that:</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-04-15/azure16.png" alt="azure16" /></p>
+
+<p>And when you select device from list you will be able to invoke button action that will open device details 🥳:</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-04-15/azure17.png" alt="azure17" /></p>
+
+<h1 id="summary">Summary</h1>
+
+<p>Right now <code class="language-plaintext highlighter-rouge">Azure workbooks</code> are my favorite tool to play with data visualization and drawing a conclusions based on what I see.</p>
+
+<p>I will probably end up with whole dashboard build from workbooks!!</p>
+
+<p>See you in next! 😉 🧠</p>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/UniverseCitiz3n" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/UniverseCitiz3n" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 Maciej Horbacz. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/_posts/2021-04-15-Azure-workbook/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = ""; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://uc3n.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

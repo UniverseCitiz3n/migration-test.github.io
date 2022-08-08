@@ -1,0 +1,868 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Where there is great power, there is great responsibility. - Maciej Horbacz</title>
+<meta name="description" content="Learn how minimize the risk behind automation service accounts">
+
+
+  <meta name="author" content="Hi">
+  
+  <meta property="article:author" content="Hi">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Maciej Horbacz">
+<meta property="og:title" content="Where there is great power, there is great responsibility.">
+<meta property="og:url" content="http://localhost:4000/powershell/PSAM/">
+
+
+  <meta property="og:description" content="Learn how minimize the risk behind automation service accounts">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/head_image_big.png">
+
+
+
+  <meta name="twitter:site" content="@UniverseCitiz3n">
+  <meta name="twitter:title" content="Where there is great power, there is great responsibility.">
+  <meta name="twitter:description" content="Learn how minimize the risk behind automation service accounts">
+  <meta name="twitter:url" content="http://localhost:4000/powershell/PSAM/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="http://localhost:4000/assets/head_image_big.png">
+    
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2021-01-11T00:00:00+01:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/powershell/PSAM/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Maciej Horbacz",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Maciej Horbacz Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+<!-- Twitter cards -->
+<meta name="twitter:site"    content="@">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:title"   content="Where there is great power, there is great responsibility.">
+
+
+<meta name="twitter:description" content="My ideas and solutions to sysadmin problems">
+
+
+
+<meta name="twitter:card"  content="summary">
+<meta name="twitter:image" content="/assets/head_image_big.png">
+
+<!-- end of Twitter cards -->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide2">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/logo.png" alt=""></a>
+        
+        <a class="site-title" href="/">
+          Maciej Horbacz
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/autopilot/">Autopilot</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/events/">Events</a>
+            </li><li class="masthead__menu-item">
+              <a href="https://leanpub.com/psconfbook3/">Publications</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/terms/">Terms & Conditions</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Where there is great power, there is great responsibility.">
+    <meta itemprop="description" content="Learn how minimize the risk behind automation service accounts">
+    <meta itemprop="datePublished" content="2021-01-11T00:00:00+01:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Where there is great power, there is great responsibility.
+</h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          4 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Table of contents</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#intro">Intro</a></li>
+  <li><a href="#prerequisites">Prerequisites</a></li>
+  <li><a href="#privilaged-service-account-management">Privilaged Service Account Management</a>
+    <ul>
+      <li><a href="#azure-keyvault">Azure KeyVault</a></li>
+      <li><a href="#azure-automation">Azure Automation</a></li>
+      <li><a href="#azure-devops-repository">Azure DevOps repository</a></li>
+      <li><a href="#azure-ad-privileged-identity-management">Azure AD Privileged Identity Management</a></li>
+      <li><a href="#final">Final</a></li>
+    </ul>
+  </li>
+  <li><a href="#summary">Summary</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <h1 id="intro">Intro</h1>
+
+<p>Using service accounts is one way to manage environment beside <code class="language-plaintext highlighter-rouge">Azure Service Principals</code>.
+Having privileged account which password is not changed won’t pose a great threat (unless the password is 1234 😵) but it is attack vector.</p>
+
+<p>Alright let’s assume that someone guessed password.
+If this account has e.g. Global Administrator role then you are immediately F🦆ed.
+Otherwise it’s not great but under control.</p>
+
+<p>Such accounts MUST be secured using top-notch, cutting edge technology.
+With help comes <code class="language-plaintext highlighter-rouge">Azure KeyVault</code> 🔐 and  <code class="language-plaintext highlighter-rouge">Azure AD Privileged Identity Management</code> 👮🏻‍♂️.</p>
+
+<h1 id="prerequisites">Prerequisites</h1>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Azure AD Privileged Identity Management</code> - Using this feature requires an Azure AD Premium P2 license.</li>
+  <li><code class="language-plaintext highlighter-rouge">Azure KeyVault</code> - Anybody with an Azure subscription</li>
+  <li><code class="language-plaintext highlighter-rouge">Azure Automation</code> - Anybody with an Azure subscription. First 500 minutes per month are FREE then $0.002/minute</li>
+  <li><em>(Optionally but recommended)</em> <code class="language-plaintext highlighter-rouge">Azure DevOps Repository</code> - If you’re a Visual Studio subscriber and you get Azure DevOps as a benefit, use the Microsoft account associated with your subscription.
+If you don’t have a Microsoft account, choose Create one.</li>
+</ul>
+
+<h1 id="privilaged-service-account-management">Privilaged Service Account Management</h1>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-01-11-PSAM/PSAM1.png" alt="PSAM1" /></p>
+
+<p>On the flow chart above <strong>PSAM</strong> solution ends at the red line, behind it you implement your job that automation account was created for.
+In my example I’m checking <code class="language-plaintext highlighter-rouge">Azure AD</code> for <code class="language-plaintext highlighter-rouge">Bitlocker Recovery Keys</code> and then taking action depend on outcome of validation script.</p>
+
+<p>Let’s break it down and dive in into step-by-step configuration.</p>
+
+<h2 id="azure-keyvault">Azure KeyVault</h2>
+
+<p>We can start with creating <code class="language-plaintext highlighter-rouge">Azure KeyVault</code>.
+It will store credentials for your Service Account.
+Go to <a href="https://portal.azure.com/#create/Microsoft.KeyVault">Azure KeyVault</a> and fill out creation form.</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-01-11-PSAM/PSAM2.png" alt="PSAM2" /></p>
+
+<p>With KeyVault created you can then add entry for your service account.</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-01-11-PSAM/PSAM3.png" alt="PSAM3" /></p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-01-11-PSAM/PSAM4.png" alt="PSAM4" /></p>
+
+<blockquote>
+  <p>Note: To implement KeyVault secrets rotation I’m inviting you to use your favorite search engine and use one of the available implementations online</p>
+</blockquote>
+
+<h2 id="azure-automation">Azure Automation</h2>
+
+<p>Next step is to create <code class="language-plaintext highlighter-rouge">Azure Automation Account</code>.
+<code class="language-plaintext highlighter-rouge">Azure Automation</code> allows you to create and run <code class="language-plaintext highlighter-rouge">Runbooks</code> that process provided code e.g. <code class="language-plaintext highlighter-rouge">Powershell</code>.
+Go to <a href="https://portal.azure.com/#create/Microsoft.AutomationAccount">Azure Automation Account</a> and fill out creation form.</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-01-11-PSAM/PSAM5.png" alt="PSAM5" /></p>
+
+<p>For purposes of PSAM you will need to add 3 <code class="language-plaintext highlighter-rouge">Powershell</code> modules to your <code class="language-plaintext highlighter-rouge">Azure Automation</code>:</p>
+
+<ul>
+  <li>Az.Accounts</li>
+  <li>Az.KeyVault</li>
+  <li>AzureADPreview</li>
+</ul>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-01-11-PSAM/PSAM6.png" alt="PSAM6" /></p>
+
+<p>Key component of <code class="language-plaintext highlighter-rouge">Azure Automation</code> is <code class="language-plaintext highlighter-rouge">AzureRunAsAccount</code></p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-01-11-PSAM/PSAM7.png" alt="PSAM7" /></p>
+
+<p>Adding this application to resources permissions you will be able to automate many aspects of <code class="language-plaintext highlighter-rouge">Azure</code> cloud.
+We need to be able to <strong>Read</strong> <code class="language-plaintext highlighter-rouge">KeyVault</code> secrets so lets do that.
+Go back to your <code class="language-plaintext highlighter-rouge">KeyVault</code> and proceed to <strong>Access Policies</strong> blade and click on <strong>Add Access Policy</strong>.</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-01-11-PSAM/PSAM8.png" alt="PSAM8" /></p>
+
+<p>In next step select secrets permissions</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-01-11-PSAM/PSAM9.png" alt="PSAM9" /></p>
+
+<p>Select your <code class="language-plaintext highlighter-rouge">AzureRunAsAccount</code> as principal</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-01-11-PSAM/PSAM10.png" alt="PSAM10" /></p>
+
+<p>And do not forget to click <strong>Save</strong>!!</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-01-11-PSAM/PSAM11.png" alt="PSAM11" /></p>
+
+<p>To get secret from <code class="language-plaintext highlighter-rouge">KeyVault</code> in <code class="language-plaintext highlighter-rouge">Powershell</code> runbook you just need to paste</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$AzureRunAsConnection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-AutomationConnection</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="s1">'AzureRunAsConnection'</span><span class="w">
+
+</span><span class="n">Connect-AzAccount</span><span class="w"> </span><span class="nt">-CertificateThumbprint</span><span class="w"> </span><span class="nv">$AzureRunAsConnection</span><span class="o">.</span><span class="nf">CertificateThumbprint</span><span class="w"> </span><span class="nt">-ApplicationId</span><span class="w"> </span><span class="nv">$AzureRunAsConnection</span><span class="o">.</span><span class="nf">ApplicationId</span><span class="w"> </span><span class="nt">-Tenant</span><span class="w"> </span><span class="nv">$AzureRunAsConnection</span><span class="o">.</span><span class="nf">TenantId</span><span class="w"> </span><span class="nt">-ServicePrincipal</span><span class="w">
+
+</span><span class="nv">$secret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-AzKeyVaultSecret</span><span class="w"> </span><span class="nt">-VaultName</span><span class="w"> </span><span class="s1">'KV-PSAM'</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="s1">'sa-NameResambleItsJob'</span><span class="w">
+
+</span><span class="nv">$secret</span><span class="w">
+
+</span><span class="c">#The same goes for connecting to AzureAD</span><span class="w">
+</span><span class="c">#Connect-AzureAD -TenantID $AzureRunAsConnection.TenantId -ApplicationId  $AzureRunAsConnection.ApplicationId -CertificateThumbprint $AzureRunAsConnection.CertificateThumbprint </span><span class="w">
+</span></code></pre></div></div>
+
+<p>And you should be able to see results like</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-01-11-PSAM/PSAM12.png" alt="PSAM12" /></p>
+
+<h2 id="azure-devops-repository">Azure DevOps repository</h2>
+
+<p>Now that you’ve got automation to run your scripts, create repository for them 🧱.
+Go to <a href="https://dev.azure.com/">Azure DevOps</a> and create a new project if you don’t have one.</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-01-11-PSAM/PSAM13.png" alt="PSAM13" /></p>
+
+<p>Initialize a new repo</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-01-11-PSAM/PSAM14.png" alt="PSAM14" /></p>
+
+<p>Then create a new folder and file within</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-01-11-PSAM/PSAM15.png" alt="PSAM15" /></p>
+
+<p>Go back to your <code class="language-plaintext highlighter-rouge">Automation Account</code> and procced to <code class="language-plaintext highlighter-rouge">Source Control</code> blade and click <strong>Add</strong></p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-01-11-PSAM/PSAM16.png" alt="PSAM16" /></p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-01-11-PSAM/PSAM17.png" alt="PSAM17" /></p>
+
+<p>Click authenticate to connect to <code class="language-plaintext highlighter-rouge">DevOps</code></p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-01-11-PSAM/PSAM18.png" alt="PSAM18" /></p>
+
+<p>Fill out the rest of the form</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-01-11-PSAM/PSAM19.png" alt="PSAM19" /></p>
+
+<blockquote>
+  <p>Note: Remember to set <strong>Publish runbook</strong> to <strong>Yes</strong>. Otherwise you will have to <strong>publish</strong> after every sync manually.</p>
+</blockquote>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-01-11-PSAM/PSAM20.png" alt="PSAM20" /></p>
+
+<p>This is how sync should look like</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-01-11-PSAM/PSAM21.png" alt="PSAM21" /></p>
+
+<h2 id="azure-ad-privileged-identity-management">Azure AD Privileged Identity Management</h2>
+
+<p>Finally you can assign desired role to service account.
+Go to <a href="https://portal.azure.com/#blade/Microsoft_Azure_PIMCommon/ResourceMenuBlade/roles/resourceId//resourceType/tenant/provider/aadroles">Privileged Identity Management | Azure AD roles</a> and select a role.</p>
+
+<p>Click <strong>Add assignments</strong></p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-01-11-PSAM/PSAM22.png" alt="PSAM22" /></p>
+
+<p>Select your service account</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-01-11-PSAM/PSAM23.png" alt="PSAM23" /></p>
+
+<p>Proceed with <strong>Assign</strong></p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-01-11-PSAM/PSAM24.png" alt="PSAM24" /></p>
+
+<p>One last thing you will need from that blade is <code class="language-plaintext highlighter-rouge">roleID</code>. The fastest way is to copy it from address bar</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-01-11-PSAM/PSAM25.png" alt="PSAM25" /></p>
+
+<h2 id="final">Final</h2>
+
+<p>If you are reading this it means that you’ve gone through preparation steps of <strong>PSAM</strong>! 🥳
+Now it’s time for the frosting of our cupcake 🧁.</p>
+
+<p>To read secret and request role using PIM you need to run:</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$AzureRunAsConnection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-AutomationConnection</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="s1">'AzureRunAsConnection'</span><span class="w">
+
+</span><span class="n">Connect-AzAccount</span><span class="w"> </span><span class="nt">-CertificateThumbprint</span><span class="w"> </span><span class="nv">$AzureRunAsConnection</span><span class="o">.</span><span class="nf">CertificateThumbprint</span><span class="w"> </span><span class="nt">-ApplicationId</span><span class="w"> </span><span class="nv">$AzureRunAsConnection</span><span class="o">.</span><span class="nf">ApplicationId</span><span class="w"> </span><span class="nt">-Tenant</span><span class="w"> </span><span class="nv">$AzureRunAsConnection</span><span class="o">.</span><span class="nf">TenantId</span><span class="w"> </span><span class="nt">-ServicePrincipal</span><span class="w">
+
+</span><span class="nv">$secret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-AzKeyVaultSecret</span><span class="w"> </span><span class="nt">-VaultName</span><span class="w"> </span><span class="s1">'KV-PSAM'</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="s1">'sa-NameResambleItsJob'</span><span class="w">
+
+</span><span class="nv">$Password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$secret</span><span class="o">.</span><span class="nf">SecretValue</span><span class="w">
+</span><span class="s1">'Cooking service account credentials'</span><span class="w">
+</span><span class="nv">$saCredentials</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">New-Object</span><span class="w"> </span><span class="nx">System.Management.Automation.PSCredential</span><span class="w"> </span><span class="nt">-ArgumentList</span><span class="w"> </span><span class="p">(</span><span class="s1">'sa-NameResambleItsJob@XXXXXX.onmicrosoft.com'</span><span class="p">,</span><span class="w"> </span><span class="nv">$Password</span><span class="p">)</span><span class="w">
+
+</span><span class="s1">'Disconnecting from Az'</span><span class="w">
+</span><span class="n">Disconnect-AzAccount</span><span class="w">
+
+</span><span class="n">Import-Module</span><span class="w"> </span><span class="nx">AzureADPreview</span><span class="w">
+
+</span><span class="s2">"Connecting to AzureAD"</span><span class="w">
+</span><span class="n">Connect-AzureAD</span><span class="w"> </span><span class="nt">-Credential</span><span class="w"> </span><span class="nv">$saCredentials</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">out-null</span><span class="w">
+
+</span><span class="s1">'Creating PIM schedule'</span><span class="w">
+</span><span class="nv">$roles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-AzureADMSPrivilegedRoleDefinition</span><span class="w"> </span><span class="nt">-ProviderId</span><span class="w"> </span><span class="nx">aadRoles</span><span class="w"> </span><span class="nt">-ResourceId</span><span class="w"> </span><span class="nv">$AzureRunAsConnection</span><span class="o">.</span><span class="nf">TenantId</span><span class="w">
+</span><span class="nv">$schedule</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">New-Object</span><span class="w"> </span><span class="nx">Microsoft.Open.MSGraph.Model.AzureADMSPrivilegedSchedule</span><span class="w">
+</span><span class="nv">$schedule</span><span class="o">.</span><span class="nf">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Once"</span><span class="w">
+</span><span class="nv">$schedule</span><span class="o">.</span><span class="nf">StartDateTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Get-Date</span><span class="p">)</span><span class="o">.</span><span class="nf">ToUniversalTime</span><span class="p">()</span><span class="o">.</span><span class="nf">ToString</span><span class="p">(</span><span class="s2">"yyyy-MM-ddTHH:mm:ss.fffZ"</span><span class="p">)</span><span class="w">
+</span><span class="nv">$schedule</span><span class="o">.</span><span class="nf">endDateTime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Get-Date</span><span class="p">)</span><span class="o">.</span><span class="nf">AddMinutes</span><span class="p">(</span><span class="nx">30</span><span class="p">)</span><span class="o">.</span><span class="nf">ToUniversalTime</span><span class="p">()</span><span class="o">.</span><span class="nf">ToString</span><span class="p">(</span><span class="s2">"yyyy-MM-ddTHH:mm:ss.fffZ"</span><span class="p">)</span><span class="w">     
+
+</span><span class="s2">"Requesting permissions"</span><span class="w">
+</span><span class="n">Open-AzureADMSPrivilegedRoleAssignmentRequest</span><span class="w"> </span><span class="nt">-ProviderId</span><span class="w"> </span><span class="s1">'aadRoles'</span><span class="w"> </span><span class="nt">-ResourceId</span><span class="w"> </span><span class="nv">$AzureRunAsConnection</span><span class="o">.</span><span class="nf">TenantId</span><span class="w"> </span><span class="nt">-RoleDefinitionId</span><span class="w"> </span><span class="s1">'7698a772-787b-4ac8-901f-60d6b08affd2'</span><span class="w"> </span><span class="nt">-SubjectId</span><span class="w"> </span><span class="s1">'25fca288-42e8-4ef3-8546-4305d7ba197c'</span><span class="w"> </span><span class="nt">-Type</span><span class="w"> </span><span class="s1">'UserAdd'</span><span class="w"> </span><span class="nt">-AssignmentState</span><span class="w"> </span><span class="s1">'Active'</span><span class="w"> </span><span class="nt">-schedule</span><span class="w"> </span><span class="nv">$schedule</span><span class="w"> </span><span class="nt">-reason</span><span class="w"> </span><span class="s2">"Powershell test"</span><span class="w">
+
+</span></code></pre></div></div>
+
+<p>That’s nicely formatted output from <code class="language-plaintext highlighter-rouge">Runbook</code></p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-01-11-PSAM/PSAM26.png" alt="PSAM26" /></p>
+
+<h1 id="summary">Summary</h1>
+
+<p>Having so heavily protected service account with those few tools gives you great advantage against attackers 👨‍💻.
+To make this solution better you can make <code class="language-plaintext highlighter-rouge">Automation Account</code> variables for <code class="language-plaintext highlighter-rouge">roleID</code> or configure <code class="language-plaintext highlighter-rouge">PIM</code> to send mail notification to desired distribution list with information that role has been assigned 📩</p>
+
+<p>See you in next! 😉 🧠</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#automation" class="page__taxonomy-item" rel="tag">Automation</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#azure" class="page__taxonomy-item" rel="tag">Azure</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#credentials" class="page__taxonomy-item" rel="tag">Credentials</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#encryption" class="page__taxonomy-item" rel="tag">Encryption</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#intune" class="page__taxonomy-item" rel="tag">Intune</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#runbook" class="page__taxonomy-item" rel="tag">Runbook</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#powershell" class="page__taxonomy-item" rel="tag">Powershell</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-01-11T00:00:00+01:00">January 11, 2021</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=UniverseCitiz3n&text=Where+there+is+great+power%2C+there+is+great+responsibility.%20http%3A%2F%2Flocalhost%3A4000%2Fpowershell%2FPSAM%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fpowershell%2FPSAM%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fpowershell%2FPSAM%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/powershell/Intune-App-Sandbox/" class="pagination--pager" title="Build, Test, Deploy – Software Distribution Using Intune
+">Previous</a>
+    
+    
+      <a href="/github%20actions/GithubActions/" class="pagination--pager" title="I’ve published my first module with GitHub Actions
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You may also enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/intune/User-driven-Autopilot/" rel="permalink">Truly user-driven Windows Autopilot
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          6 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Brilliant but kind of risky alternative to group tags 🪄🚀
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/intune/SettingsCatalog-PowerShell/" rel="permalink">Export, Fix, Import - Settings Catalog
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">At first it looked easy but then…
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/intune/IntuneSecurityBaseline-Move/" rel="permalink">How to easily move MDM Security Baseline profile
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">This is a game changer for me 😲
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/powershell/SettingsCatalog-Move/" rel="permalink">How to easily move Settings Catalog profile
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">With this simple trick, you can save a lot of time 😁
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/UniverseCitiz3n" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/UniverseCitiz3n" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 Maciej Horbacz. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/powershell/PSAM/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/powershell/PSAM"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://uc3n.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

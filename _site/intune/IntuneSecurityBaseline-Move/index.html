@@ -1,0 +1,768 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>How to easily move MDM Security Baseline profile - Maciej Horbacz</title>
+<meta name="description" content="This is a game changer for me 😲">
+
+
+  <meta name="author" content="Hi">
+  
+  <meta property="article:author" content="Hi">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Maciej Horbacz">
+<meta property="og:title" content="How to easily move MDM Security Baseline profile">
+<meta property="og:url" content="http://localhost:4000/intune/IntuneSecurityBaseline-Move/">
+
+
+  <meta property="og:description" content="This is a game changer for me 😲">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/head_image_big.png">
+
+
+
+  <meta name="twitter:site" content="@UniverseCitiz3n">
+  <meta name="twitter:title" content="How to easily move MDM Security Baseline profile">
+  <meta name="twitter:description" content="This is a game changer for me 😲">
+  <meta name="twitter:url" content="http://localhost:4000/intune/IntuneSecurityBaseline-Move/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="http://localhost:4000/assets/head_image_big.png">
+    
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2022-03-03T00:00:00+01:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/intune/IntuneSecurityBaseline-Move/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Maciej Horbacz",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Maciej Horbacz Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+<!-- Twitter cards -->
+<meta name="twitter:site"    content="@">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:title"   content="How to easily move MDM Security Baseline profile">
+
+
+<meta name="twitter:description" content="My ideas and solutions to sysadmin problems">
+
+
+
+<meta name="twitter:card"  content="summary">
+<meta name="twitter:image" content="/assets/head_image_big.png">
+
+<!-- end of Twitter cards -->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide2">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/logo.png" alt=""></a>
+        
+        <a class="site-title" href="/">
+          Maciej Horbacz
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/autopilot/">Autopilot</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/events/">Events</a>
+            </li><li class="masthead__menu-item">
+              <a href="https://leanpub.com/psconfbook3/">Publications</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/terms/">Terms & Conditions</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="How to easily move MDM Security Baseline profile">
+    <meta itemprop="description" content="This is a game changer for me 😲">
+    <meta itemprop="datePublished" content="2022-03-03T00:00:00+01:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">How to easily move MDM Security Baseline profile
+</h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Table of contents</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#intro">Intro</a></li>
+  <li><a href="#microsoft-security-baselines">Microsoft Security Baselines</a></li>
+  <li><a href="#read-profile-settings">Read profile settings</a></li>
+  <li><a href="#move-mdm-security-baseline-profile">Move MDM Security Baseline profile</a></li>
+  <li><a href="#summary">Summary</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <h1 id="intro">Intro</h1>
+
+<p>Hey! My previous post was about moving <code class="language-plaintext highlighter-rouge">Settings Catalog</code> profile between MEM tenants - <a href="https://universecitiz3n.tech/powershell/SettingsCatalog-Move/">How to easily move Settings Catalog profile
+</a></p>
+
+<p>If you found it useful and it helped you save a lot of time this one you will love too 🥰</p>
+
+<h1 id="microsoft-security-baselines">Microsoft Security Baselines</h1>
+
+<p>What are MDM Security Baselines? 🔐</p>
+
+<p>Security baselines are groups of pre-configured Windows (or Edge or Office) settings that help you apply and enforce granular security settings that are recommended by the relevant security teams. You can also customize each baseline you deploy to enforce only those settings and values you require. When you create a security baseline profile in Intune, you’re creating a template that consists of multiple device configuration profiles.</p>
+
+<p>This feature applies to:</p>
+
+<ul>
+  <li>Windows 10 version 1809 and later</li>
+  <li>Windows 11</li>
+</ul>
+
+<p>You deploy security baselines to groups of users or devices in Intune, and the settings apply to devices that run Windows 10/11. For example, the MDM Security Baseline automatically enables BitLocker for removable drives, automatically requires a password to unlock a device, automatically disables basic authentication, and more. When a default value doesn’t work for your environment, customize the baseline to apply the settings you need.</p>
+
+<p><a href="https://docs.microsoft.com/en-us/mem/intune/protect/security-baselines">Read more</a></p>
+
+<p>To create a new baseline for your organization go to MEM portal</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2022-03-03-MDMSec/1.png" alt="MDM1" /></p>
+
+<p>Choose baseline area (let’s stick with Win 10)</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2022-03-03-MDMSec/2.png" alt="MDM2" /></p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2022-03-03-MDMSec/3.png" alt="MDM3" /></p>
+
+<p>Enter profile name, description and continue.</p>
+
+<p>For presentation purposes I’ve changed one setting and the rest is left as Microsoft recommends.</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2022-03-03-MDMSec/4.png" alt="MDM4" /></p>
+
+<p>Assign profile</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2022-03-03-MDMSec/5.png" alt="MDM5" /></p>
+
+<p>In summary you will see only the list of settings that are changed. So if you take baseline ‘as is’ then no setting will be listed in summary.</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2022-03-03-MDMSec/6.png" alt="MDM6" /></p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2022-03-03-MDMSec/7.png" alt="MDM7" /></p>
+
+<h1 id="read-profile-settings">Read profile settings</h1>
+
+<p>As I described in previous post, <code class="language-plaintext highlighter-rouge">Settings Catalog</code> profile details are stored in body of request whenever you edit or create it.</p>
+
+<p><a href="https://universecitiz3n.tech/powershell/SettingsCatalog-Move/#move-settings-catalog-profile">Check here</a></p>
+
+<p>MDM Security baseline MS Graph requests works a little bit different. Thanks to almighty 💪 Edge DevTools I was able to figure it out!</p>
+
+<p>First of all you need to get all settings categories from security baseline template.</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$Categories</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Invoke-RestMethod</span><span class="w"> </span><span class="nt">-UseBasicParsing</span><span class="w"> </span><span class="nt">-Uri</span><span class="w"> </span><span class="s1">'https://graph.microsoft.com/beta/deviceManagement/templates/034ccd46-190c-4afc-adf1-ad7cc11262eb/categories'</span><span class="w">
+  </span><span class="nt">-WebSession</span><span class="w"> </span><span class="nv">$session</span><span class="w"> </span><span class="err">`</span><span class="w">
+  </span><span class="nt">-Headers</span><span class="w"> </span><span class="nv">$Header</span><span class="w"> 
+</span></code></pre></div></div>
+
+<p>With this now you will be able to read values for each setting in discovered categories.
+You need:</p>
+
+<ul>
+  <li>Intent ID - MDM Security baseline profile GUID</li>
+  <li>Category ID - GUID of category from code above</li>
+</ul>
+
+<p>Using this simple loop you will read entire baseline profile which later can be used as an input for create/update request.</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># YOUR PROFILE GUID</span><span class="w">
+</span><span class="nv">$Intent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'1c2097b1-409b-4a95-8654-cb1bdd8ca7c5'</span><span class="w">
+
+</span><span class="nv">$Settings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$Setting</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$Categories</span><span class="o">.</span><span class="nf">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nv">$SettingInstanceValues</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Invoke-RestMethod</span><span class="w"> </span><span class="nt">-UseBasicParsing</span><span class="w"> </span><span class="nt">-Uri</span><span class="w"> </span><span class="s2">"https://graph.microsoft.com/beta/deviceManagement/intents/</span><span class="nv">$Intent</span><span class="s2">/categories/</span><span class="si">$(</span><span class="nv">$Setting</span><span class="o">.</span><span class="nf">id</span><span class="si">)</span><span class="s2">/settings?</span><span class="se">`$</span><span class="s2">expand=Microsoft.Graph.DeviceManagementComplexSettingInstance/Value"</span><span class="w"> </span><span class="se">`
+</span><span class="w">        </span><span class="nt">-WebSession</span><span class="w"> </span><span class="nv">$session</span><span class="w"> </span><span class="se">`
+</span><span class="w">        </span><span class="nt">-Headers</span><span class="w"> </span><span class="nv">$Header</span><span class="w">
+
+    </span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$SettingValue</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$SettingInstanceValues</span><span class="o">.</span><span class="nf">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nv">$SettingValue</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Now we have values for every single setting within Windows 10 MDM Security Baseline! 😎🎉</p>
+
+<h1 id="move-mdm-security-baseline-profile">Move MDM Security Baseline profile</h1>
+
+<p>When creating or updating MDM Security Baseline profile in <code class="language-plaintext highlighter-rouge">Body</code> of request you need to specify list of settings and values you wish to set.</p>
+
+<p>First step we’ve got covered - read security baseline profile (from test tenant 😉)</p>
+
+<p>Second step create production profile:</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#Create a new profile</span><span class="w">
+</span><span class="nv">$SettingsJSON</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Settings</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ConvertTo-Json</span><span class="w"> </span><span class="nt">-Depth</span><span class="w"> </span><span class="nx">99</span><span class="w">
+</span><span class="nv">$ProfileName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Global_Win10'</span><span class="w">
+
+</span><span class="nv">$Create</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Invoke-RestMethod</span><span class="w"> </span><span class="nt">-UseBasicParsing</span><span class="w"> </span><span class="nt">-Uri</span><span class="w"> </span><span class="s1">'https://graph.microsoft.com/beta/deviceManagement/templates/034ccd46-190c-4afc-adf1-ad7cc11262eb/createInstance'</span><span class="w"> </span><span class="se">`
+</span><span class="w"> </span><span class="nt">-Method</span><span class="w"> </span><span class="s1">'POST'</span><span class="w"> </span><span class="se">`
+</span><span class="w"> </span><span class="nt">-WebSession</span><span class="w"> </span><span class="nv">$session</span><span class="w"> </span><span class="se">`
+</span><span class="w"> </span><span class="nt">-Headers</span><span class="w"> </span><span class="nv">$Header</span><span class="w"> </span><span class="se">`
+</span><span class="w"> </span><span class="nt">-ContentType</span><span class="w"> </span><span class="s1">'application/json'</span><span class="w"> </span><span class="se">`
+</span><span class="w"> </span><span class="nt">-Body</span><span class="w"> </span><span class="s2">"{</span><span class="se">`"</span><span class="s2">displayName</span><span class="se">`"</span><span class="s2">:</span><span class="se">`"</span><span class="nv">$ProfileName</span><span class="se">`"</span><span class="s2">,</span><span class="se">`"</span><span class="s2">description</span><span class="se">`"</span><span class="s2">:</span><span class="se">`"`"</span><span class="s2">,</span><span class="se">`"</span><span class="s2">settingsDelta</span><span class="se">`"</span><span class="s2">:</span><span class="nv">$SettingsJSON</span><span class="s2">,</span><span class="se">`"</span><span class="s2">roleScopeTagIds</span><span class="se">`"</span><span class="s2">:[</span><span class="se">`"</span><span class="s2">0</span><span class="se">`"</span><span class="s2">]}"</span><span class="w">
+
+</span></code></pre></div></div>
+
+<p>or update existing:</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#Update profile</span><span class="w">
+</span><span class="nv">$SettingsJSON</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Settings</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ConvertTo-Json</span><span class="w"> </span><span class="nt">-Depth</span><span class="w"> </span><span class="nx">99</span><span class="w">
+</span><span class="nv">$IntentID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'1c2097b1-409b-4a95-8654-cb1bdd8ca7c5'</span><span class="w">
+
+</span><span class="nv">$ApplySettings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Invoke-RestMethod</span><span class="w"> </span><span class="nt">-UseBasicParsing</span><span class="w"> </span><span class="nt">-Uri</span><span class="w"> </span><span class="s2">"https://graph.microsoft.com/beta/deviceManagement/intents/</span><span class="nv">$IntentID</span><span class="s2">/updateSettings"</span><span class="w"> </span><span class="se">`
+</span><span class="w">  </span><span class="nt">-Method</span><span class="w"> </span><span class="s1">'POST'</span><span class="w"> </span><span class="se">`
+</span><span class="w">  </span><span class="nt">-WebSession</span><span class="w"> </span><span class="nv">$session</span><span class="w"> </span><span class="se">`
+</span><span class="w">  </span><span class="nt">-Headers</span><span class="w"> </span><span class="nv">$Header</span><span class="w"> </span><span class="se">`
+</span><span class="w">  </span><span class="nt">-ContentType</span><span class="w"> </span><span class="s1">'application/json'</span><span class="w"> </span><span class="se">`
+</span><span class="w">  </span><span class="nt">-Body</span><span class="w"> </span><span class="s2">"{</span><span class="se">`"</span><span class="s2">settings</span><span class="se">`"</span><span class="s2">:</span><span class="nv">$SettingsJSON</span><span class="s2">}"</span><span class="w">
+</span></code></pre></div></div>
+
+<p>And that’s it!! 🪄🤝😁</p>
+
+<h1 id="summary">Summary</h1>
+
+<p>With this and previous post I feel more and more confidence that Infrastructure as Code in regards of Intune configurations is project that I should look into.</p>
+
+<p>See you in next! 😉 🧠</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#intune" class="page__taxonomy-item" rel="tag">Intune</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#microsoftedge" class="page__taxonomy-item" rel="tag">MicrosoftEdge</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#powershell" class="page__taxonomy-item" rel="tag">Powershell</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#intune" class="page__taxonomy-item" rel="tag">Intune</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2022-03-03T00:00:00+01:00">March 3, 2022</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=UniverseCitiz3n&text=How+to+easily+move+MDM+Security+Baseline+profile%20http%3A%2F%2Flocalhost%3A4000%2Fintune%2FIntuneSecurityBaseline-Move%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fintune%2FIntuneSecurityBaseline-Move%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fintune%2FIntuneSecurityBaseline-Move%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/powershell/SettingsCatalog-Move/" class="pagination--pager" title="How to easily move Settings Catalog profile
+">Previous</a>
+    
+    
+      <a href="/intune/SettingsCatalog-PowerShell/" class="pagination--pager" title="Export, Fix, Import - Settings Catalog
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You may also enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/intune/User-driven-Autopilot/" rel="permalink">Truly user-driven Windows Autopilot
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          6 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Brilliant but kind of risky alternative to group tags 🪄🚀
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/intune/SettingsCatalog-PowerShell/" rel="permalink">Export, Fix, Import - Settings Catalog
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">At first it looked easy but then…
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/powershell/SettingsCatalog-Move/" rel="permalink">How to easily move Settings Catalog profile
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">With this simple trick, you can save a lot of time 😁
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/intune/Edge-allowed-cookies/" rel="permalink">How to bypass Settings catalog limitation
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">I needed to configure quite a long list of allowed urls but then I hit a wall
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/UniverseCitiz3n" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/UniverseCitiz3n" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 Maciej Horbacz. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/intune/IntuneSecurityBaseline-Move/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/intune/IntuneSecurityBaseline-Move"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://uc3n.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

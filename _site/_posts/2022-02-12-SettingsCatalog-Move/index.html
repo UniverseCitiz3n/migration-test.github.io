@@ -1,0 +1,424 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>How to easily move Settings Catalog profile - Maciej Horbacz</title>
+<meta name="description" content="With this simple trick, you can save a lot of time 😁">
+
+
+  <meta name="author" content="Hi">
+  
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Maciej Horbacz">
+<meta property="og:title" content="How to easily move Settings Catalog profile">
+<meta property="og:url" content="http://localhost:4000/_posts/2022-02-12-SettingsCatalog-Move/">
+
+
+  <meta property="og:description" content="With this simple trick, you can save a lot of time 😁">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/head_image_big.png">
+
+
+
+  <meta name="twitter:site" content="@UniverseCitiz3n">
+  <meta name="twitter:title" content="How to easily move Settings Catalog profile">
+  <meta name="twitter:description" content="With this simple trick, you can save a lot of time 😁">
+  <meta name="twitter:url" content="http://localhost:4000/_posts/2022-02-12-SettingsCatalog-Move/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="http://localhost:4000/assets/head_image_big.png">
+    
+  
+
+  
+
+
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/_posts/2022-02-12-SettingsCatalog-Move/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Maciej Horbacz",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Maciej Horbacz Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+<!-- Twitter cards -->
+<meta name="twitter:site"    content="@">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:title"   content="How to easily move Settings Catalog profile">
+
+
+<meta name="twitter:description" content="My ideas and solutions to sysadmin problems">
+
+
+
+<meta name="twitter:card"  content="summary">
+<meta name="twitter:image" content="/assets/head_image_big.png">
+
+<!-- end of Twitter cards -->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--page">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/logo.png" alt=""></a>
+        
+        <a class="site-title" href="/">
+          Maciej Horbacz
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/autopilot/">Autopilot</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/events/">Events</a>
+            </li><li class="masthead__menu-item">
+              <a href="https://leanpub.com/psconfbook3/">Publications</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/terms/">Terms & Conditions</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      <h1 id="intro">Intro</h1>
+
+<p>As the saying goes…do not develop/test on production…so we (IT Pros) work on some kind of sandbox environment.
+This comes with <strong>pros</strong> and <strong>cons</strong> but that is not what I particularly want to focus on (though it is kind of connected with cons).</p>
+
+<p>Let me show you how I’ve leveraged a neat trick that I’ve learned during one of the Ignite sessions last year! ❤️‍🔥</p>
+
+<h1 id="edge-devtools">Edge DevTools</h1>
+
+<p>You may know or not but <strong>Microsoft Endpoint Manager admin center</strong> is heavily dependent on Graph API calls!
+When you go to any section, open configuration profile, create new one, wipe device, export report or whatever you name it, underneath you are calling Microsoft Graph API call.</p>
+
+<p>For me it is awesome because I do not need to go to Microsoft Docs to search what Graph Uri I need to do X or Y.
+I just need to open <strong>Edge DevTools</strong> and make an action through admin center portal.</p>
+
+<p>To open <strong>DevTools</strong> just press <code class="language-plaintext highlighter-rouge">F12</code> or <code class="language-plaintext highlighter-rouge">CTRL + SHIFT + I</code> on your keyboard.
+Then go to <strong>Network</strong></p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2022-02-12-DevTools/1.png" alt="DevTools" /></p>
+
+<p>There you will be able to see traffic that comes and goes but that is not all! 🤔</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2022-02-12-DevTools/2.png" alt="DevTools2" /></p>
+
+<p>At the beginning it might be all gibberish</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2022-02-12-DevTools/3.png" alt="DevTools3" /></p>
+
+<p>But use <code class="language-plaintext highlighter-rouge">Filter</code> bar and all becomes much better</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2022-02-12-DevTools/4.png" alt="DevTools4" /></p>
+
+<p>Now that we have only request that have some value for us let’s pick first one and see what it does.
+When you go to request details you can see exact Graph API URL that was sent to get the data for a blade.</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2022-02-12-DevTools/5.png" alt="DevTools5" /></p>
+
+<p>After you determine which request is the one that you are interested in now it is time for promised trick!!!</p>
+
+<p><code class="language-plaintext highlighter-rouge">Right click</code> on request and navigate to <code class="language-plaintext highlighter-rouge">Copy</code> and there you have it: <code class="language-plaintext highlighter-rouge">Copy as PowerShell</code> 🚀</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2022-02-12-DevTools/6.png" alt="DevTools6" /></p>
+
+<h1 id="powershell-request">PowerShell Request</h1>
+
+<p>From now on you are a Intune Microsoft Graph Master 😁</p>
+
+<p>Let’s see what hides in copied code…</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$session</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">New-Object</span><span class="w"> </span><span class="nx">Microsoft.PowerShell.Commands.WebRequestSession</span><span class="w">
+</span><span class="nv">$session</span><span class="o">.</span><span class="nf">UserAgent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.80 Safari/537.36 Edg/98.0.1108.50"</span><span class="w">
+</span><span class="n">Invoke-WebRequest</span><span class="w"> </span><span class="nt">-UseBasicParsing</span><span class="w"> </span><span class="nt">-Uri</span><span class="w"> </span><span class="s2">"https://graph.microsoft.com/beta/deviceManagement/configurationPolicies('0d15031a-fd95-4202-a43d-da63117070b8')"</span><span class="w"> </span><span class="se">`
+</span><span class="nt">-WebSession</span><span class="w"> </span><span class="nv">$session</span><span class="w"> </span><span class="se">`
+</span><span class="nt">-Headers</span><span class="w"> </span><span class="p">@{</span><span class="w">
+</span><span class="s2">"x-ms-client-session-id"</span><span class="o">=</span><span class="s2">"97b2957ca94944f1bf9b5990939c04b0"</span><span class="w">
+  </span><span class="s2">"X-Content-Type-Options"</span><span class="o">=</span><span class="s2">"nosniff"</span><span class="w">
+  </span><span class="s2">"Accept-Language"</span><span class="o">=</span><span class="s2">"en"</span><span class="w">
+  </span><span class="s2">"Authorization"</span><span class="o">=</span><span class="s2">"Bearer eyJ0eXAiOiJKV1QiLCJub25jZSI6Im5idkVmeXd2RExnSjJaMG9BdlRna0xMTmFvREZYdHJHSlRLUEZ1cEdEZ00iLCJhbGciOiJSUzI1NiIsIng1dCI6Ik1yNS1BVWliZkJpaTdOZDFqQmViYXhib1hXMCIsImtpZCI6Ik1yNS1BVWliZkJpaTdOZDFqQmViYXhib1hXMCJ9.eyJhdWQiOiJodHRwczovL2dyYXBoLm1pY3Jvc29mdC5jb20vIiwiaXNzIjoiaHR0cHM6Ly9zdHMud2luZG93cy5uZXQvYTUxZDgyNzYtYThjYS00NmEyLTg3NjUtYjE2ZjJmN2U1ZTZhLyIsImlhdCI6MTY0NDY3NjYzMiwibmJmIjoxNjQ0Njc2NjMyLCJleHAiOjE2NDQ2ODE5MzYsImFjY3QiOjAsImFjciI6IjEiLCJhaW8iOiJFMlpnWUJEWWVlYTZXdGlWN01mQ241ZHNXTFNpWlZQeE9nUHVob1ZjQVF6K01UL1pBK0lCIiwiYW1yIjpbInB3ZCJdLCJhcHBfZGlzcGxheW5hbWUiOiJNaWNyb3NvZnQgSW50dW5lIHBvcnRhbCBleHRlbnNpb24iLCJhcHBpZCI6IjU5MjZmYzhlLTMwNGUtNGY1OS04YmVkLTU4Y2E5N2NjMzlhNCIsImFwcGlkYWNyIjoiMiIsImNvbnRyb2xzIjpbImNhX2VuZiJdLCJmYW1pbHlfbmFtZSI6IkhvcmJhY3oiLCJnaXZlbl9uYW1lIjoiTWFjaWVqIiwiaWR0eXAiOiJ1c2VyIiwiaXBhZGRyIjoiODkuNjQuMTE5LjIxNCIsIm5hbWUiOiJNYWNpZWogSG9yYmFjeiIsIm9pZCI6ImNmMWYwNTI1LWQzMjYtNDVmMy1iYTBlLWZkMDhkYjA3OTM0ZSIsInBsYXRmIjoiMyIsInB1aWQiOiIxMDAzMjAwMDk2M0IwMzQ0IiwicmgiOiIwLkFVY0Fkb0lkcGNxb29rYUhaYkZ2TDM1ZWFnTUFBQUFBQUFBQXdBQUFBQUFBQUFCSEFMMC4iLCJzY3AiOiJDbG91ZFBDLlJlYWQuQWxsIENsb3VkUEMuUmVhZFdyaXRlLkFsbCBEZXZpY2VNYW5hZ2VtZW50QXBwcy5SZWFkV3JpdGUuQWxsIERldmljZU1hbmFnZW1lbnRDb25maWd1cmF0aW9uLlJlYWRXcml0ZS5BbGwgRGV2aWNlTWFuYWdlbWVudE1hbmFnZWREZXZpY2VzLlByaXZpbGVnZWRPcGVyYXRpb25zLkFsbCBEZXZpY2VNYW5hZ2VtZW50TWFuYWdlZERldmljZXMuUmVhZFdyaXRlLkFsbCBEZXZpY2VNYW5hZ2VtZW50UkJBQy5SZWFkV3JpdGUuQWxsIERldmljZU1hbmFnZW1lbnRTZXJ2aWNlQ29uZmlndXJhdGlvbi5SZWFkV3JpdGUuQWxsIERpcmVjdG9yeS5BY2Nlc3NBc1VzZXIuQWxsIGVtYWlsIG9wZW5pZCBwcm9maWxlIFNpdGVzLlJlYWQuQWxsIiwic3ViIjoiNkw5Q1hJeTRsckJPMGZ3RGVIaldCMDZUOGtLOXVBT3c2UnhLS0VYLTN0OCIsInRlbmFudF9yZWdpb25fc2NvcGUiOiJFVSIsInRpZCI6ImE1MWQ4Mjc2LWE4Y2EtNDZhMi04NzY1LWIxNmYyZjdlNWU2YSIsInVuaXF1ZV9uYW1lIjoibWFjaWVqaG9yYmFjekBkdW5lc2JveC5vbm1pY3Jvc29mdC5jb20iLCJ1cG4iOiJtYWNpZWpob3JiYWN6QGR1bmVzYm94Lm9ubWljcm9zb2Z0LmNvbSIsInV0aSI6ImllckFtVU9WMlVHQUd0c1RwdllQQUEiLCJ2ZXIiOiIxLjAiLCJ3aWRzIjpbImUzOTczYmRmLTQ5ODctNDlhZS04MzdhLWJhOGUyMzFjNzI4NiIsIjYyZTkwMzk0LTY5ZjUtNDIzNy05MTkwLTAxMjE3NzE0NWUxMCIsImU4NjExYWI4LWMxODktNDZlOC05NGUxLTYwMjEzYWIxZjgxNCIsImIwZjU0NjYxLTJkNzQtNGM1MC1hZmEzLTFlYzgwM2YxMmVmZSIsIjE5NGFlNGNiLWIxMjYtNDBiMi1iZDViLTYwOTFiMzgwOTc3ZCIsImI3OWZiZjRkLTNlZjktNDY4OS04MTQzLTc2YjE5NGU4NTUwOSJdLCJ4bXNfc3QiOnsic3ViIjoialU1SWVqSGU5MVpjcDlKdHZLNXV3aWJBN0d5SHZfRjUyMzJqa1dZdUFWYyJ9LCJ4bXNfdGNkdCI6MTU3OTI5NzMxNH0.SuWFMS0iGwVZkM_R1zdRMxOIE3N5Mjf2CQOom_0NHh3yKyS_Gl5FxFeeKcsBS8qkWdI7ybBONOLuoebGlLX69PyjTRnlqob8vHSe3h6DiSMwvMAuTE3GQ0yYMM-EMfN96gHIaDargVjknWb48k7CeQuS5b4I8aNuze-yhItZz0jSthucUXmQQtKWEvyh_HvQdcWMOGbYGaBCZDaTSoocek2FUh4bVli_bhfOkBSC2ZNRTXaZ0jvw27Giw3AB8wd70gPjKHKH-RsUmLhdlqdFGxWwX5sYZ_6JY2yTfIIDiZfVN8OpbyosG6XuUDPt02S"</span><span class="w">
+  </span><span class="s2">"x-ms-effective-locale"</span><span class="o">=</span><span class="s2">"en.pl-pl"</span><span class="w">
+  </span><span class="s2">"Accept"</span><span class="o">=</span><span class="s2">"*/*"</span><span class="w">
+  </span><span class="s2">"Referer"</span><span class="o">=</span><span class="s2">""</span><span class="w">
+  </span><span class="s2">"x-ms-client-request-id"</span><span class="o">=</span><span class="s2">"780cb14a-0c3e-4d6b-9160-45f44f6c6ea4"</span><span class="w">
+  </span><span class="s2">"client-request-id"</span><span class="o">=</span><span class="s2">"780cb14a-0c3e-4d6b-9160-45f44f6c6ea4"</span><span class="w">
+</span><span class="p">}</span><span class="w"> </span><span class="se">`
+</span><span class="nt">-ContentType</span><span class="w"> </span><span class="s2">"application/json"</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Not much! But all the juice is there 😎</p>
+
+<p>First of all I always change <code class="language-plaintext highlighter-rouge">Invoke-WebRequest</code> to <code class="language-plaintext highlighter-rouge">Invoke-RestMethod</code>.
+This makes the request response data easier to handle 😉</p>
+
+<p>So we get Graph API URL, Authorization token and Body (if there is any).
+Those three components of this code are the Heros.</p>
+
+<h1 id="move-settings-catalog-profile">Move Settings Catalog profile</h1>
+
+<p>Finally it now the time for you to perform migration of <strong>Settings Catalog</strong> profile from Sandbox to Prod 😝</p>
+
+<p>Until Microsoft adds a action to Export and Import configuration profiles it is the fastest way without installing any additional software!</p>
+
+<p>To be able to move settings catalog profile between tenants we need set of policies and values that are configured in this profile.</p>
+
+<p>So go to the profile that you wish to move and <code class="language-plaintext highlighter-rouge">Edit</code> profile</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2022-02-12-DevTools/7.png" alt="DevTools7" /></p>
+
+<p>You do not need to make any changes!</p>
+
+<p>Just click <code class="language-plaintext highlighter-rouge">Review + save</code> and <code class="language-plaintext highlighter-rouge">Save</code> to capture request that goes after you click <code class="language-plaintext highlighter-rouge">Save</code>.</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$session</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">New-Object</span><span class="w"> </span><span class="nx">Microsoft.PowerShell.Commands.WebRequestSession</span><span class="w">
+</span><span class="nv">$session</span><span class="o">.</span><span class="nf">UserAgent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.80 Safari/537.36 Edg/98.0.1108.50"</span><span class="w">
+</span><span class="n">Invoke-RestMethod</span><span class="w"> </span><span class="nt">-UseBasicParsing</span><span class="w"> </span><span class="nt">-Uri</span><span class="w"> </span><span class="s2">"https://graph.microsoft.com/beta/deviceManagement/configurationPolicies('0d15031a-fd95-4202-a43d-da63117070b8')"</span><span class="w"> </span><span class="se">`
+</span><span class="nt">-Method</span><span class="w"> </span><span class="s2">"PUT"</span><span class="w"> </span><span class="se">`
+</span><span class="nt">-WebSession</span><span class="w"> </span><span class="nv">$session</span><span class="w"> </span><span class="se">`
+</span><span class="nt">-Headers</span><span class="w"> </span><span class="p">@{</span><span class="w">
+</span><span class="s2">"x-ms-client-session-id"</span><span class="o">=</span><span class="s2">"97b2957ca94944f1bf9b5990939c04b0"</span><span class="w">
+  </span><span class="s2">"X-Content-Type-Options"</span><span class="o">=</span><span class="s2">"nosniff"</span><span class="w">
+  </span><span class="s2">"Accept-Language"</span><span class="o">=</span><span class="s2">"en"</span><span class="w">
+  </span><span class="s2">"Authorization"</span><span class="o">=</span><span class="s2">"Bearer eyJ0eXAiOiJKV1QiLCJub25jZSI6Im5idkVmeXd2RExnSjJaMG9BdlRna0xMTmFvREZYdHJHSlRLUEZ1cEdEZ00iLCJhbGciOiJSUzI1NiIsIng1dCI6Ik1yNS1BVWliZkJpaTdOZDFqQmViYXhib1hXMCIsImtpZCI6Ik1yNS1BVWliZkJpaTdOZDFqQmViYXhib1hXMCJ9.eyJhdWQiOiJodHRwczovL2dyYXBoLm1pY3Jvc29mdC5jb20vIiwiaXNzIjoiaHR0cHM6Ly9zdHMud2luZG93cy5uZXQvYTUxZDgyNzYtYThjYS00NmEyLTg3NjUtYjE2ZjJmN2U1ZTZhLyIsImlhdCI6MTY0NDY3NjYzMiwibmJmIjoxNjQ0Njc2NjMyLCJleHAiOjE2NDQ2ODE5MzYsImFjY3QiOjAsImFjciI6IjEiLCJhaW8iOiJFMlpnWUJEWWVlYTZXdGlWN01mQ241ZHNXTFNpWlZQeE9nUHVob1ZjQVF6K01UL1pBK0lCIiwiYW1yIjpbInB3ZCJdLCJhcHBfZGlzcGxheW5hbWUiOiJNaWNyb3NvZnQgSW50dW5lIHBvcnRhbCBleHRlbnNpb24iLCJhcHBpZCI6IjU5MjZmYzhlLTMwNGUtNGY1OS04YmVkLTU4Y2E5N2NjMzlhNCIsImFwcGlkYWNyIjoiMiIsImNvbnRyb2xzIjpbImNhX2VuZiJdLCJmYW1pbHlfbmFtZSI6IkhvcmJhY3oiLCJnaXZlbl9uYW1lIjoiTWFjaWVqIiwiaWR0eXAiOiJ1c2VyIiwiaXBhZGRyIjoiODkuNjQuMTE5LjIxNCIsIm5hbWUiOiJNYWNpZWogSG9yYmFjeiIsIm9pZCI6ImNmMWYwNTI1LWQzMjYtNDVmMy1iYTBlLWZkMDhkYjA3OTM0ZSIsInBsYXRmIjoiMyIsInB1aWQiOiIxMDAzMjAwMDk2M0IwMzQ0IiwicmgiOiIwLkFVY0Fkb0lkcGNxb29rYUhaYkZ2TDM1ZWFnTUFBQUFBQUFBQXdBQUFBQUFBQUFCSEFMMC4iLCJzY3AiOiJDbG91ZFBDLlJlYWQuQWxsIENsb3VkUEMuUmVhZFdyaXRlLkFsbCBEZXZpY2VNYW5hZ2VtZW50QXBwcy5SZWFkV3JpdGUuQWxsIERldmljZU1hbmFnZW1lbnRDb25maWd1cmF0aW9uLlJlYWRXcml0ZS5BbGwgRGV2aWNlTWFuYWdlbWVudE1hbmFnZWREZXZpY2VzLlByaXZpbGVnZWRPcGVyYXRpb25zLkFsbCBEZXZpY2VNYW5hZ2VtZW50TWFuYWdlZERldmljZXMuUmVhZFdyaXRlLkFsbCBEZXZpY2VNYW5hZ2VtZW50UkJBQy5SZWFkV3JpdGUuQWxsIERldmljZU1hbmFnZW1lbnRTZXJ2aWNlQ29uZmlndXJhdGlvbi5SZWFkV3JpdGUuQWxsIERpcmVjdG9yeS5BY2Nlc3NBc1VzZXIuQWxsIGVtYWlsIG9wZW5pZCBwcm9maWxlIFNpdGVzLlJlYWQuQWxsIiwic3ViIjoiNkw5Q1hJeTRsckJPMGZ3RGVIaldCMDZUOGtLOXVBT3c2UnhLS0VYLTN0OCIsInRlbmFudF9yZWdpb25fc2NvcGUiOiJFVSIsInRpZCI6ImE1MWQ4Mjc2LWE4Y2EtNDZhMi04NzY1LWIxNmYyZjdlNWU2YSIsInVuaXF1ZV9uYW1lIjoibWFjaWVqaG9yYmFjekBkdW5lc2JveC5vbm1pY3Jvc29mdC5jb20iLCJ1cG4iOiJtYWNpZWpob3JiYWN6QGR1bmVzYm94Lm9ubWljcm9zb2Z0LmNvbSIsInV0aSI6ImllckFtVU9WMlVHQUd0c1RwdllQQUEiLCJ2ZXIiOiIxLjAiLCJ3aWRzIjpbImUzOTczYmRmLTQ5ODctNDlhZS04MzdhLWJhOGUyMzFjNzI4NiIsIjYyZTkwMzk0LTY5ZjUtNDIzNy05MTkwLTAxMjE3NzE0NWUxMCIsImU4NjExYWI4LWMxODktNDZlOC05NGUxLTYwMjEzYWIxZjgxNCIsImIwZjU0NjYxLTJkNzQtNGM1MC1hZmEzLTFlYzgwM2YxMmVmZSIsIjE5NGFlNGNiLWIxMjYtNDBiMi1iZDViLTYwOTFiMzgwOTc3ZCIsImI3OWZiZjRkLTNlZjktNDY4OS04MTQzLTc2YjE5NGU4NTUwOSJdLCJ4bXNfc3QiOnsic3ViIjoialU1SWVqSGU5MVpjcDlKdHZLNXV3aWJBN0d5SHZfRjUyMzJqa1dZdUFWYyJ9LCJ4bXNfdGNkdCI6MTU3OTI5NzMxNH0.SuWFMS0iGwVZkM_R1zdRMxOIE3N5Mjf2CQOom_0NHh3yKyS_Gl5FxFeeKcsBS8qkWdI7ybBONOLuoebGlLX69PyjTRnlqob8vHSe3h6DiSMwvMAuTE3GQ0yYMM-EMfN96gHIaDargVjknWb48k7CeQuS5b4I8aNuze-yhItZz0jSthucUXmQQtKWEvyh_HvQdcWMOGbYGaBCZDaTSoocek2FUh4bVli_bhfOkBSC2ZNRTXaZ0jvw27Giw3AB8wd70gPjKHKH-RsUmLhdlqdFGxWwX5sYZ_6JY2yTfIIDiZfVN8OpbyosG6XuUDPt02S"</span><span class="w">
+  </span><span class="s2">"x-ms-effective-locale"</span><span class="o">=</span><span class="s2">"en.pl-pl"</span><span class="w">
+  </span><span class="s2">"Accept"</span><span class="o">=</span><span class="s2">"*/*"</span><span class="w">
+  </span><span class="s2">"Referer"</span><span class="o">=</span><span class="s2">""</span><span class="w">
+  </span><span class="s2">"x-ms-client-request-id"</span><span class="o">=</span><span class="s2">"6e90a57a-1cdd-4bbd-992c-991a561319bb"</span><span class="w">
+  </span><span class="s2">"client-request-id"</span><span class="o">=</span><span class="s2">"6e90a57a-1cdd-4bbd-992c-991a561319bb"</span><span class="w">
+</span><span class="p">}</span><span class="w"> </span><span class="se">`
+</span><span class="nt">-ContentType</span><span class="w"> </span><span class="s2">"application/json"</span><span class="w"> </span><span class="se">`
+</span><span class="nt">-Body</span><span class="w"> </span><span class="s2">"{</span><span class="se">`"</span><span class="s2">name</span><span class="se">`"</span><span class="s2">:</span><span class="se">`"</span><span class="s2">Edge</span><span class="se">`"</span><span class="s2">,</span><span class="se">`"</span><span class="s2">description</span><span class="se">`"</span><span class="s2">:</span><span class="se">`"`"</span><span class="s2">,</span><span class="se">`"</span><span class="s2">platforms</span><span class="se">`"</span><span class="s2">:</span><span class="se">`"</span><span class="s2">windows10</span><span class="se">`"</span><span class="s2">,</span><span class="se">`"</span><span class="s2">technologies</span><span class="se">`"</span><span class="s2">:</span><span class="se">`"</span><span class="s2">mdm</span><span class="se">`"</span><span class="s2">,</span><span class="se">`"</span><span class="s2">roleScopeTagIds</span><span class="se">`"</span><span class="s2">:[</span><span class="se">`"</span><span class="s2">0</span><span class="se">`"</span><span class="s2">],</span><span class="se">`"</span><span class="s2">settings</span><span class="se">`"</span><span class="s2">:[{</span><span class="se">`"</span><span class="s2">@odata.type</span><span class="se">`"</span><span class="s2">:</span><span class="se">`"</span><span class="s2">#microsoft.graph.deviceManagementConfigurationSetting</span><span class="se">`"</span><span class="s2">,</span><span class="se">`"</span><span class="s2">settingInstance</span><span class="se">`"</span><span class="s2">:{</span><span class="se">`"</span><span class="s2">@odata.type</span><span class="se">`"</span><span class="s2">:</span><span class="se">`"</span><span class="s2">#microsoft.graph.deviceManagementConfigurationChoiceSettingInstance</span><span class="se">`"</span><span class="s2">,</span><span class="se">`"</span><span class="s2">settingDefinitionId</span><span class="se">`"</span><span class="s2">:</span><span class="se">`"</span><span class="s2">device_vendor_msft_policy_config_microsoft_edge~policy~microsoft_edge~startup_restoreonstartup</span><span class="se">`"</span><span class="s2">,</span><span class="se">`"</span><span class="s2">choiceSettingValue</span><span class="se">`"</span><span class="s2">:{</span><span class="se">`"</span><span class="s2">@odata.type</span><span class="se">`"</span><span class="s2">:</span><span class="se">`"</span><span class="s2">#microsoft.graph.deviceManagementConfigurationChoiceSettingValue</span><span class="se">`"</span><span class="s2">,</span><span class="se">`"</span><span class="s2">value</span><span class="se">`"</span><span class="s2">:</span><span class="se">`"</span><span class="s2">device_vendor_msft_policy_config_microsoft_edge~policy~microsoft_edge~startup_restoreonstartup_1</span><span class="se">`"</span><span class="s2">,</span><span class="se">`"</span><span class="s2">children</span><span class="se">`"</span><span class="s2">:[{</span><span class="se">`"</span><span class="s2">@odata.type</span><span class="se">`"</span><span class="s2">:</span><span class="se">`"</span><span class="s2">#microsoft.graph.deviceManagementConfigurationChoiceSettingInstance</span><span class="se">`"</span><span class="s2">,</span><span class="se">`"</span><span class="s2">settingDefinitionId</span><span class="se">`"</span><span class="s2">:</span><span class="se">`"</span><span class="s2">device_vendor_msft_policy_config_microsoft_edge~policy~microsoft_edge~startup_restoreonstartup_restoreonstartup</span><span class="se">`"</span><span class="s2">,</span><span class="se">`"</span><span class="s2">choiceSettingValue</span><span class="se">`"</span><span class="s2">:{</span><span class="se">`"</span><span class="s2">@odata.type</span><span class="se">`"</span><span class="s2">:</span><span class="se">`"</span><span class="s2">#microsoft.graph.deviceManagementConfigurationChoiceSettingValue</span><span class="se">`"</span><span class="s2">,</span><span class="se">`"</span><span class="s2">value</span><span class="se">`"</span><span class="s2">:</span><span class="se">`"</span><span class="s2">device_vendor_msft_policy_config_microsoft_edge~policy~microsoft_edge~startup_restoreonstartup_restoreonstartup_4</span><span class="se">`"</span><span class="s2">,</span><span class="se">`"</span><span class="s2">children</span><span class="se">`"</span><span class="s2">:[]}}]}}},{</span><span class="se">`"</span><span class="s2">@odata.type</span><span class="se">`"</span><span class="s2">:</span><span class="se">`"</span><span class="s2">#microsoft.graph.deviceManagementConfigurationSetting</span><span class="se">`"</span><span class="s2">,</span><span class="se">`"</span><span class="s2">settingInstance</span><span class="se">`"</span><span class="s2">:{</span><span class="se">`"</span><span class="s2">@odata.type</span><span class="se">`"</span><span class="s2">:</span><span class="se">`"</span><span class="s2">#microsoft.graph.deviceManagementConfigurationChoiceSettingInstance</span><span class="se">`"</span><span class="s2">,</span><span class="se">`"</span><span class="s2">settingDefinitionId</span><span class="se">`"</span><span class="s2">:</span><span class="se">`"</span><span class="s2">device_vendor_msft_policy_config_microsoft_edge~policy~microsoft_edge~startup_restoreonstartupurls</span><span class="se">`"</span><span class="s2">,</span><span class="se">`"</span><span class="s2">choiceSettingValue</span><span class="se">`"</span><span class="s2">:{</span><span class="se">`"</span><span class="s2">@odata.type</span><span class="se">`"</span><span class="s2">:</span><span class="se">`"</span><span class="s2">#microsoft.graph.deviceManagementConfigurationChoiceSettingValue</span><span class="se">`"</span><span class="s2">,</span><span class="se">`"</span><span class="s2">value</span><span class="se">`"</span><span class="s2">:</span><span class="se">`"</span><span class="s2">device_vendor_msft_policy_config_microsoft_edge~policy~microsoft_edge~startup_restoreonstartupurls_1</span><span class="se">`"</span><span class="s2">,</span><span class="se">`"</span><span class="s2">children</span><span class="se">`"</span><span class="s2">:[{</span><span class="se">`"</span><span class="s2">@odata.type</span><span class="se">`"</span><span class="s2">:</span><span class="se">`"</span><span class="s2">#microsoft.graph.deviceManagementConfigurationSimpleSettingCollectionInstance</span><span class="se">`"</span><span class="s2">,</span><span class="se">`"</span><span class="s2">settingDefinitionId</span><span class="se">`"</span><span class="s2">:</span><span class="se">`"</span><span class="s2">device_vendor_msft_policy_config_microsoft_edge~policy~microsoft_edge~startup_restoreonstartupurls_restoreonstartupurlsdesc</span><span class="se">`"</span><span class="s2">,</span><span class="se">`"</span><span class="s2">simpleSettingCollectionValue</span><span class="se">`"</span><span class="s2">:[{</span><span class="se">`"</span><span class="s2">value</span><span class="se">`"</span><span class="s2">:</span><span class="se">`"</span><span class="s2">google.com</span><span class="se">`"</span><span class="s2">,</span><span class="se">`"</span><span class="s2">@odata.type</span><span class="se">`"</span><span class="s2">:</span><span class="se">`"</span><span class="s2">#microsoft.graph.deviceManagementConfigurationStringSettingValue</span><span class="se">`"</span><span class="s2">}]}]}}}],</span><span class="se">`"</span><span class="s2">templateReference</span><span class="se">`"</span><span class="s2">:{</span><span class="se">`"</span><span class="s2">templateId</span><span class="se">`"</span><span class="s2">:</span><span class="se">`"`"</span><span class="s2">,</span><span class="se">`"</span><span class="s2">templateFamily</span><span class="se">`"</span><span class="s2">:</span><span class="se">`"</span><span class="s2">none</span><span class="se">`"</span><span class="s2">,</span><span class="se">`"</span><span class="s2">templateDisplayName</span><span class="se">`"</span><span class="s2">:null,</span><span class="se">`"</span><span class="s2">templateDisplayVersion</span><span class="se">`"</span><span class="s2">:null}}"</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Change <code class="language-plaintext highlighter-rouge">Method</code> to <code class="language-plaintext highlighter-rouge">POST</code>…
+Now with THAT you can create infinite number of this configuration profile anywhere! 🪄</p>
+
+<p>Only one condition must be met</p>
+
+<ul>
+  <li>You need working <code class="language-plaintext highlighter-rouge">Authorization</code> token for destination tenant</li>
+</ul>
+
+<p>How to get token?
+Well that is easy, just sign in to destination tenat and using <code class="language-plaintext highlighter-rouge">DevTools</code> trick copy token for that environment and make changes to the code.</p>
+
+<h1 id="summary">Summary</h1>
+
+<p>I get shivers thinking that I would have to manualy recreate every single setting I’ve set 😖</p>
+
+<p>With that I’ve saved a lot of time moving from simple profile to such that contain dozens of policies!!</p>
+
+<p>See you in next! 😉 🧠</p>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/UniverseCitiz3n" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/UniverseCitiz3n" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 Maciej Horbacz. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/_posts/2022-02-12-SettingsCatalog-Move/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = ""; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://uc3n.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

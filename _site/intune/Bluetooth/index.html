@@ -1,0 +1,733 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Have a cake and eat it too - Maciej Horbacz</title>
+<meta name="description" content="Bluetooth restrictions done right 🐱‍👤">
+
+
+  <meta name="author" content="Hi">
+  
+  <meta property="article:author" content="Hi">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Maciej Horbacz">
+<meta property="og:title" content="Have a cake and eat it too">
+<meta property="og:url" content="http://localhost:4000/intune/Bluetooth/">
+
+
+  <meta property="og:description" content="Bluetooth restrictions done right 🐱‍👤">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/head_image_big.png">
+
+
+
+  <meta name="twitter:site" content="@UniverseCitiz3n">
+  <meta name="twitter:title" content="Have a cake and eat it too">
+  <meta name="twitter:description" content="Bluetooth restrictions done right 🐱‍👤">
+  <meta name="twitter:url" content="http://localhost:4000/intune/Bluetooth/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="http://localhost:4000/assets/head_image_big.png">
+    
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2021-05-12T00:00:00+02:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/intune/Bluetooth/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Maciej Horbacz",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Maciej Horbacz Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+<!-- Twitter cards -->
+<meta name="twitter:site"    content="@">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:title"   content="Have a cake and eat it too">
+
+
+<meta name="twitter:description" content="My ideas and solutions to sysadmin problems">
+
+
+
+<meta name="twitter:card"  content="summary">
+<meta name="twitter:image" content="/assets/head_image_big.png">
+
+<!-- end of Twitter cards -->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide2">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/logo.png" alt=""></a>
+        
+        <a class="site-title" href="/">
+          Maciej Horbacz
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/autopilot/">Autopilot</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/events/">Events</a>
+            </li><li class="masthead__menu-item">
+              <a href="https://leanpub.com/psconfbook3/">Publications</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/terms/">Terms & Conditions</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Have a cake and eat it too">
+    <meta itemprop="description" content="Bluetooth restrictions done right 🐱‍👤">
+    <meta itemprop="datePublished" content="2021-05-12T00:00:00+02:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Have a cake and eat it too
+</h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Table of contents</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#intro">Intro</a></li>
+  <li><a href="#attack-surface-reduction">Attack surface reduction</a></li>
+  <li><a href="#find-more-uuids">Find more UUIDs</a></li>
+  <li><a href="#summary">Summary</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <h1 id="intro">Intro</h1>
+
+<p>Let’s say you wish to restrict users from sending files via bluetooth 📡 but without disable bluetooth itself, also allowing to use headset 🎧.
+You can archive it using wide variety of tools but here you shall learn how to do it using Intune!</p>
+
+<h1 id="attack-surface-reduction">Attack surface reduction</h1>
+
+<p>Even using Intune you can apply restrictions through two different blades.
+Thou you can do it through <strong>Devices-&gt;Windows-&gt;Configuration Profiles</strong> you should start to get used to using <strong>Endpoint Security</strong> tab ‘cause #MEMTeam is heavily investing into that area.</p>
+
+<p>To create bluetooth (and more) restrictions policies go to MEM console =</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-05-12/bt1.png" alt="bt1" /></p>
+
+<p>Enter name and description for your policy</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-05-12/bt2.png" alt="bt2" /></p>
+
+<p>Scroll down to the bluetooth settings.
+At first sigh there are 5 switches to toy with but at the very end you can see <code class="language-plaintext highlighter-rouge">Bluetooth allowed services</code>.
+That’s where the magic ✨ happens!</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-05-12/bt3.png" alt="bt3" /></p>
+
+<p>On that list you specify UUIDs of allowed bluetooth protocol services.
+These UUIDs all use the same base UUID with the profile identifiers added to the beginning of the base UUID.
+For example</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hands Free Profile UUID = base UUID + 0x111E to the beginning = 0000111E-0000-1000-8000-00805F9B34FB
+</code></pre></div></div>
+
+<p>To discover all services please refer to <a href="https://www.bluetooth.com/specifications/assigned-numbers/service-discovery">service discovery</a>.</p>
+
+<p>Your list allowing to use headsets with microphones, mice and keyboard will look like:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>00001108-0000-1000-8000-00805F9B34FB
+0000110B-0000-1000-8000-00805F9B34FB
+0000110E-0000-1000-8000-00805F9B34FB
+0000110F-0000-1000-8000-00805F9B34FB
+0000110c-0000-1000-8000-00805f9b34fb
+00001112-0000-1000-8000-00805f9b34fb
+0000111E-0000-1000-8000-00805F9B34FB
+0000111f-0000-1000-8000-00805f9b34fb
+00001124-0000-1000-8000-00805F9B34FB
+00001131-0000-1000-8000-00805F9B34FB
+00001200-0000-1000-8000-00805F9B34FB
+00001203-0000-1000-8000-00805F9B34FB
+00001800-0000-1000-8000-00805F9B34FB
+00001801-0000-1000-8000-00805F9B34FB
+0000180A-0000-1000-8000-00805F9B34FB
+00001812-0000-1000-8000-00805F9B34FB
+00001813-0000-1000-8000-00805F9B34FB
+</code></pre></div></div>
+
+<p>It contains all services UUIDs related to voice &amp; music and keyboards and mice.
+Save that list as an .csv file and click <strong>Import</strong>.</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-05-12/bt4.png" alt="bt4" /></p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-05-12/bt5.png" alt="bt5" /></p>
+
+<p>Now you can apply policy to your test machine and see if it works 😉.</p>
+
+<h1 id="find-more-uuids">Find more UUIDs</h1>
+
+<p>When restriction such as above is applied there is always slight chance that you missed something or there are thing that you were not aware of!</p>
+
+<p>To find devices that are blocked by policy you can simply open <code class="language-plaintext highlighter-rouge">Device manager</code> on the device and search for items with ⚠ next to the icon.
+When you go into details you might see something like:</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-05-12/bt6.png" alt="bt6" /></p>
+
+<p>Then go to details and search for service UUID. Seems like a few steps…
+Worry not, <code class="language-plaintext highlighter-rouge">PowerShell</code> will help you with fetching required data.
+Just run:</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$Devices</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-PnpDevice</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">where</span><span class="w"> </span><span class="p">{</span><span class="nv">$psitem</span><span class="o">.</span><span class="nf">status</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="s1">'Error'</span><span class="p">}</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">sort</span><span class="w"> </span><span class="nx">friendlyname</span><span class="w">
+</span></code></pre></div></div>
+
+<p>And you will get immediately full list of the devices.
+On that list you are interested in property <strong>InstanceId</strong>.</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-05-12/bt7.png" alt="bt7" /></p>
+
+<p>That ID contains bluetooth service UUID which can be added to Intune policy which will lead to resolving issue with this device.</p>
+
+<h1 id="summary">Summary</h1>
+
+<p>Such approach to handling bluetooth restrictions looks to me to be very clever.</p>
+
+<p>Having possibility to use unique identifiers to tweak policies (and don’t bother is it ABC3000 or XYZ9000) makes life easier!</p>
+
+<p>Thanks IEEE 802.15 and Microsoft</p>
+
+<p>See you in next! 😉 🧠</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#endpoint" class="page__taxonomy-item" rel="tag">Endpoint</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#intune" class="page__taxonomy-item" rel="tag">Intune</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#security" class="page__taxonomy-item" rel="tag">Security</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#workstations" class="page__taxonomy-item" rel="tag">Workstations</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#intune" class="page__taxonomy-item" rel="tag">Intune</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-05-12T00:00:00+02:00">May 12, 2021</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=UniverseCitiz3n&text=Have+a+cake+and+eat+it+too%20http%3A%2F%2Flocalhost%3A4000%2Fintune%2FBluetooth%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fintune%2FBluetooth%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fintune%2FBluetooth%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/azure/Azure-workbook/" class="pagination--pager" title="Create powerful dashboards with Azure Workbooks
+">Previous</a>
+    
+    
+      <a href="/powershell/Reenroll/" class="pagination--pager" title="Reenroll HAADJ Device to Intune
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You may also enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/intune/User-driven-Autopilot/" rel="permalink">Truly user-driven Windows Autopilot
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          6 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Brilliant but kind of risky alternative to group tags 🪄🚀
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/intune/SettingsCatalog-PowerShell/" rel="permalink">Export, Fix, Import - Settings Catalog
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">At first it looked easy but then…
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/intune/IntuneSecurityBaseline-Move/" rel="permalink">How to easily move MDM Security Baseline profile
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">This is a game changer for me 😲
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/powershell/SettingsCatalog-Move/" rel="permalink">How to easily move Settings Catalog profile
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">With this simple trick, you can save a lot of time 😁
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/UniverseCitiz3n" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/UniverseCitiz3n" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 Maciej Horbacz. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/intune/Bluetooth/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/intune/Bluetooth"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://uc3n.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

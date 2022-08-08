@@ -1,0 +1,724 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Remote change of wallpaper with Powershell - Maciej Horbacz</title>
+<meta name="description" content="It’s good to sometimes make a prank on your colleagues">
+
+
+  <meta name="author" content="Hi">
+  
+  <meta property="article:author" content="Hi">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Maciej Horbacz">
+<meta property="og:title" content="Remote change of wallpaper with Powershell">
+<meta property="og:url" content="http://localhost:4000/powershell/Change-Wallpaper-Remotely/">
+
+
+  <meta property="og:description" content="It’s good to sometimes make a prank on your colleagues">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/head_image_big.png">
+
+
+
+  <meta name="twitter:site" content="@UniverseCitiz3n">
+  <meta name="twitter:title" content="Remote change of wallpaper with Powershell">
+  <meta name="twitter:description" content="It’s good to sometimes make a prank on your colleagues">
+  <meta name="twitter:url" content="http://localhost:4000/powershell/Change-Wallpaper-Remotely/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="http://localhost:4000/assets/head_image_big.png">
+    
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2019-12-08T00:00:00+01:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/powershell/Change-Wallpaper-Remotely/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Maciej Horbacz",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Maciej Horbacz Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+<!-- Twitter cards -->
+<meta name="twitter:site"    content="@">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:title"   content="Remote change of wallpaper with Powershell">
+
+
+<meta name="twitter:description" content="My ideas and solutions to sysadmin problems">
+
+
+
+<meta name="twitter:card"  content="summary">
+<meta name="twitter:image" content="/assets/head_image_big.png">
+
+<!-- end of Twitter cards -->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide2">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/logo.png" alt=""></a>
+        
+        <a class="site-title" href="/">
+          Maciej Horbacz
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/autopilot/">Autopilot</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/events/">Events</a>
+            </li><li class="masthead__menu-item">
+              <a href="https://leanpub.com/psconfbook3/">Publications</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/terms/">Terms & Conditions</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Remote change of wallpaper with Powershell">
+    <meta itemprop="description" content="It’s good to sometimes make a prank on your colleagues">
+    <meta itemprop="datePublished" content="2019-12-08T00:00:00+01:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Remote change of wallpaper with Powershell
+</h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Table of contents</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#intro">Intro</a></li>
+  <li><a href="#how-to-do-it">How to do it</a></li>
+  <li><a href="#summary">Summary</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <h1 id="intro">Intro</h1>
+
+<p>For me those kind of ideas are the best. While solving such issue I’m learing mysteries of OS which I would normally even won’t care about 😋. And playing a trick on someone is my fuel 😈</p>
+
+<h1 id="how-to-do-it">How to do it</h1>
+
+<p>Windows stores information about wallpaper in registry for every user in their profile hives. In “HKU:$UserSID\Control Panel\Desktop” there are three string values which you need to maniuplate:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Wallpaper</td>
+      <td>The path to the wallpaper picture can point to a: .bmp, .gif, .jpg, .png, or .tif file</td>
+    </tr>
+    <tr>
+      <td>TileWallpaper</td>
+      <td>- 0: The wallpaper picture should not be tiled<br /> - 1: The wallpaper picture should be tiled</td>
+    </tr>
+    <tr>
+      <td>WallpaperStyle</td>
+      <td>- 0:  The image is centered if TileWallpaper=0 or tiled if TileWallpaper=1 <br /> - 2:  The image is stretched to fill the screen <br /> - 6:  The image is resized to fit the screen while maintaining the aspect ratio. (Windows 7 and later) <br /> - 10: The image is resized and cropped to fill the screen while maintaining the aspect ratio. (Windows 7 and later)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>That’s all the magic.</p>
+
+<p>By default when your are remoting to another device session connects you to profile linked with credentials you used. So to change wallpaper for another user you need to look for SID of his profile. It can be simply done like that:</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Set-Location</span><span class="w"> </span><span class="s1">'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList'</span><span class="w">
+</span><span class="nv">$profiles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-ChildItem</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Where-Object</span><span class="w"> </span><span class="p">{</span><span class="bp">$PSItem</span><span class="o">.</span><span class="nf">PSPath</span><span class="w"> </span><span class="o">-like</span><span class="w"> </span><span class="s1">'S-1-5-21*'</span><span class="p">}</span><span class="w">
+</span><span class="nv">$UserName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$profiles</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Get-ItemProperty</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Select-Object</span><span class="w"> </span><span class="nx">ProfileImagePath</span><span class="p">,</span><span class="nx">PSChildName</span><span class="w">
+</span></code></pre></div></div>
+
+<p>User profiles start with <strong>S-1-5-21</strong> so I’m searching only for those. ProfileImagePath stores location of profile folder which contains username and PSChildName stores SID which is needed for locating registry profile hive. With those information you can already go to setting registry values or if you want to change wallpaper for currently logon user use:</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$Sessions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">quser</span><span class="w">
+</span><span class="nv">$LogonUsers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Sessions</span><span class="w"> </span><span class="o">-replace</span><span class="w">  </span><span class="s1">'\s{2,}'</span><span class="p">,</span><span class="w"> </span><span class="s1">','</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ConvertFrom-Csv</span><span class="w">
+</span><span class="nx">Write-Host</span><span class="w"> </span><span class="s1">'Logon users (active user has '</span><span class="err">&gt;</span><span class="s1">'):'</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Yellow</span><span class="w">
+</span><span class="nv">$i</span><span class="o">=</span><span class="mi">0</span><span class="w">
+</span><span class="kr">Foreach</span><span class="p">(</span><span class="nv">$User</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$LogonUsers</span><span class="o">.</span><span class="nf">USERNAME</span><span class="p">){</span><span class="w">
+    </span><span class="n">Write-Host</span><span class="w"> </span><span class="s2">"</span><span class="nv">$i</span><span class="s2">. </span><span class="nv">$User</span><span class="s2">"</span><span class="w">
+    </span><span class="nv">$i</span><span class="o">++</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="n">Write-host</span><span class="w"> </span><span class="s1">'Choose user for which you want to set wallpaper (0,1,2,etc):'</span><span class="w"> </span><span class="nt">-NoNewline</span><span class="w">
+</span><span class="nv">$Choice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Read-Host</span><span class="w"> 
+</span><span class="nv">$ActiveUsers</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="nv">$LogonUsers</span><span class="p">[</span><span class="nv">$Choice</span><span class="p">]</span><span class="w">
+</span><span class="nv">$UserSID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nv">$UserName</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Where-Object</span><span class="w"> </span><span class="p">{</span><span class="bp">$PSItem</span><span class="o">.</span><span class="nf">ProfileImagePath</span><span class="w"> </span><span class="o">-like</span><span class="w"> </span><span class="s2">"*</span><span class="si">$(</span><span class="nv">$ActiveUsers</span><span class="o">.</span><span class="nf">USERNAME</span><span class="o">.</span><span class="nf">Replace</span><span class="p">(</span><span class="s1">'&gt;'</span><span class="p">,</span><span class="s1">''</span><span class="p">)</span><span class="si">)</span><span class="s2">"</span><span class="p">})</span><span class="o">.</span><span class="nf">PSChildName</span><span class="w">
+</span></code></pre></div></div>
+
+<p>If you choose your victim you can proceed with applying your wallpaper.</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$Scriptblock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="kr">param</span><span class="p">(</span><span class="nv">$UserSID</span><span class="p">)</span><span class="w">
+    </span><span class="nv">$ProfileHive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"HKU:\</span><span class="nv">$UserSID</span><span class="s2">\Control Panel\Desktop"</span><span class="w">
+    </span><span class="n">Write-Host</span><span class="w"> </span><span class="s1">'Wallpaper file present: '</span><span class="w"> </span><span class="nt">-NoNewline</span><span class="w">
+    </span><span class="nv">$NewWallpaperPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c:\path\to\your\file.jpg</span><span class="w">
+    </span><span class="nv">$TestPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Test-Path</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="nv">$NewWallpaperPath</span><span class="w"> 
+    </span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$TestPath</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="s1">'True'</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="n">Write-Host</span><span class="w"> </span><span class="nv">$TestPath</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Green</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    </span><span class="kr">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="n">Write-Host</span><span class="w"> </span><span class="nv">$TestPath</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Red</span><span class="w">
+        </span><span class="kr">Break</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    </span><span class="n">Write-Host</span><span class="w"> </span><span class="s1">'Connecting HKEY_USERS'</span><span class="w">
+    </span><span class="n">New-PSDrive</span><span class="w"> </span><span class="nt">-PSProvider</span><span class="w"> </span><span class="nx">Registry</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="nx">HKU</span><span class="w"> </span><span class="nt">-Root</span><span class="w"> </span><span class="nx">HKEY_USERS</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">out-null</span><span class="w">
+    </span><span class="nx">Set-location</span><span class="w"> </span><span class="nx">HKU:</span><span class="w">
+    </span><span class="n">Write-Host</span><span class="w"> </span><span class="s1">'Old wallpaper file'</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Red</span><span class="w">
+    </span><span class="n">Get-ItemProperty</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="nv">$ProfileHive</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Select-Object</span><span class="w"> </span><span class="nx">WallPaper</span><span class="w"> </span><span class="nt">-ExpandProperty</span><span class="w"> </span><span class="nv">$Value</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Out-Default</span><span class="w">
+    </span><span class="nx">Write-Host</span><span class="w"> </span><span class="s1">'Changing wallpaper'</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Yellow</span><span class="w">
+    </span><span class="n">Write-Host</span><span class="w">
+    </span><span class="nx">Remove-ItemProperty</span><span class="w"> </span><span class="nt">-path</span><span class="w"> </span><span class="nv">$ProfileHive</span><span class="w"> </span><span class="nt">-name</span><span class="w"> </span><span class="nx">WallPaper</span><span class="w"> 
+    </span><span class="n">set-itemproperty</span><span class="w"> </span><span class="nt">-path</span><span class="w"> </span><span class="nv">$ProfileHive</span><span class="w"> </span><span class="nt">-name</span><span class="w"> </span><span class="nx">WallPaper</span><span class="w"> </span><span class="nt">-value</span><span class="w"> </span><span class="nv">$NewWallpaperPath</span><span class="w">
+    </span><span class="n">set-itemproperty</span><span class="w"> </span><span class="nt">-path</span><span class="w"> </span><span class="nv">$ProfileHive</span><span class="w"> </span><span class="nt">-name</span><span class="w"> </span><span class="nx">WallPaperStyle</span><span class="w"> </span><span class="nt">-value</span><span class="w"> </span><span class="nx">2</span><span class="w">
+    </span><span class="c">#Set-ItemProperty -Path $ProfileHive -Name TileWallpaper -value 0</span><span class="w">
+    </span><span class="n">Write-Host</span><span class="w"> </span><span class="s1">'New wallpaper file'</span><span class="w"> </span><span class="nt">-ForegroundColor</span><span class="w"> </span><span class="nx">Green</span><span class="w">
+    </span><span class="n">Get-ItemProperty</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="nv">$ProfileHive</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Select-Object</span><span class="w"> </span><span class="nx">WallPaper</span><span class="w"> </span><span class="nt">-ExpandProperty</span><span class="w"> </span><span class="nv">$Value</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Out-Default</span><span class="w">
+    </span><span class="nx">1..3</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ForEach-Object</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">RUNDLL32.EXE</span><span class="w"> </span><span class="nx">USER32.DLL</span><span class="p">,</span><span class="w"> </span><span class="nx">UpdatePerUserSystemParameters</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="n">Invoke-Command</span><span class="w"> </span><span class="nt">-ComputerName</span><span class="w"> </span><span class="nv">$ComputerName</span><span class="w"> </span><span class="nt">-Scriptblock</span><span class="w"> </span><span class="nv">$Scriptblock</span><span class="w"> </span><span class="nt">-ArgumentList</span><span class="w"> </span><span class="nv">$UserSID</span><span class="w">
+</span></code></pre></div></div>
+<p>There is not much happening this code but I think that last line of <strong>scriptblock</strong> might be misterious. By default new setting are applied on user logon but to speed up changes you can run</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">RUNDLL32.EXE</span><span class="w"> </span><span class="nx">USER32.DLL</span><span class="p">,</span><span class="w"> </span><span class="nx">UpdatePerUserSystemParameters</span><span class="w">
+</span></code></pre></div></div>
+
+<p>But from my experience and from what I’ve read online it is the best to run it a few times just to be sure!</p>
+
+<h1 id="summary">Summary</h1>
+
+<p>Prank like that is harmless but be sure that you are not messing with someone who might fight back with even bigger guns 💀.</p>
+
+<p>See you in next! 😉 🧠</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#tips-n-tricks" class="page__taxonomy-item" rel="tag">Tips'n'Tricks</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#workstations" class="page__taxonomy-item" rel="tag">Workstations</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#powershell" class="page__taxonomy-item" rel="tag">Powershell</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2019-12-08T00:00:00+01:00">December 8, 2019</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=UniverseCitiz3n&text=Remote+change+of+wallpaper+with+Powershell%20http%3A%2F%2Flocalhost%3A4000%2Fpowershell%2FChange-Wallpaper-Remotely%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fpowershell%2FChange-Wallpaper-Remotely%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fpowershell%2FChange-Wallpaper-Remotely%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/intune/Intune-Bind-Device-AD/" class="pagination--pager" title="Binding macOS device to Active Directory using Intune
+">Previous</a>
+    
+    
+      <a href="/intune/Intune-Problems-Solving/" class="pagination--pager" title="Intune - dealing with ErrorCode 0x8018002b
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You may also enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/intune/User-driven-Autopilot/" rel="permalink">Truly user-driven Windows Autopilot
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          6 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Brilliant but kind of risky alternative to group tags 🪄🚀
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/intune/SettingsCatalog-PowerShell/" rel="permalink">Export, Fix, Import - Settings Catalog
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">At first it looked easy but then…
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/intune/IntuneSecurityBaseline-Move/" rel="permalink">How to easily move MDM Security Baseline profile
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">This is a game changer for me 😲
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/powershell/SettingsCatalog-Move/" rel="permalink">How to easily move Settings Catalog profile
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">With this simple trick, you can save a lot of time 😁
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/UniverseCitiz3n" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/UniverseCitiz3n" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 Maciej Horbacz. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/powershell/Change-Wallpaper-Remotely/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/powershell/Change-Wallpaper-Remotely"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://uc3n.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

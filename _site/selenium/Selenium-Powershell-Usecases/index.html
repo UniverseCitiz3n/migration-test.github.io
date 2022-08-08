@@ -1,0 +1,715 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Browser automation with Selenium - use cases - Maciej Horbacz</title>
+<meta name="description" content="What you can do and how to automate clicking in browser with Powershell">
+
+
+  <meta name="author" content="Hi">
+  
+  <meta property="article:author" content="Hi">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Maciej Horbacz">
+<meta property="og:title" content="Browser automation with Selenium - use cases">
+<meta property="og:url" content="http://localhost:4000/selenium/Selenium-Powershell-Usecases/">
+
+
+  <meta property="og:description" content="What you can do and how to automate clicking in browser with Powershell">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/head_image_big.png">
+
+
+
+  <meta name="twitter:site" content="@UniverseCitiz3n">
+  <meta name="twitter:title" content="Browser automation with Selenium - use cases">
+  <meta name="twitter:description" content="What you can do and how to automate clicking in browser with Powershell">
+  <meta name="twitter:url" content="http://localhost:4000/selenium/Selenium-Powershell-Usecases/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="http://localhost:4000/assets/head_image_big.png">
+    
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2019-10-09T00:00:00+02:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/selenium/Selenium-Powershell-Usecases/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Maciej Horbacz",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Maciej Horbacz Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+<!-- Twitter cards -->
+<meta name="twitter:site"    content="@">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:title"   content="Browser automation with Selenium - use cases">
+
+
+<meta name="twitter:description" content="My ideas and solutions to sysadmin problems">
+
+
+
+<meta name="twitter:card"  content="summary">
+<meta name="twitter:image" content="/assets/head_image_big.png">
+
+<!-- end of Twitter cards -->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide2">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/logo.png" alt=""></a>
+        
+        <a class="site-title" href="/">
+          Maciej Horbacz
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/autopilot/">Autopilot</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/events/">Events</a>
+            </li><li class="masthead__menu-item">
+              <a href="https://leanpub.com/psconfbook3/">Publications</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/terms/">Terms & Conditions</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Browser automation with Selenium - use cases">
+    <meta itemprop="description" content="What you can do and how to automate clicking in browser with Powershell">
+    <meta itemprop="datePublished" content="2019-10-09T00:00:00+02:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Browser automation with Selenium - use cases
+</h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Table of contents</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#intro">Intro</a></li>
+  <li><a href="#signing-in">Signing in</a></li>
+  <li><a href="#tables-on-sites">Tables on sites</a></li>
+  <li><a href="#files">Files</a></li>
+  <li><a href="#summary">Summary</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <h1 id="intro">Intro</h1>
+
+<p>In this post I am going to show you some use cases of Selenium in automating browser where API is unavailable or not enough. Before we continue please be sure to check first steps in using this testing framework via Powershell - <a href="http://localhost:4000/selenium/Selenium-Powershell/">How to use Selenium via Powershell
+</a> 😉 <br />
+…ok, done reading? Let’s roll!</p>
+
+<h1 id="signing-in">Signing in</h1>
+
+<p>What I’m about to show you might not be the most clever way to pass credentials at websites but it works in controlled environment. Just like in introduction most of the times we have:</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2019-10-09-1.jpg" alt="login" /></p>
+
+<p>So we need to fill username, password and captcha but there is no trick to that.</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$Credential</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-Credentials</span><span class="w">
+</span><span class="nv">$BSTR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">System.Runtime.InteropServices.Marshal</span><span class="p">]::</span><span class="n">SecureStringToBSTR</span><span class="p">(</span><span class="nv">$Credential</span><span class="o">.</span><span class="nf">Password</span><span class="p">)</span><span class="w">
+</span><span class="nv">$PlainPass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">System.Runtime.InteropServices.Marshal</span><span class="p">]::</span><span class="n">PtrToStringAuto</span><span class="p">(</span><span class="nv">$BSTR</span><span class="p">)</span><span class="w">
+
+</span><span class="nv">$ChromeDriver</span><span class="o">.</span><span class="nf">FindElementsById</span><span class="p">(</span><span class="s1">'user_login'</span><span class="p">)</span><span class="o">.</span><span class="nf">SendKeys</span><span class="p">(</span><span class="nv">$Credential</span><span class="o">.</span><span class="nf">UserName</span><span class="p">)</span><span class="w">
+</span><span class="n">Start-Sleep</span><span class="w"> </span><span class="nx">1</span><span class="w">
+</span><span class="nv">$ChromeDriver</span><span class="o">.</span><span class="nf">FindElementsById</span><span class="p">(</span><span class="s1">'user_pass'</span><span class="p">)</span><span class="o">.</span><span class="nf">SendKeys</span><span class="p">(</span><span class="nv">$PlainPass</span><span class="p">)</span><span class="w">
+</span><span class="n">Start-Sleep</span><span class="w"> </span><span class="nx">30</span><span class="w"> </span><span class="c">#Wait for user to pass captcha</span><span class="w">
+</span><span class="nv">$ChromeDriver</span><span class="o">.</span><span class="nf">FindElementsById</span><span class="p">(</span><span class="s1">'wp-submit'</span><span class="p">)</span><span class="o">.</span><span class="nf">Click</span><span class="p">()</span><span class="w">
+</span></code></pre></div></div>
+
+<p>I’ve created <strong>PSCredential</strong> variable and to be able to fill in password field we need to decipher it. Without those steps you will be entering <strong>System.Security.SecureString</strong> which obviously is not your password, or is it? 🤔<br />
+Regarding <strong>captcha</strong> the only way is to pause script until user passes the test.</p>
+
+<h1 id="tables-on-sites">Tables on sites</h1>
+
+<p>Great example of table which required help of Selenium is permission table in Confluence Spaces.<br /></p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2019-10-09-2.jpg" alt="Space" /></p>
+
+<p>I were not able to change them using module <strong>ConfluencePS</strong> but thanks to that code it became piece of cake! In this example I’m adding new group to permissions list and ticking checkboxes to resemble Admin permissions</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#Adding new group to permissions list</span><span class="w">
+</span><span class="nv">$ChromeDriver</span><span class="o">.</span><span class="nf">FindElementById</span><span class="p">(</span><span class="s2">"groups-to-add-autocomplete"</span><span class="p">)</span><span class="o">.</span><span class="nf">SendKeys</span><span class="p">(</span><span class="s2">"Conf_GroupName_Admin"</span><span class="p">)</span><span class="w">
+</span><span class="n">Start-Sleep</span><span class="w"> </span><span class="nt">-Milliseconds</span><span class="w"> </span><span class="nx">500</span><span class="w">
+</span><span class="c">#Clicking Add button</span><span class="w">
+</span><span class="nv">$ChromeDriver</span><span class="o">.</span><span class="nf">FindElementByXPath</span><span class="p">(</span><span class="s1">'//*[@id="space-tools-body"]/form/div/div[3]/input[2]'</span><span class="p">)</span><span class="o">.</span><span class="nf">Click</span><span class="p">()</span><span class="w">
+</span><span class="c">#Loop ticking checkboxes</span><span class="w">
+</span><span class="kr">for</span><span class="w"> </span><span class="p">(</span><span class="nv">$i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="nv">$i</span><span class="w"> </span><span class="o">-le</span><span class="w"> </span><span class="s1">'13'</span><span class="p">;</span><span class="w"> </span><span class="nv">$i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nv">$ChromeDriver</span><span class="o">.</span><span class="nf">FindElementByXPath</span><span class="p">(</span><span class="s2">"//*[@id='gPermissionsTable']/tbody/tr[3]/td[</span><span class="nv">$i</span><span class="s2">]/input"</span><span class="p">)</span><span class="o">.</span><span class="nf">Click</span><span class="p">()</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="c">#One last checkbox</span><span class="w">
+</span><span class="nv">$ChromeDriver</span><span class="o">.</span><span class="nf">FindElementByXPath</span><span class="p">(</span><span class="s1">'//*[@id="gPermissionsTable"]/tbody/tr[3]/td[15]/input'</span><span class="p">)</span><span class="o">.</span><span class="nf">Click</span><span class="p">()</span><span class="w">
+</span><span class="c">#Saving all the changes</span><span class="w">
+</span><span class="nv">$ChromeDriver</span><span class="o">.</span><span class="nf">FindElementByXPath</span><span class="p">(</span><span class="s1">'//*[@id="space-tools-body"]/form/div/div[9]/input[1]'</span><span class="p">)</span><span class="o">.</span><span class="nf">Click</span><span class="p">()</span><span class="w">
+</span></code></pre></div></div>
+
+<p>You can see that in a loop I’m only clicking boxes where cell number is equal $i. I’ve checked that first box which interests me has number 4 and I need to check every box until 13 and then box 15. At the end don’t forget to <strong>Save all</strong> changes 😉</p>
+
+<h1 id="files">Files</h1>
+
+<p>During my automation journey the need to download and upload files was bound to come sooner or later.<br />
+Downloading is easy and there is nothing new, just find <strong>Download</strong> button and click on it!<br />
+Uploading a file took me a some time to figure out but it turned out easy too!</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#Find upload button and then send path to file</span><span class="w">
+</span><span class="nv">$ChromeDriver</span><span class="o">.</span><span class="nf">FindElementsById</span><span class="p">(</span><span class="s1">'file'</span><span class="p">)</span><span class="o">.</span><span class="nf">SendKeys</span><span class="p">(</span><span class="s1">'C:\Temp\14853163_141016446369733_5206568431232995795_o.jpg'</span><span class="p">)</span><span class="w">
+</span><span class="c">#CLicking on image convert button</span><span class="w">
+</span><span class="nv">$ChromeDriver</span><span class="o">.</span><span class="nf">FindElementById</span><span class="p">(</span><span class="s1">'convert-button'</span><span class="p">)</span><span class="o">.</span><span class="nf">Click</span><span class="p">()</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Trick to that was just to send file path to <strong>upload</strong> element on website.</p>
+
+<h1 id="summary">Summary</h1>
+
+<p>I hope that those few use cases will help you in feeling Selenium vibe and you will be able to apply them in your automation tasks!<br /></p>
+
+<p>See you in next! 😉 🧠</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#automation" class="page__taxonomy-item" rel="tag">Automation</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#confluence" class="page__taxonomy-item" rel="tag">Confluence</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#credentials" class="page__taxonomy-item" rel="tag">Credentials</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#powershell" class="page__taxonomy-item" rel="tag">Powershell</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#selenium" class="page__taxonomy-item" rel="tag">Selenium</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#selenium" class="page__taxonomy-item" rel="tag">Selenium</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2019-10-09T00:00:00+02:00">October 9, 2019</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=UniverseCitiz3n&text=Browser+automation+with+Selenium+-+use+cases%20http%3A%2F%2Flocalhost%3A4000%2Fselenium%2FSelenium-Powershell-Usecases%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fselenium%2FSelenium-Powershell-Usecases%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fselenium%2FSelenium-Powershell-Usecases%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/selenium/Selenium-Powershell/" class="pagination--pager" title="How to use Selenium via Powershell
+">Previous</a>
+    
+    
+      <a href="/intune/Intune-Bind-Device-AD/" class="pagination--pager" title="Binding macOS device to Active Directory using Intune
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You may also enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/intune/User-driven-Autopilot/" rel="permalink">Truly user-driven Windows Autopilot
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          6 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Brilliant but kind of risky alternative to group tags 🪄🚀
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/intune/SettingsCatalog-PowerShell/" rel="permalink">Export, Fix, Import - Settings Catalog
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">At first it looked easy but then…
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/intune/IntuneSecurityBaseline-Move/" rel="permalink">How to easily move MDM Security Baseline profile
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">This is a game changer for me 😲
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/powershell/SettingsCatalog-Move/" rel="permalink">How to easily move Settings Catalog profile
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">With this simple trick, you can save a lot of time 😁
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/UniverseCitiz3n" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/UniverseCitiz3n" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 Maciej Horbacz. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/selenium/Selenium-Powershell-Usecases/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/selenium/Selenium-Powershell-Usecases"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://uc3n.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

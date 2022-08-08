@@ -1,0 +1,463 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>How long would it take… - Maciej Horbacz</title>
+<meta name="description" content="… to fix hundreds of users mobile numbers in AzureAD MFA config manually? 😱">
+
+
+  <meta name="author" content="Hi">
+  
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Maciej Horbacz">
+<meta property="og:title" content="How long would it take…">
+<meta property="og:url" content="http://localhost:4000/_posts/2020-02-25-MFA-Selenium/">
+
+
+  <meta property="og:description" content="… to fix hundreds of users mobile numbers in AzureAD MFA config manually? 😱">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/head_image_big.png">
+
+
+
+  <meta name="twitter:site" content="@UniverseCitiz3n">
+  <meta name="twitter:title" content="How long would it take…">
+  <meta name="twitter:description" content="… to fix hundreds of users mobile numbers in AzureAD MFA config manually? 😱">
+  <meta name="twitter:url" content="http://localhost:4000/_posts/2020-02-25-MFA-Selenium/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="http://localhost:4000/assets/head_image_big.png">
+    
+  
+
+  
+
+
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/_posts/2020-02-25-MFA-Selenium/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Maciej Horbacz",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Maciej Horbacz Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+<!-- Twitter cards -->
+<meta name="twitter:site"    content="@">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:title"   content="How long would it take...">
+
+
+<meta name="twitter:description" content="My ideas and solutions to sysadmin problems">
+
+
+
+<meta name="twitter:card"  content="summary">
+<meta name="twitter:image" content="/assets/head_image_big.png">
+
+<!-- end of Twitter cards -->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--page">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/logo.png" alt=""></a>
+        
+        <a class="site-title" href="/">
+          Maciej Horbacz
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/autopilot/">Autopilot</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/events/">Events</a>
+            </li><li class="masthead__menu-item">
+              <a href="https://leanpub.com/psconfbook3/">Publications</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/terms/">Terms & Conditions</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      <h1 id="intro">Intro</h1>
+
+<p>Multi-factor authentication (MFA) is great security measure. The most common second factor is probably SMS code sent to your mobile phone. And what could go wrong there? Well I don’t know how but at some point recently we had around <strong>150 users</strong> which did not receive codes even though they configured <strong>MFA</strong>.</p>
+
+<h1 id="issue">Issue</h1>
+
+<p>A user raised an issue that he does not receive codes for MFA. Is it cellphone carrier issue? Maybe user changed number and forgot about it? Or something else? First two assumptions were ruled out immediately so I focused on configuration of the service itself. For that I went to <strong>user profile</strong> in <strong>Azure AD</strong> and then to <strong>Authentication methods</strong>. There I saw:</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2020-02-25-mfa.jpg" alt="mfa" /></p>
+
+<p>Duplicated international call prefix 😮. I’ve removed additional digits - <strong>0048</strong> - and SMS codes began to arrive to user. That was easy! But then wondering came… how many users might have the same issue? 🤔<br />
+To check that I’ve run:</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Connect-MsolService</span><span class="w">
+</span><span class="nv">$MSONUSER</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-MsolUser</span><span class="w"> </span><span class="nt">-All</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">select</span><span class="w"> </span><span class="nx">DisplayName</span><span class="w"> </span><span class="nt">-ExpandProperty</span><span class="w"> </span><span class="nx">StrongAuthenticationUserDetails</span><span class="w"> </span><span class="o">|</span><span class="err">`</span><span class="w">
+</span><span class="n">select</span><span class="w"> </span><span class="nx">DisplayName</span><span class="p">,</span><span class="nx">email</span><span class="p">,</span><span class="nx">phonenumber</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Some sorting and filtering and I ended up with list of around 150 users which fitted in similar pattern where country prefix was doubled. I won’t fix it manually!! Let’s use some Powershell of MSGraph 😎.<br /></p>
+<font size="36">NOPE</font>
+<p><br />
+Powershell can’t do that and API is (as on 25.02.2020) to be hopefully exposed in <a href="https://microsoftgraph.uservoice.com/forums/920506-microsoft-graph-feature-requests/suggestions/18493399-expose-user-authentication-phone-and-authenticatio">Q1 2020</a>.<br />
+Some quick calculations…</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2020-02-25-mfa2.gif" alt="mfa2" /></p>
+
+<p>150 users x 2-5 minutes = 300-750 minutes = <strong>5-12, 5 hours</strong></p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2020-02-25-mfa3.gif" alt="mfa3" /></p>
+
+<p>There must be some way!! Wait a minute… 💡</p>
+
+<h1 id="selenium">Selenium</h1>
+
+<p>If I’m not gonna click it then let’s make browser click for me 😁 (<a href="https://universecitiz3n.tech/selenium/Selenium-Powershell/">Checkout my post about starting with Selenium</a>). All I need is list of problematic users with their correct numbers and overview of properties of boxes in authorization methods tab. So to let’s take a look at <strong>url</strong> of page while being in MFA tab</p>
+
+<p><a href="https://portal.azure.com/#blade/Microsoft_AAD_IAM/UserDetailsMenuBlade/UserAuthMethods/userId/">https://portal.azure.com/#blade/Microsoft_AAD_IAM/UserDetailsMenuBlade/UserAuthMethods/userId/</a><br /><strong>7af69645-0661-451f-b9fd-4fa36946f164</strong>/adminUnitObjectId/</p>
+
+<p>The only thing that changes is userID which you can grab from AzureAD like that</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Connect-AzureAD</span><span class="w">
+</span><span class="nv">$AADUsers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-AzureADUser</span><span class="w"> </span><span class="nt">-All</span><span class="p">:</span><span class="nv">$True</span><span class="w">
+</span><span class="c">#That way we get list of all users and it should look like that:</span><span class="w">
+</span><span class="n">ObjectId</span><span class="w">                             </span><span class="nx">DisplayName</span><span class="w">       </span><span class="nx">UserPrincipalName</span><span class="w">                      </span><span class="nx">UserType</span><span class="w">
+</span><span class="o">--------</span><span class="w">                             </span><span class="o">-----------</span><span class="w">       </span><span class="o">-----------------</span><span class="w">                      </span><span class="o">--------</span><span class="w">
+</span><span class="mi">7</span><span class="n">af69645-0661-451f-b9fd-4fa36946f164</span><span class="w"> </span><span class="nx">Adele</span><span class="w"> </span><span class="nx">Vance</span><span class="w">       </span><span class="nx">AdeleV</span><span class="err">@</span><span class="nx">dunesbox.onmicrosoft.com</span><span class="w">        </span><span class="nx">Member</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Next thing. I did not expect that providing box properties will be such challenge. Normally you can operate on ID of an item and it will not change. But portal.azure.com proved me wrong! There IDs are randomly generated on every page refresh 😐. But <strong>name</strong> of a box always starts with <strong>__azc-textBox</strong> and at the end there is a digit. At the begging I though that <strong>Phone</strong> box will always have index 0 but this too was incorrect. There is one more box which is every time while you are on this site… top search box!</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2020-02-25-mfa4.jpg" alt="mfa4" /></p>
+
+<p>Knowing that I decided not to rely on name of a box entirely but rather on coordinates.<br />So I iterate through first 5</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$Boxes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$i</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="mi">0</span><span class="o">..</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nv">$TextBox</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"__azc-textBox</span><span class="nv">$i</span><span class="s2">"</span><span class="w">
+        </span><span class="kr">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nv">$LocationX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$ChromeDriver</span><span class="o">.</span><span class="nf">FindElementByName</span><span class="p">(</span><span class="s2">"__azc-textBox</span><span class="nv">$i</span><span class="s2">"</span><span class="p">)</span><span class="o">.</span><span class="nf">Location</span><span class="o">.</span><span class="nf">X</span><span class="w">
+            </span><span class="nv">$LocationY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$ChromeDriver</span><span class="o">.</span><span class="nf">FindElementByName</span><span class="p">(</span><span class="s2">"__azc-textBox</span><span class="nv">$i</span><span class="s2">"</span><span class="p">)</span><span class="o">.</span><span class="nf">Location</span><span class="o">.</span><span class="nf">Y</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+        </span><span class="kr">catch</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nv">$TextBox</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'No such box'</span><span class="w">
+            </span><span class="nv">$LocationX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">$null</span><span class="w">
+            </span><span class="nv">$LocationY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">$null</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+        </span><span class="p">[</span><span class="n">pscustomobject</span><span class="p">]</span><span class="w"> </span><span class="p">@{</span><span class="w">
+            </span><span class="nx">ID</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="nv">$TextBox</span><span class="w">
+            </span><span class="nx">LocationX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$LocationX</span><span class="w">
+            </span><span class="nx">LocationY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$LocationY</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>I got results like below and one last thing to do was to identify <strong>Phone</strong> box.</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ID</span><span class="w">             </span><span class="nx">LocationX</span><span class="w"> </span><span class="nx">LocationY</span><span class="w">
+</span><span class="o">--</span><span class="w">             </span><span class="o">---------</span><span class="w"> </span><span class="o">---------</span><span class="w">
+</span><span class="err">__</span><span class="n">azc-textBox0</span><span class="w">       </span><span class="nx">283</span><span class="w">         </span><span class="nx">7</span><span class="w">
+</span><span class="err">__</span><span class="n">azc-textBox1</span><span class="w">       </span><span class="nx">844</span><span class="w">       </span><span class="nx">295</span><span class="w">
+</span><span class="err">__</span><span class="n">azc-textBox2</span><span class="w">       </span><span class="nx">844</span><span class="w">       </span><span class="nx">334</span><span class="w">
+</span><span class="err">__</span><span class="n">azc-textBox3</span><span class="w">       </span><span class="nx">844</span><span class="w">       </span><span class="nx">373</span><span class="w">
+</span><span class="err">__</span><span class="n">azc-textBox4</span><span class="w">       </span><span class="nx">844</span><span class="w">       </span><span class="nx">412</span><span class="w">
+
+</span><span class="nv">$MobileBox</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Boxes</span><span class="w"> </span><span class="o">|</span><span class="err">`</span><span class="w">
+</span><span class="n">Where-Object</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+    </span><span class="bp">$PSItem</span><span class="o">.</span><span class="nf">Locationy</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="p">((</span><span class="nv">$Boxes</span><span class="w"> </span><span class="o">|</span><span class="err">`</span><span class="w">
+       </span><span class="n">Where-Object</span><span class="w"> </span><span class="p">{</span><span class="w">
+           </span><span class="bp">$PSItem</span><span class="o">.</span><span class="nf">locationx</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="w"> </span><span class="p">(</span><span class="nv">$boxes</span><span class="o">.</span><span class="nf">locationx</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Measure-Object</span><span class="w"> </span><span class="nt">-Maximum</span><span class="p">)</span><span class="o">.</span><span class="nf">Maximum</span><span class="p">)</span><span class="w">
+        </span><span class="p">})</span><span class="o">.</span><span class="nf">locationy</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Measure-Object</span><span class="w"> </span><span class="nt">-Minimum</span><span class="p">)</span><span class="o">.</span><span class="nf">Minimum</span><span class="w"> 
+    </span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>With all that knowledge I was able to write my script which will modify phone numbers for provided users.</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w">
+</span><span class="nv">$UsersToFix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">import-csv</span><span class="w"> </span><span class="nx">UsersToFix.csv</span><span class="w">
+</span><span class="nv">$PathToBin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'c:\your\path\to\WebDriver.dll'</span><span class="w">
+</span><span class="p">[</span><span class="n">System.Reflection.Assembly</span><span class="p">]::</span><span class="n">LoadFrom</span><span class="p">(</span><span class="s2">"{0}"</span><span class="w"> </span><span class="nt">-f</span><span class="w"> </span><span class="nv">$PathToBin</span><span class="p">)</span><span class="w">
+</span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$</span><span class="nn">env</span><span class="p">:</span><span class="nv">Path</span><span class="w"> </span><span class="o">-notcontains</span><span class="w"> </span><span class="s2">";</span><span class="nv">$PathToBin</span><span class="se">`B</span><span class="s2">in"</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nv">$</span><span class="nn">env</span><span class="p">:</span><span class="nv">Path</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="s2">";</span><span class="nv">$PathToBin</span><span class="se">`B</span><span class="s2">in"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="nv">$ChOptions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">New-Object</span><span class="w"> </span><span class="nx">OpenQA.Selenium.Chrome.ChromeOptions</span><span class="w">
+</span><span class="nv">$ChOptions</span><span class="o">.</span><span class="nf">AcceptInsecureCertificates</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$True</span><span class="w">
+</span><span class="nv">$ChromeDriver</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">New-Object</span><span class="w"> </span><span class="nx">OpenQA.Selenium.Chrome.ChromeDriver</span><span class="p">(</span><span class="nv">$ChOptions</span><span class="p">)</span><span class="w">
+</span><span class="nv">$ChromeDriver</span><span class="o">.</span><span class="nf">Manage</span><span class="p">()</span><span class="o">.</span><span class="nf">Window</span><span class="o">.</span><span class="nf">Maximize</span><span class="p">()</span><span class="w">
+</span><span class="n">Start-Sleep</span><span class="w"> </span><span class="nx">2</span><span class="w">
+</span><span class="nv">$ChromeDriver</span><span class="o">.</span><span class="nf">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'https://portal.azure.com/'</span><span class="w">
+</span><span class="n">Start-Sleep</span><span class="w"> </span><span class="nx">5</span><span class="w">
+</span><span class="nv">$ChromeDriver</span><span class="o">.</span><span class="nf">FindElementById</span><span class="p">(</span><span class="s1">'i0116'</span><span class="p">)</span><span class="o">.</span><span class="nf">SendKeys</span><span class="p">(</span><span class="nv">$UserName</span><span class="p">)</span><span class="w">
+</span><span class="nv">$ChromeDriver</span><span class="o">.</span><span class="nf">FindElementById</span><span class="p">(</span><span class="s1">'idSIButton9'</span><span class="p">)</span><span class="o">.</span><span class="nf">Click</span><span class="p">()</span><span class="w">
+</span><span class="n">Start-Sleep</span><span class="w"> </span><span class="nx">2</span><span class="w">
+</span><span class="nv">$ChromeDriver</span><span class="o">.</span><span class="nf">FindElementById</span><span class="p">(</span><span class="s1">'i0118'</span><span class="p">)</span><span class="o">.</span><span class="nf">SendKeys</span><span class="p">(</span><span class="nv">$Password</span><span class="p">)</span><span class="w">
+</span><span class="nv">$ChromeDriver</span><span class="o">.</span><span class="nf">FindElementById</span><span class="p">(</span><span class="s1">'idSIButton9'</span><span class="p">)</span><span class="o">.</span><span class="nf">Click</span><span class="p">()</span><span class="w">
+</span><span class="c">#Waiting for 2FA accept. </span><span class="w">
+</span><span class="n">Start-Sleep</span><span class="w"> </span><span class="nx">3</span><span class="w">
+</span><span class="nv">$ChromeDriver</span><span class="o">.</span><span class="nf">FindElementById</span><span class="p">(</span><span class="s1">'idSIButton9'</span><span class="p">)</span><span class="o">.</span><span class="nf">Click</span><span class="p">()</span><span class="w">
+
+</span><span class="nv">$SaveButtonXPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'/html/body/div[1]/div[5]/main/div[4]/div[2]/section/div/div[2]/div[1]/div/ul/li[1]'</span><span class="w">
+</span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$userID</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$UsersToFix</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">Write-Default</span><span class="w"> </span><span class="nt">-Info</span><span class="w"> </span><span class="nt">-Message</span><span class="w"> </span><span class="s2">"Changing user </span><span class="si">$(</span><span class="nv">$userID</span><span class="o">.</span><span class="nf">UserPrincipalName</span><span class="si">)</span><span class="s2">"</span><span class="w">
+    </span><span class="nv">$AzureUrl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"https://portal.azure.com/#blade/Microsoft_AAD_IAM/UserDetailsMenuBlade/UserAuthMethods/userId/</span><span class="si">$(</span><span class="nv">$userID</span><span class="o">.</span><span class="nf">ObjectId</span><span class="si">)</span><span class="s2">/adminUnitObjectId/"</span><span class="w">
+    </span><span class="nv">$ChromeDriver</span><span class="o">.</span><span class="nf">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$AzureUrl</span><span class="w">
+    </span><span class="nv">$ChromeDriver</span><span class="o">.</span><span class="nf">Navigate</span><span class="p">()</span><span class="o">.</span><span class="nf">Refresh</span><span class="p">()</span><span class="w">
+    </span><span class="n">Start-Sleep</span><span class="w"> </span><span class="nx">5</span><span class="w">
+    </span><span class="n">Write-Output</span><span class="w"> </span><span class="s2">"Clearing field value"</span><span class="w">
+    </span><span class="nv">$Boxes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$i</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="mi">0</span><span class="o">..</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nv">$TextBox</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"__azc-textBox</span><span class="nv">$i</span><span class="s2">"</span><span class="w">
+        </span><span class="kr">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nv">$LocationX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$ChromeDriver</span><span class="o">.</span><span class="nf">FindElementByName</span><span class="p">(</span><span class="s2">"__azc-textBox</span><span class="nv">$i</span><span class="s2">"</span><span class="p">)</span><span class="o">.</span><span class="nf">Location</span><span class="o">.</span><span class="nf">X</span><span class="w">
+            </span><span class="nv">$LocationY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$ChromeDriver</span><span class="o">.</span><span class="nf">FindElementByName</span><span class="p">(</span><span class="s2">"__azc-textBox</span><span class="nv">$i</span><span class="s2">"</span><span class="p">)</span><span class="o">.</span><span class="nf">Location</span><span class="o">.</span><span class="nf">Y</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+        </span><span class="kr">catch</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nv">$TextBox</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'No such box'</span><span class="w">
+            </span><span class="nv">$LocationX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">$null</span><span class="w">
+            </span><span class="nv">$LocationY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">$null</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+        </span><span class="p">[</span><span class="n">pscustomobject</span><span class="p">]</span><span class="w"> </span><span class="p">@{</span><span class="w">
+            </span><span class="nx">ID</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="nv">$TextBox</span><span class="w">
+            </span><span class="nx">LocationX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$LocationX</span><span class="w">
+            </span><span class="nx">LocationY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$LocationY</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    </span><span class="nv">$Boxes</span><span class="w">
+    </span><span class="nv">$MobileBox</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Boxes</span><span class="w"> </span><span class="o">|</span><span class="err">`</span><span class="w">
+        </span><span class="n">Where-Object</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+        </span><span class="bp">$PSItem</span><span class="o">.</span><span class="nf">Locationy</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="p">((</span><span class="nv">$Boxes</span><span class="w"> </span><span class="o">|</span><span class="err">`</span><span class="w">
+                    </span><span class="n">Where-Object</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="bp">$PSItem</span><span class="o">.</span><span class="nf">locationx</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="w"> </span><span class="p">(</span><span class="nv">$boxes</span><span class="o">.</span><span class="nf">locationx</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Measure-Object</span><span class="w"> </span><span class="nt">-Maximum</span><span class="p">)</span><span class="o">.</span><span class="nf">Maximum</span><span class="p">)</span><span class="w">
+                </span><span class="p">})</span><span class="o">.</span><span class="nf">locationy</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Measure-Object</span><span class="w"> </span><span class="nt">-Minimum</span><span class="p">)</span><span class="o">.</span><span class="nf">Minimum</span><span class="w"> 
+            </span><span class="p">}</span><span class="w">
+
+    </span><span class="nv">$ChromeDriver</span><span class="o">.</span><span class="nf">FindElementByName</span><span class="p">(</span><span class="nv">$MobileBox</span><span class="o">.</span><span class="nf">ID</span><span class="p">)</span><span class="o">.</span><span class="nf">Clear</span><span class="p">()</span><span class="w">
+    </span><span class="n">Start-Sleep</span><span class="w"> </span><span class="nx">1</span><span class="w">
+    </span><span class="n">Write-Output</span><span class="w"> </span><span class="s2">"Setting user correct number"</span><span class="w">
+    
+    </span><span class="nv">$ChromeDriver</span><span class="o">.</span><span class="nf">FindElementsByName</span><span class="p">(</span><span class="nv">$MobileBox</span><span class="o">.</span><span class="nf">ID</span><span class="p">)</span><span class="o">.</span><span class="nf">SendKeys</span><span class="p">(</span><span class="nv">$UserCorrectNumber</span><span class="p">)</span><span class="w">
+    </span><span class="n">Start-Sleep</span><span class="w"> </span><span class="nx">1</span><span class="w">
+    </span><span class="n">Write-Output</span><span class="w"> </span><span class="s2">"Saving changes"</span><span class="w">    
+    </span><span class="nv">$ChromeDriver</span><span class="o">.</span><span class="nf">FindElementByXPath</span><span class="p">(</span><span class="nv">$SaveButtonXPath</span><span class="p">)</span><span class="o">.</span><span class="nf">Click</span><span class="p">()</span><span class="w">
+    </span><span class="n">Start-Sleep</span><span class="w"> </span><span class="nx">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h1 id="summary">Summary</h1>
+
+<p>Thanks to that fixing this issue took around <strong>one hour</strong> where <strong>25 minutes</strong> was runtime of this script. It is not the most efficient way but for now it is the only one so I hope it will be useful for you!</p>
+
+<p>See you in next! 😉 🧠</p>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/UniverseCitiz3n" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/UniverseCitiz3n" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 Maciej Horbacz. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/_posts/2020-02-25-MFA-Selenium/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = ""; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://uc3n.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,460 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Windows Task Scheduler. Automate stuff on chosen computer 🧑🏻‍💻 - Maciej Horbacz</title>
+<meta name="description" content="Learn about creating scheduled tasks using Powershell.">
+
+
+  <meta name="author" content="Hi">
+  
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Maciej Horbacz">
+<meta property="og:title" content="Windows Task Scheduler. Automate stuff on chosen computer 🧑🏻‍💻">
+<meta property="og:url" content="http://localhost:4000/_posts/2020-08-16-ScheduledTask/">
+
+
+  <meta property="og:description" content="Learn about creating scheduled tasks using Powershell.">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/head_image_big.png">
+
+
+
+  <meta name="twitter:site" content="@UniverseCitiz3n">
+  <meta name="twitter:title" content="Windows Task Scheduler. Automate stuff on chosen computer 🧑🏻‍💻">
+  <meta name="twitter:description" content="Learn about creating scheduled tasks using Powershell.">
+  <meta name="twitter:url" content="http://localhost:4000/_posts/2020-08-16-ScheduledTask/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="http://localhost:4000/assets/head_image_big.png">
+    
+  
+
+  
+
+
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/_posts/2020-08-16-ScheduledTask/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Maciej Horbacz",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Maciej Horbacz Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+<!-- Twitter cards -->
+<meta name="twitter:site"    content="@">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:title"   content="Windows Task Scheduler. Automate stuff on chosen computer 🧑🏻‍💻">
+
+
+<meta name="twitter:description" content="My ideas and solutions to sysadmin problems">
+
+
+
+<meta name="twitter:card"  content="summary">
+<meta name="twitter:image" content="/assets/head_image_big.png">
+
+<!-- end of Twitter cards -->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--page">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/logo.png" alt=""></a>
+        
+        <a class="site-title" href="/">
+          Maciej Horbacz
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/autopilot/">Autopilot</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/events/">Events</a>
+            </li><li class="masthead__menu-item">
+              <a href="https://leanpub.com/psconfbook3/">Publications</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/terms/">Terms & Conditions</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      <h1 id="intro">Intro</h1>
+
+<p>As and IT Pro sometimes you might get stuck while trying to run some application on endpoint or you want to execute some command at certain point of time or at desired conditions.
+Well you guessed…just use built-in <strong>Task Scheduler</strong> and it will take care of everything 🧙🏻.</p>
+
+<p>You can use the Task Scheduler to execute tasks such as starting an application, sending an email message, or showing a message box. Tasks can be scheduled to execute in response to these events, or triggers.</p>
+
+<ul>
+  <li>When a specific system event occurs.</li>
+  <li>At a specific time.</li>
+  <li>At a specific time on a daily schedule.</li>
+  <li>At a specific time on a weekly schedule.</li>
+  <li>At a specific time on a monthly schedule.</li>
+  <li>At a specific time on a monthly day-of-week schedule.</li>
+  <li>When the computer enters an idle state.</li>
+  <li>When the task is registered.</li>
+  <li>When the system is booted.</li>
+  <li>When a user logs on.</li>
+  <li>When a Terminal Server session changes state.</li>
+</ul>
+
+<h1 id="basic-theory">Basic theory</h1>
+
+<p>Let’s talk more about this tasks.
+A task is the scheduled work that the Task Scheduler service performs. A task is composed of different components, but a task must contain a trigger that the Task Scheduler uses to start the task and an action that describes what work the Task Scheduler will perform.</p>
+
+<p>The following illustration shows the task components.</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2020-08-16-ScheduledTask/taskcomponents.png" alt="task" /></p>
+
+<ul>
+  <li>Triggers: Task Scheduler uses event or time-based triggers to know when to start a task. Every task can specify one or more triggers to start the task.</li>
+  <li>Actions: These are the actions, the actual work, that is performed by the task. Every task can specify one or more actions to complete its work.</li>
+  <li>Principals: Principals define the security context in which the task is run. For example, a principal might define a specific user or user group that can run the task.</li>
+  <li>Settings: These are the settings that the Task Scheduler uses to run the task with respect to conditions that are external to the task itself. For example, these settings can specify the priority of the task with respect to other tasks, whether multiple instances of the task can be run, how the task is handled when the computer is in an idle condition, and other conditions.</li>
+</ul>
+
+<blockquote>
+  <p>Note: By default, a task will be stopped 72 hours after it starts to run. You can change this by changing the ExecutionTimeLimit setting.</p>
+</blockquote>
+
+<ul>
+  <li>Registration Information: This is administrative information that is gathered when the task is registered. For example, this information describes the author of the task, the date when the task was registered, an XML description of the task, and other information.</li>
+  <li>Data: This is additional documentation about the task that is supplied by the author of the task. For example, this data may contain XML Help that can be used by users when they run the task. <a href="https://docs.microsoft.com/en-gb/windows/win32/taskschd/tasks">source</a></li>
+</ul>
+
+<h1 id="creating-first-task">Creating first task</h1>
+
+<p>To create task open <code class="language-plaintext highlighter-rouge">Powershell</code> terminal and type in:</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$Trigger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">New-ScheduledTaskTrigger</span><span class="w"> </span><span class="nt">-Once</span><span class="w"> </span><span class="nt">-At</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="n">Get-date</span><span class="p">)</span><span class="o">.</span><span class="nf">AddSeconds</span><span class="p">(</span><span class="nx">30</span><span class="p">)</span><span class="w">
+</span><span class="nv">$Action</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">New-ScheduledTaskAction</span><span class="w"> </span><span class="nt">-Execute</span><span class="w"> </span><span class="s2">"notepad.exe"</span><span class="w">
+</span><span class="n">Register-ScheduledTask</span><span class="w"> </span><span class="nt">-TaskName</span><span class="w"> </span><span class="s2">"First task - open notepad"</span><span class="w"> </span><span class="nt">-Trigger</span><span class="w"> </span><span class="nv">$Trigger</span><span class="w"> </span><span class="nt">-Action</span><span class="w"> </span><span class="nv">$Action</span><span class="w">
+</span></code></pre></div></div>
+
+<p>It will open <code class="language-plaintext highlighter-rouge">notepad</code> after 30 seconds delay.
+From that point you can start building up your task.</p>
+
+<h2 id="trigger">Trigger</h2>
+
+<p>As I mentioned earlier <strong>task scheduler</strong> provides you with wide range of time-based, event-based triggers.
+For instance, to schedule task to start on Friday at 3 PM once every 3 weeks:</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$Trigger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">New-ScheduledTaskTrigger</span><span class="w"> </span><span class="nt">-Weekly</span><span class="w"> </span><span class="nt">-WeeksInterval</span><span class="w"> </span><span class="nx">3</span><span class="w"> </span><span class="nt">-DaysOfWeek</span><span class="w"> </span><span class="nx">Friday</span><span class="w"> </span><span class="nt">-At</span><span class="w"> </span><span class="nx">3pm</span><span class="w">
+</span></code></pre></div></div>
+
+<p>If you wish to schedule task to start at system boot:</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$Trigger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">New-ScheduledTaskTrigger</span><span class="w"> </span><span class="nt">-AtStartup</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Some tasks you might wish to end running after certain period of time.
+To do that you need to specify <code class="language-plaintext highlighter-rouge">EndBoundary</code> value in a trigger.</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$Trigger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">New-ScheduledTaskTrigger</span><span class="w"> </span><span class="nt">-Once</span><span class="w"> </span><span class="nt">-At</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="n">Get-date</span><span class="p">)</span><span class="o">.</span><span class="nf">AddSeconds</span><span class="p">(</span><span class="nx">30</span><span class="p">)</span><span class="w">
+</span><span class="nv">$AddHour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Get-Date</span><span class="p">)</span><span class="o">.</span><span class="nf">AddHours</span><span class="p">(</span><span class="nx">1</span><span class="p">)</span><span class="o">.</span><span class="nf">ToString</span><span class="p">(</span><span class="s1">'O'</span><span class="p">)</span><span class="w">
+</span><span class="nv">$Trigger</span><span class="o">.</span><span class="nf">EndBoundary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$AddHour</span><span class="w">
+</span></code></pre></div></div>
+
+<p>When you create the trigger with New-ScheduledTaskTrigger, the time you specify is converted and saved as a string in the trigger’s StartBoundary property.
+Be sure to convert your <code class="language-plaintext highlighter-rouge">EndBoundary</code> timezone 🕒.</p>
+
+<h2 id="user">User</h2>
+
+<p>Use a scheduled task user to run a task under the security context of a specified account.</p>
+
+<p>Using scheduled task allows you to execute actions with highest available privileges that is <strong>SYSTEM</strong> 🃏.
+Alternatively you can specify service or any local user.
+In case of users if you want to run task as other then currently logon user you need to provide credentials for that user.</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$User</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"SYSTEM"</span><span class="w">
+</span><span class="n">Register-ScheduledTask</span><span class="w"> </span><span class="nt">-TaskName</span><span class="w"> </span><span class="nv">$TaskName</span><span class="w"> </span><span class="nt">-Trigger</span><span class="w"> </span><span class="nv">$Trigger</span><span class="w"> </span><span class="nt">-User</span><span class="w"> </span><span class="nv">$User</span><span class="w"> </span><span class="nt">-Action</span><span class="w"> </span><span class="nv">$Action</span><span class="w"> </span><span class="nt">-Settings</span><span class="w"> </span><span class="nv">$Settings</span><span class="w"> </span><span class="nt">-Force</span><span class="w">
+</span></code></pre></div></div>
+
+<p>To execute as other user you must use <code class="language-plaintext highlighter-rouge">-Password</code> parameter.</p>
+
+<h2 id="action">Action</h2>
+
+<p>The New-ScheduledTaskAction cmdlet creates an object that contains the definition of a scheduled task action. A scheduled task action represents a command that a task executes when Task Scheduler runs the task. You can use a task action definition to register a new scheduled task or update an existing task registration.</p>
+
+<p>A task can have a single action or a maximum of 32 actions. When you specify multiple actions, Task Scheduler executes the actions sequentially. The Task Scheduler service controls tasks activation, and it hosts the tasks that it starts.</p>
+
+<p>Creating action which runs <code class="language-plaintext highlighter-rouge">Powershell</code> can be implemented as follows:</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$Action</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">New-ScheduledTaskAction</span><span class="w"> </span><span class="nt">-Execute</span><span class="w"> </span><span class="s2">"powershell.exe"</span><span class="w"> </span><span class="nt">-Argument</span><span class="w"> </span><span class="s1">'-ex bypass -command "notepad.exe" -NoNewWindow -NonInteractive'</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="settings">Settings</h2>
+
+<p>Finally, <code class="language-plaintext highlighter-rouge">New-ScheduledTaskSettingsSet</code> allows you to tweak your automation so that you can be sure its maximum execution time is limited</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$Settings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">New-ScheduledTaskSettingsSet</span><span class="w"> </span><span class="nt">-ExecutionTimeLimit</span><span class="w"> </span><span class="p">(</span><span class="n">New-TimeSpan</span><span class="w"> </span><span class="nt">-Hours</span><span class="w"> </span><span class="nx">1</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>…schedule task restart…</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">-RestartCount</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="nt">-RestartInterval</span><span class="w"> </span><span class="p">(</span><span class="n">New-TimeSpan</span><span class="w"> </span><span class="nt">-Minutes</span><span class="w"> </span><span class="nx">15</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>…or if device is a laptop…</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">-AllowStartIfOnBatteries</span><span class="w">
+</span></code></pre></div></div>
+
+<p>…and combined with <code class="language-plaintext highlighter-rouge">EndBoundary</code>…</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">-DeleteExpiredTaskAfter</span><span class="w"> </span><span class="p">(</span><span class="n">New-TimeSpan</span><span class="w"> </span><span class="nt">-Seconds</span><span class="w"> </span><span class="nx">5</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>…go on and checkout <a href="https://docs.microsoft.com/en-us/powershell/module/scheduledtasks/new-scheduledtasksettingsset?view=win10-ps">all available settings</a> to make sure your task is robust 💪🏼!</p>
+
+<h1 id="use-case---run-dell-command-update">Use case - Run Dell Command Update</h1>
+
+<p>Now that you know your way around <code class="language-plaintext highlighter-rouge">Scheduled Tasks</code> lets use it to make some magic ✨.</p>
+
+<p>If you are using Dell laptop you might know this neat soft called <strong>Dell Command | Update</strong>.
+It allows you to scan, download and install all model specific drivers for device using GUI or cmd-line.
+You can <code class="language-plaintext highlighter-rouge">Enter-PSSession</code> to device, go to <code class="language-plaintext highlighter-rouge">dcu.exe</code> location and run app to check for updates.</p>
+
+<p>But you can also create task on target device and once it’s there you will just need to <strong>start it</strong>.
+Check it out:</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$Trigger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">New-ScheduledTaskTrigger</span><span class="w"> </span><span class="nt">-Once</span><span class="w"> </span><span class="nt">-At</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="n">Get-Date</span><span class="p">)</span><span class="o">.</span><span class="nf">AddMinutes</span><span class="p">(</span><span class="nx">1</span><span class="p">)</span><span class="w">
+</span><span class="nv">$AddHour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Get-Date</span><span class="p">)</span><span class="o">.</span><span class="nf">AddHours</span><span class="p">(</span><span class="nx">1</span><span class="p">)</span><span class="o">.</span><span class="nf">ToUniversalTime</span><span class="p">()</span><span class="o">.</span><span class="nf">ToString</span><span class="p">(</span><span class="s1">'%yy-%M-%dT%H:%m:%s.000Z'</span><span class="p">)</span><span class="w">
+</span><span class="nv">$Trigger</span><span class="o">.</span><span class="nf">EndBoundary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$AddHour</span><span class="w">
+</span><span class="nv">$User</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"SYSTEM"</span><span class="w">
+</span><span class="nv">$Action</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">New-ScheduledTaskAction</span><span class="w"> </span><span class="nt">-Execute</span><span class="w"> </span><span class="s2">"powershell.exe"</span><span class="w"> </span><span class="nt">-Argument</span><span class="w"> </span><span class="s2">"Start-Process 'C:\Program Files (x86)\Dell\CommandUpdate\dcu-cli.exe' -ArgumentList '/applyUpdates -silent -outputLog=</span><span class="se">`"</span><span class="s2">C:\Temp\DellCommandUpdate.log</span><span class="se">`"</span><span class="s2">' -Wait"</span><span class="w">
+</span><span class="nv">$Settings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">New-ScheduledTaskSettingsSet</span><span class="w"> </span><span class="nt">-ExecutionTimeLimit</span><span class="w"> </span><span class="s2">"01:00"</span><span class="w"> </span><span class="nt">-AllowStartIfOnBatteries</span><span class="w">
+</span><span class="nv">$Task</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">New-ScheduledTask</span><span class="w"> </span><span class="nt">-Action</span><span class="w"> </span><span class="nv">$Actions</span><span class="w"> </span><span class="nt">-Trigger</span><span class="w"> </span><span class="nv">$Trigger</span><span class="w"> </span><span class="nt">-Settings</span><span class="w"> </span><span class="nv">$Settings</span><span class="w"> </span><span class="nt">-Description</span><span class="w"> </span><span class="s1">'Update process'</span><span class="w">
+
+</span><span class="n">Register-ScheduledTask</span><span class="w"> </span><span class="nt">-TaskName</span><span class="w"> </span><span class="s2">"DCU Update"</span><span class="w"> </span><span class="nt">-InputObject</span><span class="w"> </span><span class="nv">$Task</span><span class="w"> </span><span class="nt">-User</span><span class="w"> </span><span class="nv">$User</span><span class="w"> </span><span class="nt">-Force</span><span class="w">
+</span></code></pre></div></div>
+
+<blockquote>
+  <p>Note: DCU itself allows you to schedule update check and installation settings.
+So choose best fitted option for your environment 😉.</p>
+</blockquote>
+
+<h1 id="summary">Summary</h1>
+
+<p><code class="language-plaintext highlighter-rouge">Task Scheduler</code> is a great tool in automating and allows you execute some actions in different way than just <code class="language-plaintext highlighter-rouge">Invoke-Command</code>.
+Because I’ve used <code class="language-plaintext highlighter-rouge">Powershell</code> I can save such script as an <code class="language-plaintext highlighter-rouge">.ps1</code> file and upload it to Intune.
+It will then be deployed to assigned group of devices!</p>
+
+<p>As always, endless possibilities and…
+See you in next! 😉 🧠</p>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/UniverseCitiz3n" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/UniverseCitiz3n" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 Maciej Horbacz. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/_posts/2020-08-16-ScheduledTask/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = ""; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://uc3n.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,742 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Integrating Lansweeper and Microsoft Intune - Maciej Horbacz</title>
+<meta name="description" content="How to view Intune enrolled devices in Lansweeper console">
+
+
+  <meta name="author" content="Hi">
+  
+  <meta property="article:author" content="Hi">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Maciej Horbacz">
+<meta property="og:title" content="Integrating Lansweeper and Microsoft Intune">
+<meta property="og:url" content="http://localhost:4000/lansweeper/LS-Intune/">
+
+
+  <meta property="og:description" content="How to view Intune enrolled devices in Lansweeper console">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/head_image_big.png">
+
+
+
+  <meta name="twitter:site" content="@UniverseCitiz3n">
+  <meta name="twitter:title" content="Integrating Lansweeper and Microsoft Intune">
+  <meta name="twitter:description" content="How to view Intune enrolled devices in Lansweeper console">
+  <meta name="twitter:url" content="http://localhost:4000/lansweeper/LS-Intune/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="http://localhost:4000/assets/head_image_big.png">
+    
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2019-09-20T00:00:00+02:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/lansweeper/LS-Intune/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Maciej Horbacz",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Maciej Horbacz Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+<!-- Twitter cards -->
+<meta name="twitter:site"    content="@">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:title"   content="Integrating Lansweeper and Microsoft Intune">
+
+
+<meta name="twitter:description" content="My ideas and solutions to sysadmin problems">
+
+
+
+<meta name="twitter:card"  content="summary">
+<meta name="twitter:image" content="/assets/head_image_big.png">
+
+<!-- end of Twitter cards -->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide2">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/logo.png" alt=""></a>
+        
+        <a class="site-title" href="/">
+          Maciej Horbacz
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/autopilot/">Autopilot</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/events/">Events</a>
+            </li><li class="masthead__menu-item">
+              <a href="https://leanpub.com/psconfbook3/">Publications</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/terms/">Terms & Conditions</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Integrating Lansweeper and Microsoft Intune">
+    <meta itemprop="description" content="How to view Intune enrolled devices in Lansweeper console">
+    <meta itemprop="datePublished" content="2019-09-20T00:00:00+02:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Integrating Lansweeper and Microsoft Intune
+</h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Table of contents</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#intro">Intro</a></li>
+  <li><a href="#prerequisites">Prerequisites</a></li>
+  <li><a href="#scanning-credentials">Scanning credentials</a></li>
+  <li><a href="#configurations-in-lansweeper">Configurations in Lansweeper</a>
+    <ul>
+      <li><a href="#and-you-are-ready-to-go">And you are ready to go</a></li>
+    </ul>
+  </li>
+  <li><a href="#pro-tip">Pro tip</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <h1 id="intro">Intro</h1>
+
+<p>Welcome in second (out of three) Lansweeper integration series. If you would like to know how to integrate LS with different services like Office 365 feel free to check this out:</p>
+
+<ul>
+  <li><a href="http://localhost:4000/posts/2019-09-15-LS-Office365.md">Integrating Lansweeper and Office 365</a></li>
+</ul>
+
+<p>In this post I will go through process of integrating LS with Microsoft Intune. If you are reading this I presume that you know Lansweeper itself and I’m almost certain that you know Intune too but there is not harm in providing you with some basics.</p>
+
+<p><strong>Lansweeper</strong> - IT assets management tool and network inventory software. It scans, discovers and inventories all Windows, Linus, Mac-OS workstations and IP-addressable devices.<strong>LS</strong> collects wide variety of data about devices and provides user-friendly interface to go through collected endpoints parameters.</p>
+
+<p><strong>Microsoft Intune</strong> - cutting edge cloud-based service in the enterprise mobility management developed by Microsoft. It allows to manage workstations over Internet without them being connected to company infrastructure. It helps you keep you corporate data protected by control the way your workforce accesses and shares it.
+And finally it helps you to ensure that devices and apps are compliant with company security requirements.</p>
+
+<p>What does Lansweeper fetch from Intune? Well, everything it can: device name, enrollment date and compliance state, MAC address, manufacturer, model, carrier, OS version, storage, IMEI, MEID, serial number, user, info on whether the device is jail broken, installed applications and more.</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/LS-Intune.jpg" alt="IntunePhone" /></p>
+
+<p>Excited? So let’s begin!</p>
+
+<h1 id="prerequisites">Prerequisites</h1>
+
+<p>There are a few things you should do and check before implementing this feature. Requirements:</p>
+
+<ul>
+  <li>Lansweeper 7.1 or above - I recommend installing the newest update which is 7.2 it was released on 7th of September</li>
+  <li>Azure AD account -  which credentials will be used for scanning. Also this account <strong>cannot be included in MFA policy</strong> in your organization</li>
+  <li>Security group in Active Directory assigned to Intune Role - Read Only Operator</li>
+  <li>You must provide Lansweeper with the application ID of an application that can read Intune devices from the Microsoft Graph API</li>
+  <li>Spare Intune license - I will get back to that later in post</li>
+</ul>
+
+<p>Beside those there are requirements which should apply to on-prem scanning server and you can find them in first post in series - <a href="http://localhost:4000/posts/2019-09-15-LS-Office365.md">Integrating Lansweeper and Office 365</a></p>
+
+<p>If you meet those requirements you will can proceed with configuration!</p>
+
+<h1 id="scanning-credentials">Scanning credentials</h1>
+
+<p>Firstly create in your AD/AAD service account which will be used in scanning credentials. You will find in official Lansweeper knowledge base that this account should have <strong>Intune Administrator</strong> role assigned.</p>
+
+<p>Well, you can do this and if you don’t mind having such <span style="color:red">high privileged</span> account in you tenant. My proposition is to assign <span style="color:green">read only operator</span> role and also you will need the most basic Intune license which costs around 3 Euro per month.</p>
+
+<p>For me it not seems like the end of the world paying this money and you will be able to sleep better 😀.</p>
+
+<p>Next step is setting Intune application in AzureAD. Log into your Azure tenant, select the <strong>Azure Active Directory</strong> menu on the left, the <strong>App registrations</strong> section within this menu and hit the <strong>New registration button</strong>.</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/intune-scanning-requirements-1.jpg" alt="AAAD" /></p>
+
+<p>Provide name for you application and hit the <strong>Register</strong> and the botton.</p>
+
+<p>Then go to the <strong>Authentication</strong> menu of your application, set the <strong>default client type</strong> setting to <strong>Yes</strong> and hit Save.</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/intune-scanning-requirements-4.jpg" alt="client" /></p>
+
+<p>Last step is to provide application with permissions to <strong>Microsoft Graph</strong>. To do this go to <strong>API permissions</strong> menu of your application and hit the <strong>Add a permission</strong> button.</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/intune-scanning-requirements-5.jpg" alt="permissions" /></p>
+
+<p>Select Microsoft Graph from the list of available APIs in the resulting popup</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/intune-scanning-requirements-5.1.jpg" alt="permission1" /></p>
+
+<p>Submit DeviceManagementManagedDevices. Read. All in the search box, tick the permission in the search results and hit Add permissions at the bottom of the page.</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/intune-scanning-requirements-5.2.jpg" alt="permissions2" /></p>
+
+<p>After choosing permissions you need high privileged account to <strong>grant admin consent</strong></p>
+
+<p><img src="http://localhost:4000/assets/images/posts/intune-scanning-requirements-7.jpg" alt="permissions2" /></p>
+
+<p>And that is all in the matter of scanning credentials!</p>
+
+<h1 id="configurations-in-lansweeper">Configurations in Lansweeper</h1>
+
+<p>Now that we’ve met all requirements we can proceed with configurations in Lansweeper Web Console. Those last steps are the easiest in whole process!</p>
+
+<ul>
+  <li>Go to scanning targets</li>
+</ul>
+
+<p><img src="http://localhost:4000/assets/images/posts/menu-scanning-scanning-targets.jpg" alt="Config-1" /></p>
+
+<ul>
+  <li>Click on ‘Add Scanning Target’. You will see new window where you will be able to provide created scanning credentials</li>
+</ul>
+
+<p><img src="http://localhost:4000/assets/images/posts/intune-scanning-requirements-8.jpg" alt="Config-2" /></p>
+
+<h2 id="and-you-are-ready-to-go">And you are ready to go</h2>
+
+<h1 id="pro-tip">Pro tip</h1>
+
+<p>If you would like to check scanning credentials before configuring feature in production you can use great test tool which is located in Lansweeper installation on your server.
+[…]\Lansweeper\Service\Lansweeper. TestTools. App</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/intune-scanning-9.jpg" alt="TestTool" /></p>
+
+<p>See you in next! 😉 🧠</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#active-directory" class="page__taxonomy-item" rel="tag">Active Directory</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#azure" class="page__taxonomy-item" rel="tag">Azure</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#intune" class="page__taxonomy-item" rel="tag">Intune</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#lansweeper" class="page__taxonomy-item" rel="tag">Lansweeper</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#lansweeper" class="page__taxonomy-item" rel="tag">Lansweeper</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2019-09-20T00:00:00+02:00">September 20, 2019</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=UniverseCitiz3n&text=Integrating+Lansweeper+and+Microsoft+Intune%20http%3A%2F%2Flocalhost%3A4000%2Flansweeper%2FLS-Intune%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Flansweeper%2FLS-Intune%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Flansweeper%2FLS-Intune%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/lansweeper/LS-Office365/" class="pagination--pager" title="Integrating Lansweeper and Office 365
+">Previous</a>
+    
+    
+      <a href="/selenium/Selenium-Powershell/" class="pagination--pager" title="How to use Selenium via Powershell
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You may also enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/intune/User-driven-Autopilot/" rel="permalink">Truly user-driven Windows Autopilot
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          6 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Brilliant but kind of risky alternative to group tags 🪄🚀
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/intune/SettingsCatalog-PowerShell/" rel="permalink">Export, Fix, Import - Settings Catalog
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">At first it looked easy but then…
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/intune/IntuneSecurityBaseline-Move/" rel="permalink">How to easily move MDM Security Baseline profile
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">This is a game changer for me 😲
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/powershell/SettingsCatalog-Move/" rel="permalink">How to easily move Settings Catalog profile
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">With this simple trick, you can save a lot of time 😁
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/UniverseCitiz3n" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/UniverseCitiz3n" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 Maciej Horbacz. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/lansweeper/LS-Intune/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/lansweeper/LS-Intune"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://uc3n.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

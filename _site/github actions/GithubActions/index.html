@@ -1,0 +1,812 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>I’ve published my first module with GitHub Actions - Maciej Horbacz</title>
+<meta name="description" content="It wasn’t difficult!!">
+
+
+  <meta name="author" content="Hi">
+  
+  <meta property="article:author" content="Hi">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Maciej Horbacz">
+<meta property="og:title" content="I’ve published my first module with GitHub Actions">
+<meta property="og:url" content="http://localhost:4000/github%20actions/GithubActions/">
+
+
+  <meta property="og:description" content="It wasn’t difficult!!">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/head_image_big.png">
+
+
+
+  <meta name="twitter:site" content="@UniverseCitiz3n">
+  <meta name="twitter:title" content="I’ve published my first module with GitHub Actions">
+  <meta name="twitter:description" content="It wasn’t difficult!!">
+  <meta name="twitter:url" content="http://localhost:4000/github%20actions/GithubActions/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="http://localhost:4000/assets/head_image_big.png">
+    
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2021-02-01T00:00:00+01:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/github%20actions/GithubActions/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Maciej Horbacz",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Maciej Horbacz Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+<!-- Twitter cards -->
+<meta name="twitter:site"    content="@">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:title"   content="I've published my first module with GitHub Actions">
+
+
+<meta name="twitter:description" content="My ideas and solutions to sysadmin problems">
+
+
+
+<meta name="twitter:card"  content="summary">
+<meta name="twitter:image" content="/assets/head_image_big.png">
+
+<!-- end of Twitter cards -->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide2">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/logo.png" alt=""></a>
+        
+        <a class="site-title" href="/">
+          Maciej Horbacz
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/autopilot/">Autopilot</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/events/">Events</a>
+            </li><li class="masthead__menu-item">
+              <a href="https://leanpub.com/psconfbook3/">Publications</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/terms/">Terms & Conditions</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="I’ve published my first module with GitHub Actions">
+    <meta itemprop="description" content="It wasn’t difficult!!">
+    <meta itemprop="datePublished" content="2021-02-01T00:00:00+01:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">I’ve published my first module with GitHub Actions
+</h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Table of contents</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#intro">Intro</a></li>
+  <li><a href="#prepare-your-module">Prepare your module</a></li>
+  <li><a href="#test-your-module">Test your module</a></li>
+  <li><a href="#get-psgallery-secret">Get PSGallery secret</a></li>
+  <li><a href="#create-workflow">Create workflow</a></li>
+  <li><a href="#summary">Summary</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <h1 id="intro">Intro</h1>
+
+<p>A few days ago an idea was born in my head 💡
+How can I make <a href="https://github.com/UniverseCitiz3n/Intune-App-Sandbox">Intune-App-Sandbox</a> more available to everyone?
+It’s <code class="language-plaintext highlighter-rouge">PowerShell</code> so the most suitable form is <code class="language-plaintext highlighter-rouge">PowerShell</code> module 📦.</p>
+
+<h1 id="prepare-your-module">Prepare your module</h1>
+
+<p>It’s my first 100%, build from scratch module so I had to start with the basics such as <a href="https://docs.microsoft.com/en-us/powershell/scripting/developer/module/understanding-a-windows-powershell-module?view=powershell-7.1#module-components-and-types">module components and types</a> :</p>
+
+<blockquote>
+  <p>A module is made up of four basic components:</p>
+
+  <ol>
+    <li>Some sort of code file - usually either a PowerShell script or a managed cmdlet assembly.</li>
+    <li>Anything else that the above code file may need, such as additional assemblies, help files, or scripts.</li>
+    <li>A manifest file that describes the above files, as well as stores metadata such as author and versioning information.</li>
+    <li>A directory that contains all of the above content, and is located where PowerShell can reasonably find it.
+ <br /><br />Note that none of these components, by themselves, are actually necessary. For example, a module can technically be only a script stored in a .psm1 file. You can also have a module that is nothing but a manifest file, which is used mainly for organizational purposes. You can also write a script that dynamically creates a module, and as such doesn’t actually need a directory to store anything in. The following sections describe the types of modules you can get by mixing and matching the different possible parts of a module together.</li>
+  </ol>
+</blockquote>
+
+<p>After reading this I knew what had to be done.</p>
+
+<ol>
+  <li>Create functions for <code class="language-plaintext highlighter-rouge">Add-SandboxShell</code> and <code class="language-plaintext highlighter-rouge">Update-SandboxShell</code> and place them in folder called <code class="language-plaintext highlighter-rouge">Public</code>.</li>
+  <li>Other scripts and files which are true heart 💖 of <code class="language-plaintext highlighter-rouge">Intune-App-Sandbox</code> I’ve placed in <strong>Configuration</strong> and <strong>Helpers</strong> folders.</li>
+  <li>Create module manifest with:</li>
+</ol>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$Description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'This tool is for testing Powershell Script which is packed using Win32 Content Prep Tool for installing software using Win32 Deployment profile in Intune.'</span><span class="w">
+
+</span><span class="n">New-ModuleManifest</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="o">.</span><span class="nx">\Intune-App-Sandbox.psd1</span><span class="w"> </span><span class="nt">-ModuleVersion</span><span class="w"> </span><span class="s1">'1.2'</span><span class="w"> </span><span class="nt">-Author</span><span class="w"> </span><span class="s1">'Maciej Horbacz'</span><span class="w"> </span><span class="nt">-Description</span><span class="w"> </span><span class="nv">$Description</span><span class="w">
+</span></code></pre></div></div>
+
+<ol>
+  <li>Create <code class="language-plaintext highlighter-rouge">PowerShell</code> module file which exports functions</li>
+</ol>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$Public</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@(</span><span class="err">Get-ChildItem</span><span class="w"> </span><span class="err">-Recurse</span><span class="w"> </span><span class="err">-Path</span><span class="w"> </span><span class="bp">$PSScriptRoot</span><span class="err">\Public\*.ps</span><span class="mi">1</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">Where-Object</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="bp">$_</span><span class="w"> </span><span class="o">-notmatch</span><span class="w"> </span><span class="s1">'\.Examples.ps1'</span><span class="w"> </span><span class="p">})</span><span class="w">
+
+</span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$import</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$Public</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+ </span><span class="kr">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="o">.</span><span class="w"> </span><span class="nv">$import</span><span class="o">.</span><span class="nf">fullname</span><span class="w">
+ </span><span class="p">}</span><span class="w"> </span><span class="kr">catch</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">Write-Error</span><span class="w"> </span><span class="nt">-Message</span><span class="w"> </span><span class="s2">"Failed to import function </span><span class="si">$(</span><span class="nv">$import</span><span class="o">.</span><span class="nf">fullname</span><span class="si">)</span><span class="s2">: </span><span class="bp">$_</span><span class="s2">"</span><span class="w">
+ </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="n">Export-ModuleMember</span><span class="w"> </span><span class="nt">-Function</span><span class="w"> </span><span class="nv">$Public</span><span class="o">.</span><span class="nf">Basename</span><span class="w">
+</span></code></pre></div></div>
+
+<h1 id="test-your-module">Test your module</h1>
+
+<p>Before uploading anything into public domain be sure to test it somehow locally (yes, it’s to me from the past).</p>
+
+<p>Thankfully you can do that with <code class="language-plaintext highlighter-rouge">PowerShell</code> modules.
+Create folder somewhere on your drive e.g. <code class="language-plaintext highlighter-rouge">C:\LocalRepo</code>, this will be the path to your local repository.
+Then you need to register it like that:</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Register-PSRepository</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="nx">LocalRepo</span><span class="w"> </span><span class="nt">-SourceLocation</span><span class="w"> </span><span class="s1">'C:\LocalRepo\'</span><span class="w"> </span><span class="nt">-ScriptSourceLocation</span><span class="w"> </span><span class="s1">'C:\LocalRepo\'</span><span class="w"> </span><span class="nt">-InstallationPolicy</span><span class="w"> </span><span class="nx">Trusted</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Now you can publish any module to your local repository!</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Publish to a file share repo - the NuGet API key must be a non-blank string</span><span class="w">
+
+</span><span class="n">Publish-Module</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="s1">'c:\projects\MyModule'</span><span class="w"> </span><span class="nt">-Repository</span><span class="w"> </span><span class="nx">LocalRepo</span><span class="w"> </span><span class="nt">-NuGetApiKey</span><span class="w"> </span><span class="s1">'AnyStringWillDo'</span><span class="w">
+</span></code></pre></div></div>
+
+<h1 id="get-psgallery-secret">Get PSGallery secret</h1>
+
+<p>Create or sign in to your account on <code class="language-plaintext highlighter-rouge">PowerShell Gallery</code> and go to <a href="https://www.powershellgallery.com/account/apikeys">API Keys</a></p>
+
+<p>Copy generated key and safely store it in your <code class="language-plaintext highlighter-rouge">repository secrets</code></p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-02-01-github/github1.png" alt="github1" /></p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-02-01-github/github2.png" alt="github2" /></p>
+
+<h1 id="create-workflow">Create workflow</h1>
+
+<p>Github actions workflows are stored at repo location .github/workflows in YAML file.</p>
+
+<p>The easiest way to start building your workflows is to creating one from <code class="language-plaintext highlighter-rouge">Actions</code> tab</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-02-01-github/github3.png" alt="github3" /></p>
+
+<p>Before publishing check if your code is holding up to the all good practices out there.</p>
+
+<p>To be sure my first workflow tests my code with <code class="language-plaintext highlighter-rouge">PSScript Analyzer</code> and <code class="language-plaintext highlighter-rouge">Pester</code> with every commit to <code class="language-plaintext highlighter-rouge">master</code> branch</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">name</span><span class="pi">:</span> <span class="s">Test PowerShell on Windows</span>
+<span class="na">on</span><span class="pi">:</span> <span class="s">push</span>
+
+<span class="na">jobs</span><span class="pi">:</span>
+  <span class="na">tests</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">Pester test and ScriptAnalyzer</span>
+    <span class="na">runs-on</span><span class="pi">:</span> <span class="s">windows-latest</span>
+    <span class="na">steps</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Check out repository code</span>
+      <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@v2</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Perform a Pester test from the Tests.ps1 file</span>
+      <span class="na">shell</span><span class="pi">:</span> <span class="s">pwsh</span>
+      <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+        <span class="s">Invoke-Pester .\tests\Unit.Tests.ps1 -Passthru     </span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Install PSScriptAnalyzer module</span>
+      <span class="na">if</span><span class="pi">:</span> <span class="s">success()</span>
+      <span class="na">shell</span><span class="pi">:</span> <span class="s">pwsh</span>
+      <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+            <span class="s">Set-PSRepository PSGallery -InstallationPolicy Trusted</span>
+            <span class="s">Install-Module PSScriptAnalyzer -ErrorAction Stop</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Lint with PSScriptAnalyzer</span>
+      <span class="na">if</span><span class="pi">:</span> <span class="s">success()</span>
+      <span class="na">shell</span><span class="pi">:</span> <span class="s">pwsh</span>
+      <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+            <span class="s">Invoke-ScriptAnalyzer -Path .\Intune-App-Sandbox\Public\*.ps1 -Recurse -Outvariable issues -ExcludeRule PSAvoidUsingWriteHost,PSUseShouldProcessForStateChangingFunctions</span>
+            <span class="s">$errors   = $issues.Where({$_.Severity -eq 'Error'})</span>
+            <span class="s">$warnings = $issues.Where({$_.Severity -eq 'Warning'})</span>
+            <span class="s">if ($errors) {</span>
+                <span class="s">Write-Error "There were $($errors.Count) errors and $($warnings.Count) warnings total." -ErrorAction Stop</span>
+            <span class="s">} else {</span>
+                <span class="s">Write-Output "There were $($errors.Count) errors and $($warnings.Count) warnings total."</span>
+            <span class="s">}</span>
+</code></pre></div></div>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-02-01-github/github4.png" alt="github4" /></p>
+
+<p>After you make sure that it passed the tests you can publish it!</p>
+
+<p>This is where my second workflow comes in</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">name</span><span class="pi">:</span> <span class="s">Publish PowerShell Module</span>
+
+<span class="na">on</span><span class="pi">:</span>
+  <span class="na">release</span><span class="pi">:</span>
+    <span class="na">types</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">published</span><span class="pi">]</span>
+
+<span class="na">jobs</span><span class="pi">:</span>
+  <span class="na">publish-to-gallery</span><span class="pi">:</span>
+    <span class="na">runs-on</span><span class="pi">:</span> <span class="s">windows-latest</span>
+    <span class="na">steps</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@v2</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Build and publish</span>
+      <span class="na">env</span><span class="pi">:</span>
+        <span class="na">NUGET_KEY</span><span class="pi">:</span> <span class="s">$</span>
+      <span class="na">shell</span><span class="pi">:</span> <span class="s">pwsh</span>
+      <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+        <span class="s">.\build\build.ps1</span>
+        <span class="s">Publish-Module -Path .\Intune-App-Sandbox -NuGetApiKey $env:NUGET_KEY -Verbose</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>Note: build.ps1 script makes sure that NuGet provider is present and PSGallery is trusted repository</p>
+</blockquote>
+
+<p>This workflow run <strong>only when repository is published as release</strong>.</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-02-01-github/github5.png" alt="github5" /></p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-02-01-github/github6.png" alt="github6" /></p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-02-01-github/github7.png" alt="github7" /></p>
+
+<p>That’s all! 🥳</p>
+
+<h1 id="summary">Summary</h1>
+
+<p>From now on <strong>Intune-App-Sandbox</strong> is available as <code class="language-plaintext highlighter-rouge">PowerShell</code> module!</p>
+
+<p>All you need to do is</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Install-Module</span><span class="w"> </span><span class="s1">'Intune-App-Sandbox'</span><span class="w">
+</span></code></pre></div></div>
+
+<p>See you in next! 😉 🧠</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#github" class="page__taxonomy-item" rel="tag">Github</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#intune" class="page__taxonomy-item" rel="tag">Intune</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#powershell-module" class="page__taxonomy-item" rel="tag">Powershell module</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#github-actions" class="page__taxonomy-item" rel="tag">Github Actions</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-02-01T00:00:00+01:00">February 1, 2021</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=UniverseCitiz3n&text=I%27ve+published+my+first+module+with+GitHub+Actions%20http%3A%2F%2Flocalhost%3A4000%2Fgithub%2520actions%2FGithubActions%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fgithub%2520actions%2FGithubActions%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fgithub%2520actions%2FGithubActions%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/powershell/PSAM/" class="pagination--pager" title="Where there is great power, there is great responsibility.
+">Previous</a>
+    
+    
+      <a href="/powershell/Graph-Bitlocker/" class="pagination--pager" title="Verify Azure AD Bitlocker Keys with Microsoft Graph
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You may also enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/intune/User-driven-Autopilot/" rel="permalink">Truly user-driven Windows Autopilot
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          6 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Brilliant but kind of risky alternative to group tags 🪄🚀
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/intune/SettingsCatalog-PowerShell/" rel="permalink">Export, Fix, Import - Settings Catalog
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">At first it looked easy but then…
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/intune/IntuneSecurityBaseline-Move/" rel="permalink">How to easily move MDM Security Baseline profile
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">This is a game changer for me 😲
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/powershell/SettingsCatalog-Move/" rel="permalink">How to easily move Settings Catalog profile
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">With this simple trick, you can save a lot of time 😁
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/UniverseCitiz3n" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/UniverseCitiz3n" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 Maciej Horbacz. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/github%20actions/GithubActions/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/github%20actions/GithubActions"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://uc3n.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

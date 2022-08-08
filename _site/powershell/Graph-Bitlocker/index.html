@@ -1,0 +1,967 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Verify Azure AD Bitlocker Keys with Microsoft Graph - Maciej Horbacz</title>
+<meta name="description" content="Find out how to use Microsoft Graph API to assess bitlocker recovery keys in Azure AD">
+
+
+  <meta name="author" content="Hi">
+  
+  <meta property="article:author" content="Hi">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Maciej Horbacz">
+<meta property="og:title" content="Verify Azure AD Bitlocker Keys with Microsoft Graph">
+<meta property="og:url" content="http://localhost:4000/powershell/Graph-Bitlocker/">
+
+
+  <meta property="og:description" content="Find out how to use Microsoft Graph API to assess bitlocker recovery keys in Azure AD">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/head_image_big.png">
+
+
+
+  <meta name="twitter:site" content="@UniverseCitiz3n">
+  <meta name="twitter:title" content="Verify Azure AD Bitlocker Keys with Microsoft Graph">
+  <meta name="twitter:description" content="Find out how to use Microsoft Graph API to assess bitlocker recovery keys in Azure AD">
+  <meta name="twitter:url" content="http://localhost:4000/powershell/Graph-Bitlocker/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="http://localhost:4000/assets/head_image_big.png">
+    
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2021-02-08T00:00:00+01:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/powershell/Graph-Bitlocker/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Maciej Horbacz",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Maciej Horbacz Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+<!-- Twitter cards -->
+<meta name="twitter:site"    content="@">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:title"   content="Verify Azure AD Bitlocker Keys with Microsoft Graph">
+
+
+<meta name="twitter:description" content="My ideas and solutions to sysadmin problems">
+
+
+
+<meta name="twitter:card"  content="summary">
+<meta name="twitter:image" content="/assets/head_image_big.png">
+
+<!-- end of Twitter cards -->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide2">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/logo.png" alt=""></a>
+        
+        <a class="site-title" href="/">
+          Maciej Horbacz
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/autopilot/">Autopilot</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/events/">Events</a>
+            </li><li class="masthead__menu-item">
+              <a href="https://leanpub.com/psconfbook3/">Publications</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/terms/">Terms & Conditions</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Verify Azure AD Bitlocker Keys with Microsoft Graph">
+    <meta itemprop="description" content="Find out how to use Microsoft Graph API to assess bitlocker recovery keys in Azure AD">
+    <meta itemprop="datePublished" content="2021-02-08T00:00:00+01:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Verify Azure AD Bitlocker Keys with Microsoft Graph
+</h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          6 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Table of contents</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#intro">Intro</a></li>
+  <li><a href="#backup-bitlocker-recovery-key">Backup Bitlocker recovery key</a></li>
+  <li><a href="#graph-api">Graph API</a>
+    <ul>
+      <li><a href="#prerequisites">Prerequisites</a></li>
+      <li><a href="#powershell-runbook">Powershell runbook</a></li>
+      <li><a href="#proactive-backup-with-intune">Proactive backup with Intune</a></li>
+    </ul>
+  </li>
+  <li><a href="#summary">Summary</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <h1 id="intro">Intro</h1>
+
+<p>Device encryption help you protect your data from leak when device was stolen or missing 🚓
+<code class="language-plaintext highlighter-rouge">Bitlocker</code> encryption method uses 48 digit sequence code as an recovery key.
+In case something happens and you don’t have this recovery key stored somewhere safe (eg. AzureAD), data on disk is lost forever…⚰️<br />
+Better safe than sorry!</p>
+
+<h1 id="backup-bitlocker-recovery-key">Backup Bitlocker recovery key</h1>
+
+<p>You can store recovery key in local <code class="language-plaintext highlighter-rouge">Active Directory</code> or <code class="language-plaintext highlighter-rouge">Azure Active Directory</code>.
+Sending key to AD requires line of sight with domain controller where for AAD Internet connection is enough.
+Let’s stick with AAD 💪</p>
+
+<p>To perform backup you will need open <code class="language-plaintext highlighter-rouge">PowerShell</code> as an administrator and execute</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$BitLocker</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-BitLockerVolume</span><span class="w"> </span><span class="nt">-MountPoint</span><span class="w"> </span><span class="nv">$</span><span class="nn">env</span><span class="p">:</span><span class="nv">SystemDrive</span><span class="w">
+</span><span class="nv">$RecoveryProtector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$BitLocker</span><span class="o">.</span><span class="nf">KeyProtector</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Where-Object</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="bp">$_</span><span class="o">.</span><span class="nf">KeyProtectorType</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="s1">'RecoveryPassword'</span><span class="w"> </span><span class="p">}</span><span class="w">
+
+</span><span class="n">BackupToAAD-BitLockerKeyProtector</span><span class="w"> </span><span class="nt">-MountPoint</span><span class="w"> </span><span class="nv">$</span><span class="nn">env</span><span class="p">:</span><span class="nv">SystemDrive</span><span class="w"> </span><span class="nt">-KeyProtectorId</span><span class="w"> </span><span class="nv">$RecoveryProtector</span><span class="o">.</span><span class="nf">KeyProtectorID</span><span class="w">
+</span></code></pre></div></div>
+
+<p>It will send System drive recovery key to AAD!
+What if there are other encrypted fixed drives?
+A little more scripting is necessary</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#Logs folder</span><span class="w">
+</span><span class="nv">$OperatingFolder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'C:\Program Files (x86)\Microsoft\Temp'</span><span class="w">
+</span><span class="c">#Interate through all fixed drives and create object representations</span><span class="w">
+</span><span class="kr">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nv">$GetDeviceVolumes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-Volume</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Where-Object</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="bp">$PSItem</span><span class="o">.</span><span class="nf">DriveType</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="s1">'Fixed'</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Select-Object</span><span class="w"> </span><span class="nx">DriveLetter</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Where-Object</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="bp">$PSItem</span><span class="o">.</span><span class="nf">DriveLetter</span><span class="w"> </span><span class="o">-ne</span><span class="w"> </span><span class="bp">$null</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="nv">$RecoveryPasswordsArray</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@()</span><span class="w">
+    </span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$Volume</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$GetDeviceVolumes</span><span class="o">.</span><span class="nf">DriveLetter</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="n">New-Variable</span><span class="w"> </span><span class="s2">"GetRecoveryPasswordsFor</span><span class="nv">$Volume</span><span class="s2">"</span><span class="w"> </span><span class="nt">-Force</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Out-Null</span><span class="w">
+        </span><span class="nx">Set-Variable</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="s2">"GetRecoveryPasswordsFor</span><span class="nv">$Volume</span><span class="s2">"</span><span class="p">)</span><span class="w"> </span><span class="nt">-Value</span><span class="w"> </span><span class="err">$</span><span class="p">((</span><span class="n">Get-BitLockerVolume</span><span class="w"> </span><span class="nt">-MountPoint</span><span class="w"> </span><span class="nv">$volume</span><span class="se">`:</span><span class="w"> </span><span class="nt">-ErrorAction</span><span class="w"> </span><span class="nx">Stop</span><span class="p">)</span><span class="o">.</span><span class="nf">Keyprotector</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Where-Object</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="bp">$PSItem</span><span class="o">.</span><span class="nf">KeyProtectorType</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="s1">'RecoveryPassword'</span><span class="w">
+            </span><span class="p">})</span><span class="w">
+        </span><span class="nv">$RecoveryPasswordsArray</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">Get-Variable</span><span class="w"> </span><span class="s2">"GetRecoveryPasswordsFor</span><span class="nv">$Volume</span><span class="s2">"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w"> </span><span class="kr">catch</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="bp">$_</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Out-File</span><span class="w"> </span><span class="nv">$OperatingFolder</span><span class="nx">\bitlockerbackup.error</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="c">#for every found drive perform backup</span><span class="w">
+</span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$Keys</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$RecoveryPasswordsArray</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="bp">$null</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="nv">$Keys</span><span class="o">.</span><span class="nf">Value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="kr">Continue</span><span class="w">
+    </span><span class="p">}</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nv">$KeysCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nv">$Keys</span><span class="o">.</span><span class="nf">Value</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Measure-Object</span><span class="p">)</span><span class="o">.</span><span class="nf">Count</span><span class="w">
+        </span><span class="kr">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$KeysCount</span><span class="w"> </span><span class="o">-gt</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$Password</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$Keys</span><span class="o">.</span><span class="nf">Value</span><span class="o">.</span><span class="nf">GetEnumerator</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="n">BackupToAAD-BitLockerKeyProtector</span><span class="w"> </span><span class="nt">-MountPoint</span><span class="w"> </span><span class="s2">"</span><span class="si">$(</span><span class="nv">$Keys</span><span class="o">.</span><span class="n">Name</span><span class="p">[</span><span class="nt">-1</span><span class="p">]</span><span class="si">)</span><span class="se">`:</span><span class="s2">"</span><span class="w"> </span><span class="nt">-KeyProtectorId</span><span class="w"> </span><span class="nv">$Password</span><span class="o">.</span><span class="nf">KeyProtectorId</span><span class="w"> </span><span class="nt">-ErrorAction</span><span class="w"> </span><span class="nx">Stop</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Out-Null</span><span class="w">
+                    </span><span class="nx">Write-Output</span><span class="w"> </span><span class="s1">'Key sent'</span><span class="w">
+                    </span><span class="s1">'Key sent'</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Out-File</span><span class="w"> </span><span class="nv">$OperatingFolder</span><span class="nx">\bitlockerbackup.ok</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="n">BackupToAAD-BitLockerKeyProtector</span><span class="w"> </span><span class="nt">-MountPoint</span><span class="w"> </span><span class="s2">"</span><span class="si">$(</span><span class="nv">$Keys</span><span class="o">.</span><span class="n">Name</span><span class="p">[</span><span class="nt">-1</span><span class="p">]</span><span class="si">)</span><span class="se">`:</span><span class="s2">"</span><span class="w"> </span><span class="nt">-KeyProtectorId</span><span class="w"> </span><span class="nv">$Keys</span><span class="o">.</span><span class="nf">Value</span><span class="o">.</span><span class="nf">KeyProtectorId</span><span class="w"> </span><span class="nt">-ErrorAction</span><span class="w"> </span><span class="nx">Stop</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Out-Null</span><span class="w">
+                </span><span class="nx">Write-Output</span><span class="w"> </span><span class="s1">'Key sent'</span><span class="w">
+                </span><span class="s1">'Key sent'</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Out-File</span><span class="w"> </span><span class="nv">$OperatingFolder</span><span class="nx">\bitlockerbackup.ok</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w"> </span><span class="kr">catch</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="n">Write-Output</span><span class="w"> </span><span class="s1">'Error during backup'</span><span class="w">
+            </span><span class="bp">$_</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Out-File</span><span class="w"> </span><span class="nv">$OperatingFolder</span><span class="nx">\bitlockerbackup.error</span><span class="w">
+            </span><span class="kr">Exit</span><span class="w"> </span><span class="mi">1</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Recovery keys are stored in device blade in AAD also in MEM portal</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-02-08/img1.png" alt="img1" /></p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-02-08/img2.png" alt="img2" /></p>
+
+<p>Additionally you can search for key by providing its ID here</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-02-08/img3.png" alt="img3" /></p>
+
+<h1 id="graph-api">Graph API</h1>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<p>In november 2020 Microsoft provided beta API to <code class="language-plaintext highlighter-rouge">list</code> all keys and <code class="language-plaintext highlighter-rouge">get</code> key details using <code class="language-plaintext highlighter-rouge">Microsoft Graph</code>.
+Well…at last!😑
+Click <a href="https://docs.microsoft.com/en-us/graph/api/resources/bitlockerrecoverykey?view=graph-rest-beta">here</a> to jump to documentation.</p>
+
+<p>I’m interested in listing all recovery keys in AAD.
+To be able to do that you need specific set of permissions</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-02-08/img4.png" alt="img4" /></p>
+
+<p>As you can see these are <code class="language-plaintext highlighter-rouge">Delegated</code> permissions so you will need combination of <code class="language-plaintext highlighter-rouge">user role</code> and <code class="language-plaintext highlighter-rouge">cloud app</code> 🤝
+Start with creating user and assign one of the roles from above.
+For increased security use <code class="language-plaintext highlighter-rouge">Azure KeyValut</code> for password rotation or my <a href="https://universecitiz3n.tech/powershell/PSAM/">privileged service account solution</a> to increase protection even further 🔑</p>
+
+<p>Next step is creating <code class="language-plaintext highlighter-rouge">app registration</code> for <code class="language-plaintext highlighter-rouge">Microsoft Graph</code> calls.
+Go to <a href="https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/RegisteredApps">apps</a> and click on <strong>New registration</strong></p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-02-08/img5.png" alt="img5" /></p>
+
+<p>Enter app name and <strong>register</strong></p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-02-08/img6.png" alt="img6" /></p>
+
+<p>Next step is to add permissions for your app</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-02-08/img7.png" alt="img7" /></p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-02-08/img8.png" alt="img8" /></p>
+
+<p>Remember to grant <strong>admin consent</strong></p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-02-08/img9.png" alt="img9" /></p>
+
+<blockquote>
+  <p>NOTE: You can remove default API permissions</p>
+</blockquote>
+
+<p>You will also need <code class="language-plaintext highlighter-rouge">client secret</code> to be able to authenticate.</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-02-08/img10.png" alt="img10" /></p>
+
+<p>Copy secret immediately 👈</p>
+
+<h2 id="powershell-runbook">Powershell runbook</h2>
+
+<p>Now that we have everything in place you can proceed with scripting!
+To be able to use <code class="language-plaintext highlighter-rouge">Microsoft Graph API</code> with <code class="language-plaintext highlighter-rouge">Delegated</code> user permissions you need to generate <code class="language-plaintext highlighter-rouge">Oauth2</code> token.
+Here is how to do that</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#Client and user data</span><span class="w">
+</span><span class="nv">$AccountName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"username@onmicrosoft.com"</span><span class="w">
+</span><span class="nv">$AccountPassword</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'XXXXXXXXXXXXX'</span><span class="w">
+</span><span class="nv">$ClientId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXX"</span><span class="w">
+</span><span class="nv">$ClientSecret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'XXXXXXXXXXXXXXXXXXXXXX'</span><span class="w">
+</span><span class="nv">$TenantID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXX"</span><span class="w">
+</span><span class="nv">$GraphUri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'https://graph.microsoft.com'</span><span class="w">
+</span><span class="nv">$GraphVersion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'beta'</span><span class="w">
+
+</span><span class="c"># Authentication url</span><span class="w">
+</span><span class="nv">$AzureResourceURI</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"https://login.microsoftonline.com/</span><span class="nv">$TenantID</span><span class="s2">/oauth2/v2.0/token"</span><span class="w">
+
+</span><span class="c"># Construct the Body for the POST</span><span class="w">
+</span><span class="nv">$Body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"grant_type=password"</span><span class="err">`</span><span class="w">
+ </span><span class="o">+</span><span class="w"> </span><span class="s2">"&amp;username="</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">$Accountname</span><span class="w"> </span><span class="err">`</span><span class="w">
+ </span><span class="o">+</span><span class="w"> </span><span class="s2">"&amp;client_id="</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">$ClientId</span><span class="w"> </span><span class="err">`</span><span class="w">
+ </span><span class="o">+</span><span class="w"> </span><span class="s2">"&amp;client_secret="</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">$ClientSecret</span><span class="err">`</span><span class="w">
+ </span><span class="o">+</span><span class="w"> </span><span class="s2">"&amp;password="</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">$AccountPassword</span><span class="w"> </span><span class="err">`</span><span class="w">
+ </span><span class="o">+</span><span class="w"> </span><span class="s2">"&amp;scope=https://graph.microsoft.com/.default"</span><span class="w">
+
+</span><span class="c"># The result should contain a token for use with Graph</span><span class="w">
+</span><span class="nv">$Response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Invoke-WebRequest</span><span class="w"> </span><span class="nt">-Uri</span><span class="w"> </span><span class="nv">$AzureResourceURI</span><span class="w"> </span><span class="nt">-Method</span><span class="w"> </span><span class="nx">POST</span><span class="w"> </span><span class="nt">-Body</span><span class="w"> </span><span class="nv">$Body</span><span class="w"> </span><span class="nt">-UseBasicParsing</span><span class="w">
+</span><span class="nv">$ResponseJSON</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Response</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ConvertFrom-Json</span><span class="w">
+
+</span><span class="c"># Add the token to headers for the Graph request</span><span class="w">
+</span><span class="nv">$Headers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+</span><span class="nx">Authorization</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Bearer "</span><span class="w"> </span><span class="err">+</span><span class="w"> </span><span class="nv">$ResponseJSON</span><span class="err">.</span><span class="nx">access_token</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="c">#Run API call</span><span class="w">
+</span><span class="nv">$Deviceuri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"</span><span class="nv">$GraphUri</span><span class="s2">/</span><span class="nv">$GraphVersion</span><span class="s2">/devices"</span><span class="w">
+</span><span class="nv">$AllDevices</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Invoke-RestMethod</span><span class="w"> </span><span class="nt">-Uri</span><span class="w"> </span><span class="nv">$Deviceuri</span><span class="w"> </span><span class="nt">-Headers</span><span class="w"> </span><span class="nv">$Headers</span><span class="w"> </span><span class="nt">-Method</span><span class="w"> </span><span class="nx">Get</span><span class="w">
+</span></code></pre></div></div>
+
+<p>OBVIOUSLY you should not keep your passwords and secrets as plain text in script!!
+It’s better to use variables or credentials in <code class="language-plaintext highlighter-rouge">Automation Account</code> 😉
+With such generated token you can proceed and make API call for bitlocker recovery keys</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#Required header modification for bitlocker call</span><span class="w">
+</span><span class="nv">$Bitlockerheader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+  </span><span class="s1">'Authorization'</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="nv">$Headers</span><span class="err">.</span><span class="nx">Authorization</span><span class="w">
+  </span><span class="s1">'ocp-client-name'</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s1">'Bitlocker Recovery Keys'</span><span class="w">
+  </span><span class="s1">'ocp-client-version'</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'1.2'</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="nv">$bitlockerkeys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@()</span><span class="w">
+</span><span class="nv">$Bitlockeruri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"</span><span class="nv">$GraphUri</span><span class="s2">/</span><span class="nv">$GraphVersion</span><span class="s2">/bitlocker/recoveryKeys"</span><span class="w">
+</span><span class="nv">$bitlockerkeysuri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Invoke-RestMethod</span><span class="w"> </span><span class="nt">-Uri</span><span class="w"> </span><span class="nv">$Bitlockeruri</span><span class="w"> </span><span class="nt">-Headers</span><span class="w"> </span><span class="nv">$Bitlockerheader</span><span class="w"> </span><span class="nt">-Method</span><span class="w"> </span><span class="nx">Get</span><span class="w">
+</span><span class="nv">$bitlockerkeys</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nv">$bitlockerkeysuri</span><span class="o">.</span><span class="nf">value</span><span class="w">
+</span><span class="kr">while</span><span class="w"> </span><span class="p">(</span><span class="nv">$bitlockerkeysuri</span><span class="o">.</span><span class="s1">'@odata.nextLink'</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+ </span><span class="nv">$NextBatchRequest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$bitlockerkeysuri</span><span class="o">.</span><span class="s1">'@odata.nextLink'</span><span class="w">
+ </span><span class="nv">$bitlockerkeysuri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Invoke-RestMethod</span><span class="w"> </span><span class="nt">-Uri</span><span class="w"> </span><span class="nv">$NextBatchRequest</span><span class="w"> </span><span class="nt">-Headers</span><span class="w"> </span><span class="nv">$Bitlockerheader</span><span class="w"> </span><span class="nt">-Method</span><span class="w"> </span><span class="nx">Get</span><span class="w">
+ </span><span class="nv">$bitlockerkeys</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nv">$bitlockerkeysuri</span><span class="o">.</span><span class="nf">value</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<blockquote>
+  <p>NOTE: As stated in <a href="https://docs.microsoft.com/en-us/graph/api/bitlocker-list-recoverykeys?view=graph-rest-beta&amp;tabs=http#request-headers">documentation</a> header requires <code class="language-plaintext highlighter-rouge">ocp-client-name</code> and <code class="language-plaintext highlighter-rouge">ocp-client-version</code></p>
+</blockquote>
+
+<p>As an result you will receive list of keys</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-02-08/img11.png" alt="img11" /></p>
+
+<p>Alright we’ve got it!
+But how about taking it further…just bear with me a little more 😁</p>
+
+<h2 id="proactive-backup-with-intune">Proactive backup with Intune</h2>
+
+<p>Now that you have insights into state of bitlocker recovery keys in AAD you can take action if any device is missing a key.
+Start with creating <code class="language-plaintext highlighter-rouge">PowerShell</code> script deployment using <code class="language-plaintext highlighter-rouge">Intune</code>.
+Go to <a href="https://endpoint.microsoft.com/#blade/Microsoft_Intune_DeviceSettings/DevicesMenu/powershell">devices | scripts</a> and create new <code class="language-plaintext highlighter-rouge">Windows 10</code> configuration.
+Fill out the name and upload your backup script covered in first section of this post</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-02-08/img12.png" alt="img12" /></p>
+
+<p>Assign some AAD group and finish</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-02-08/img13.png" alt="img13" /></p>
+
+<p>Assign additional permissions to your application:</p>
+
+<ul>
+  <li>Device.Read.All</li>
+  <li>GroupMember.ReadWrite.All</li>
+</ul>
+
+<p>Device read will help you out identify devices by their names and interate through all <code class="language-plaintext highlighter-rouge">Windows 10</code> devices managed by <code class="language-plaintext highlighter-rouge">Intune</code>.
+Group member is required for modifications of group which is assigned to <code class="language-plaintext highlighter-rouge">Intune</code> script profile.
+Now go to your <code class="language-plaintext highlighter-rouge">runbook</code> and expand it with following code</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Get all AAD devices and filter out Windows managed by Intune</span><span class="w">
+</span><span class="nv">$AllDevices</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@()</span><span class="w">
+</span><span class="nv">$Deviceuri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"</span><span class="nv">$GraphUri</span><span class="s2">/</span><span class="nv">$GraphVersion</span><span class="s2">/devices?</span><span class="se">`$</span><span class="s2">filter=operatingSystem eq 'Windows' AND isManaged eq true AND accountEnabled eq true"</span><span class="w">
+</span><span class="nv">$Devices</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Invoke-RestMethod</span><span class="w"> </span><span class="nt">-Uri</span><span class="w"> </span><span class="nv">$Deviceuri</span><span class="w"> </span><span class="nt">-Headers</span><span class="w"> </span><span class="nv">$Headers</span><span class="w"> </span><span class="nt">-Method</span><span class="w"> </span><span class="nx">Get</span><span class="w">
+</span><span class="nv">$AllDevices</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nv">$Devices</span><span class="o">.</span><span class="nf">value</span><span class="w">
+</span><span class="kr">while</span><span class="w"> </span><span class="p">(</span><span class="nv">$Devices</span><span class="o">.</span><span class="s1">'@odata.nextLink'</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+ </span><span class="nv">$NextBatchRequest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Devices</span><span class="o">.</span><span class="s1">'@odata.nextLink'</span><span class="w">
+ </span><span class="nv">$Devices</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Invoke-RestMethod</span><span class="w"> </span><span class="nt">-Uri</span><span class="w"> </span><span class="nv">$NextBatchRequest</span><span class="w"> </span><span class="nt">-Headers</span><span class="w"> </span><span class="nv">$Headers</span><span class="w"> </span><span class="nt">-Method</span><span class="w"> </span><span class="nx">Get</span><span class="w">
+ </span><span class="nv">$AllDevices</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nv">$Devices</span><span class="o">.</span><span class="nf">value</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="nv">$AllDevices</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$AllDevices</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Where-Object</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="bp">$PSItem</span><span class="o">.</span><span class="nf">managementType</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="s1">'MDM'</span><span class="w"> </span><span class="o">-and</span><span class="w"> </span><span class="bp">$PSItem</span><span class="o">.</span><span class="nf">approximateLastSignInDateTime</span><span class="w"> </span><span class="o">-gt</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="n">Get-Date</span><span class="p">)</span><span class="o">.</span><span class="nf">AddMonths</span><span class="p">(</span><span class="nt">-3</span><span class="p">)</span><span class="w"> </span><span class="p">}</span><span class="w">
+
+</span><span class="c"># Check group members</span><span class="w">
+</span><span class="nv">$BackupIntuneScriptGroup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXX'</span><span class="w">
+</span><span class="nv">$Groupuri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"</span><span class="nv">$GraphUri</span><span class="s2">/</span><span class="nv">$GraphVersion</span><span class="s2">/groups/</span><span class="nv">$BackupIntuneScriptGroup</span><span class="s2">/members"</span><span class="w">
+</span><span class="nv">$GroupMembers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Invoke-RestMethod</span><span class="w"> </span><span class="nt">-Uri</span><span class="w"> </span><span class="nv">$Groupuri</span><span class="w"> </span><span class="nt">-Headers</span><span class="w"> </span><span class="nv">$Headers</span><span class="w"> </span><span class="nt">-Method</span><span class="w"> </span><span class="nx">Get</span><span class="w">
+
+</span><span class="c"># For every managed device check if there is a recovery key in AAD</span><span class="w">
+</span><span class="nv">$Results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@()</span><span class="w">
+</span><span class="kr">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+ </span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$device</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$AllDevices</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="kr">if</span><span class="w"> </span><span class="p">((</span><span class="nv">$bitlockerkeys</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Where-Object</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="bp">$PSItem</span><span class="o">.</span><span class="nf">deviceId</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="nv">$device</span><span class="o">.</span><span class="nf">deviceId</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Measure-Object</span><span class="p">)</span><span class="o">.</span><span class="nf">Count</span><span class="w"> </span><span class="o">-gt</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+   </span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$device</span><span class="o">.</span><span class="nf">deviceId</span><span class="w"> </span><span class="nt">-in</span><span class="w"> </span><span class="nv">$GroupMembers</span><span class="o">.</span><span class="nf">value</span><span class="o">.</span><span class="nf">deviceId</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nv">$GroupHeader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+     </span><span class="nx">Authorization</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Headers</span><span class="err">.</span><span class="nx">Authorization</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    </span><span class="nv">$Response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Invoke-RestMethod</span><span class="w"> </span><span class="nt">-Method</span><span class="w"> </span><span class="nx">DELETE</span><span class="w"> </span><span class="nt">-Uri</span><span class="w"> </span><span class="s2">"</span><span class="nv">$GraphUri</span><span class="s2">/</span><span class="nv">$GraphVersion</span><span class="s2">/groups/</span><span class="nv">$BackupIntuneScriptGroup</span><span class="s2">/members/</span><span class="si">$(</span><span class="nv">$device</span><span class="o">.</span><span class="nf">id</span><span class="si">)</span><span class="s2">/</span><span class="se">`$</span><span class="s2">ref"</span><span class="w"> </span><span class="nt">-Headers</span><span class="w"> </span><span class="nv">$GroupHeader</span><span class="w">
+    </span><span class="nv">$Results</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="p">[</span><span class="n">PSCustomObject</span><span class="p">]@{</span><span class="w">
+     </span><span class="nx">DeviceName</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="nv">$device</span><span class="err">.</span><span class="nx">displayName</span><span class="w">
+     </span><span class="nx">DeviceId</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="nv">$device</span><span class="err">.</span><span class="nx">deviceId</span><span class="w">
+     </span><span class="nx">RecoveryKeyInAAD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">$true</span><span class="w">
+     </span><span class="nx">Action</span><span class="w">           </span><span class="o">=</span><span class="w"> </span><span class="s1">'Removed from group'</span><span class="w">
+     </span><span class="nx">AdditionalInfo</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s2">"</span><span class="si">$(</span><span class="p">(</span><span class="nv">$bitlockerkeys</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Where-Object</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="bp">$PSItem</span><span class="o">.</span><span class="nf">deviceId</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="nv">$device</span><span class="o">.</span><span class="nf">deviceId</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Measure-Object</span><span class="p">)</span><span class="o">.</span><span class="nf">Count</span><span class="si">)</span><span class="s2"> keys found"</span><span class="w">
+    </span><span class="p">}</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ConvertTo-Json</span><span class="w">
+   </span><span class="p">}</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nv">$Results</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="p">[</span><span class="n">PSCustomObject</span><span class="p">]@{</span><span class="w">
+     </span><span class="nx">DeviceName</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="nv">$device</span><span class="err">.</span><span class="nx">displayName</span><span class="w">
+     </span><span class="nx">DeviceId</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="nv">$device</span><span class="err">.</span><span class="nx">deviceId</span><span class="w">
+     </span><span class="nx">RecoveryKeyInAAD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">$true</span><span class="w">
+     </span><span class="nx">Action</span><span class="w">           </span><span class="o">=</span><span class="w"> </span><span class="s1">'None'</span><span class="w">
+     </span><span class="nx">AdditionalInfo</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s2">"</span><span class="si">$(</span><span class="p">(</span><span class="nv">$bitlockerkeys</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Where-Object</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="bp">$PSItem</span><span class="o">.</span><span class="nf">deviceId</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="nv">$device</span><span class="o">.</span><span class="nf">deviceId</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Measure-Object</span><span class="p">)</span><span class="o">.</span><span class="nf">Count</span><span class="si">)</span><span class="s2"> keys found"</span><span class="w">
+    </span><span class="p">}</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ConvertTo-Json</span><span class="w">
+   </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+   </span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$device</span><span class="o">.</span><span class="nf">displayName</span><span class="w"> </span><span class="nt">-in</span><span class="w"> </span><span class="nv">$GroupMembers</span><span class="o">.</span><span class="nf">value</span><span class="o">.</span><span class="nf">displayName</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nv">$Results</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="p">[</span><span class="n">PSCustomObject</span><span class="p">]@{</span><span class="w">
+     </span><span class="nx">DeviceName</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="nv">$device</span><span class="err">.</span><span class="nx">displayName</span><span class="w">
+     </span><span class="nx">DeviceId</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="nv">$device</span><span class="err">.</span><span class="nx">deviceId</span><span class="w">
+     </span><span class="nx">RecoveryKeyInAAD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">$false</span><span class="w">
+     </span><span class="nx">Action</span><span class="w">           </span><span class="o">=</span><span class="w"> </span><span class="s1">'None'</span><span class="w">
+     </span><span class="nx">AdditionalInfo</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s1">'Already in group'</span><span class="w">
+    </span><span class="p">}</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ConvertTo-Json</span><span class="w">
+   </span><span class="p">}</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nv">$BodyContent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+     </span><span class="s2">"@odata.id"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"</span><span class="nv">$GraphUri</span><span class="s2">/</span><span class="nv">$GraphVersion</span><span class="s2">/devices/</span><span class="si">$(</span><span class="nv">$device</span><span class="o">.</span><span class="nf">id</span><span class="si">)</span><span class="s2">"</span><span class="w">
+    </span><span class="p">}</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ConvertTo-Json</span><span class="w">
+    </span><span class="nv">$GroupHeader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+     </span><span class="nx">Authorization</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nv">$Headers</span><span class="err">.</span><span class="nx">Authorization</span><span class="w">
+     </span><span class="s1">'Content-Type'</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'application/json'</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+
+    </span><span class="nv">$Response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Invoke-RestMethod</span><span class="w"> </span><span class="nt">-Method</span><span class="w"> </span><span class="nx">POST</span><span class="w"> </span><span class="nt">-Uri</span><span class="w"> </span><span class="s2">"</span><span class="nv">$GraphUri</span><span class="s2">/</span><span class="nv">$GraphVersion</span><span class="s2">/groups/</span><span class="nv">$BackupIntuneScriptGroup</span><span class="s2">/members/</span><span class="se">`$</span><span class="s2">ref"</span><span class="w"> </span><span class="nt">-Headers</span><span class="w"> </span><span class="nv">$GroupHeader</span><span class="w"> </span><span class="nt">-Body</span><span class="w"> </span><span class="nv">$BodyContent</span><span class="w">
+    </span><span class="nv">$Results</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="p">[</span><span class="n">PSCustomObject</span><span class="p">]@{</span><span class="w">
+     </span><span class="nx">DeviceName</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="nv">$device</span><span class="err">.</span><span class="nx">displayName</span><span class="w">
+     </span><span class="nx">DeviceId</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="nv">$device</span><span class="err">.</span><span class="nx">deviceId</span><span class="w">
+     </span><span class="nx">RecoveryKeyInAAD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">$false</span><span class="w">
+     </span><span class="nx">Action</span><span class="w">           </span><span class="o">=</span><span class="w"> </span><span class="s1">'Added to backup group'</span><span class="w">
+     </span><span class="nx">AdditionalInfo</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s1">''</span><span class="w">
+    </span><span class="p">}</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ConvertTo-Json</span><span class="w">
+   </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+ </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w"> </span><span class="kr">catch</span><span class="w"> </span><span class="p">{</span><span class="w">
+ </span><span class="n">Write-Error</span><span class="w"> </span><span class="nv">$device</span><span class="w">
+ </span><span class="n">Write-Error</span><span class="w"> </span><span class="bp">$_</span><span class="w">
+ </span><span class="kr">break</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Output</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2021-02-08/img14.png" alt="img14" /></p>
+
+<h1 id="summary">Summary</h1>
+
+<p>Thanks to <code class="language-plaintext highlighter-rouge">Microsoft Graph API</code> you can run check against <code class="language-plaintext highlighter-rouge">Azure AD</code> for bitlocker recovery keys.
+If some device is missing a key <code class="language-plaintext highlighter-rouge">Intune</code> will take care of performing backup for you.
+Now you can rest without worries.</p>
+
+<p>See you in next! 😉 🧠</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#azuread" class="page__taxonomy-item" rel="tag">AzureAD</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#encryption" class="page__taxonomy-item" rel="tag">Encryption</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#intune" class="page__taxonomy-item" rel="tag">Intune</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#microsoft-graph" class="page__taxonomy-item" rel="tag">Microsoft Graph</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#powershell" class="page__taxonomy-item" rel="tag">Powershell</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#runbook" class="page__taxonomy-item" rel="tag">Runbook</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#workstations" class="page__taxonomy-item" rel="tag">Workstations</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#powershell" class="page__taxonomy-item" rel="tag">Powershell</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-02-08T00:00:00+01:00">February 8, 2021</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=UniverseCitiz3n&text=Verify+Azure+AD+Bitlocker+Keys+with+Microsoft+Graph%20http%3A%2F%2Flocalhost%3A4000%2Fpowershell%2FGraph-Bitlocker%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fpowershell%2FGraph-Bitlocker%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fpowershell%2FGraph-Bitlocker%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/github%20actions/GithubActions/" class="pagination--pager" title="I’ve published my first module with GitHub Actions
+">Previous</a>
+    
+    
+      <a href="/intune/Intune-Logs-SMB/" class="pagination--pager" title="Upload files with Intune to Azure file share
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You may also enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/intune/User-driven-Autopilot/" rel="permalink">Truly user-driven Windows Autopilot
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          6 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Brilliant but kind of risky alternative to group tags 🪄🚀
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/intune/SettingsCatalog-PowerShell/" rel="permalink">Export, Fix, Import - Settings Catalog
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">At first it looked easy but then…
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/intune/IntuneSecurityBaseline-Move/" rel="permalink">How to easily move MDM Security Baseline profile
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">This is a game changer for me 😲
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/powershell/SettingsCatalog-Move/" rel="permalink">How to easily move Settings Catalog profile
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">With this simple trick, you can save a lot of time 😁
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/UniverseCitiz3n" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/UniverseCitiz3n" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 Maciej Horbacz. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/powershell/Graph-Bitlocker/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/powershell/Graph-Bitlocker"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://uc3n.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

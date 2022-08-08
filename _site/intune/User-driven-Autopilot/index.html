@@ -1,0 +1,954 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Truly user-driven Windows Autopilot - Maciej Horbacz</title>
+<meta name="description" content="Brilliant but kind of risky alternative to group tags 🪄🚀">
+
+
+  <meta name="author" content="Hi">
+  
+  <meta property="article:author" content="Hi">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Maciej Horbacz">
+<meta property="og:title" content="Truly user-driven Windows Autopilot">
+<meta property="og:url" content="http://localhost:4000/intune/User-driven-Autopilot/">
+
+
+  <meta property="og:description" content="Brilliant but kind of risky alternative to group tags 🪄🚀">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/head_image_big.png">
+
+
+
+  <meta name="twitter:site" content="@UniverseCitiz3n">
+  <meta name="twitter:title" content="Truly user-driven Windows Autopilot">
+  <meta name="twitter:description" content="Brilliant but kind of risky alternative to group tags 🪄🚀">
+  <meta name="twitter:url" content="http://localhost:4000/intune/User-driven-Autopilot/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="http://localhost:4000/assets/head_image_big.png">
+    
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2022-07-25T00:00:00+02:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/intune/User-driven-Autopilot/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Maciej Horbacz",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Maciej Horbacz Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+<!-- Twitter cards -->
+<meta name="twitter:site"    content="@">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:title"   content="Truly user-driven Windows Autopilot">
+
+
+<meta name="twitter:description" content="My ideas and solutions to sysadmin problems">
+
+
+
+<meta name="twitter:card"  content="summary">
+<meta name="twitter:image" content="/assets/head_image_big.png">
+
+<!-- end of Twitter cards -->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide2">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/logo.png" alt=""></a>
+        
+        <a class="site-title" href="/">
+          Maciej Horbacz
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/autopilot/">Autopilot</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/events/">Events</a>
+            </li><li class="masthead__menu-item">
+              <a href="https://leanpub.com/psconfbook3/">Publications</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/terms/">Terms & Conditions</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Truly user-driven Windows Autopilot">
+    <meta itemprop="description" content="Brilliant but kind of risky alternative to group tags 🪄🚀">
+    <meta itemprop="datePublished" content="2022-07-25T00:00:00+02:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Truly user-driven Windows Autopilot
+</h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          6 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Table of contents</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#intro">Intro</a></li>
+  <li><a href="#configuration-profiles-assignment">Configuration profiles assignment</a></li>
+  <li><a href="#powershell--graph-api">PowerShell + Graph API</a></li>
+  <li><a href="#autopilot-in-action">Autopilot in action</a></li>
+  <li><a href="#summary">Summary</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <h1 id="intro">Intro</h1>
+
+<p>Hi there!</p>
+
+<p>A colleague of mine came to me with question ‘Can we somehow make the Windows Autopilot dependent on the user account that starts it?’.
+The reason behind that was to try ditching Windows Autopilot device group tags and latency of Azure AD dynamic groups.</p>
+
+<p>Immediately an idea came to my head 💡!</p>
+
+<h1 id="configuration-profiles-assignment">Configuration profiles assignment</h1>
+
+<p>Windows Autopilot has two deployment scenarios:</p>
+
+<ul>
+  <li>Azure AD join if devices don’t need to join an on-premises Active Directory domain.</li>
+  <li>Hybrid Azure AD join for devices that need to join both Azure AD and your on-premises Active Directory domain.</li>
+</ul>
+
+<p>While AAD join is quick and easy, HAAD join is more complex and beside deployment profile device requires domain join profile assigned.</p>
+
+<p>With the use of <strong>group tags</strong> IT Admins (or vendors depend if device hash was uploaded in factory) can predetermine configuration for the device before even deployment starts.</p>
+
+<p><a href="https://techcommunity.microsoft.com/t5/intune-customer-success/support-tip-using-group-tags-to-import-devices-into-intune-with/ba-p/815336">Using group tags to import devices into Intune with Autopilot</a></p>
+
+<p>Speaking of domain join profile</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2022-07-25/userap8.png" alt="AP8" /></p>
+
+<p>There is not much but what if your company has multiple domains?</p>
+
+<p>Well you can’t type in more than one into the profile and if you create multiple profiles the first one to come will be used.
+That is why group tags will help with assigning only that which should be used.
+But again this needs to determined before Autopilot deployment even starts.</p>
+
+<p>Idea is to join device to the same domain as the user that started deployment.
+How about assigning domain join profile to the user?! 🤔</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2022-07-25/userap9.png" alt="AP9" /></p>
+
+<p><img src="https://c.tenor.com/p5Qmh_2RT9YAAAAC/your-tactics-dont-work-on-me-eric-cartman.gif" alt="Cartman" /></p>
+
+<p>What if there was another way…</p>
+
+<h1 id="powershell--graph-api">PowerShell + Graph API</h1>
+
+<p><img src="https://oofhours.files.wordpress.com/2020/06/image-24.png" alt="HAADJ" /></p>
+
+<p>Source - <a href="https://oofhours.files.wordpress.com/2020/06/image-24.png">oofhours</a></p>
+
+<p>Based on that flowchart and my experience after device is enrolled to Intune configuration policies are applied and domain join profile with them.
+If the latter is missing device waits up to 25-30 minutes until failing entire process.
+That gives us time to run <strong>PowerShell</strong> runbook which will assign groups based on the user that started Autopilot!</p>
+
+<p>For this to happen you need <strong>Azure Automation</strong> instance and service principal with the following set of permissions</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2022-07-25/userap15.png" alt="AP15" /></p>
+
+<blockquote>
+  <p>NOTE: Service Princial doesn’t have to have right to manage group membership. It just needs to be owner of the groups that it will change 😎</p>
+</blockquote>
+
+<p>For more info on how to create azure automation and how to use service principal visit my previous post -  <a href="https://universecitiz3n.tech/powershell/Graph-Bitlocker/#prerequisites">here</a></p>
+
+<p>To easily find only newly enrolled devices to Intune you can make a Graph call to <code class="language-plaintext highlighter-rouge">deviceManagement/managedDevices</code> with filter <code class="language-plaintext highlighter-rouge">enrolleddatetime</code></p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2022-07-25/userap13.png" alt="AP13" /></p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$DateTimeNow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Get-Date</span><span class="p">)</span><span class="o">.</span><span class="nf">ToUniversalTime</span><span class="p">()</span><span class="o">.</span><span class="nf">ToString</span><span class="p">(</span><span class="s1">'yyyy-MM-ddTHH:mm:ss.fffK'</span><span class="p">)</span><span class="w">
+</span><span class="nv">$DateTimeNowM10</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Get-Date</span><span class="p">)</span><span class="o">.</span><span class="nf">addhours</span><span class="p">(</span><span class="nt">-2</span><span class="p">)</span><span class="o">.</span><span class="nf">ToUniversalTime</span><span class="p">()</span><span class="o">.</span><span class="nf">ToString</span><span class="p">(</span><span class="s1">'yyyy-MM-ddTHH:mm:ss.fffK'</span><span class="p">)</span><span class="w">
+</span><span class="nv">$Resource</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"deviceManagement/managedDevices?</span><span class="se">`$</span><span class="s2">filter=(Notes%20eq%20%27bc3e5c73-e224-4e63-9b2b-0c36784b7e80%27)%20and%20((enrolleddatetime%20lt%20</span><span class="nv">$DateTimeNow</span><span class="s2">)%20and%20(enrolleddatetime%20gt%20</span><span class="nv">$DateTimeNowM10</span><span class="s2">)%20and%20((deviceType%20eq%20%27desktop%27)%20or%20(deviceType%20eq%20%27windowsRT%27)))&amp;</span><span class="se">`$</span><span class="s2">top=25&amp;</span><span class="se">`$</span><span class="s2">skipToken=Skip=%270%27&amp;</span><span class="se">`$</span><span class="s2">select=deviceName,managementAgent,ownerType,complianceState,deviceType,userId,userPrincipalName,osVersion,lastSyncDateTime,userPrincipalName,id,deviceRegistrationState,managementState,exchangeAccessState,exchangeAccessStateReason,deviceActionResults,deviceEnrollmentType"</span><span class="w">
+</span><span class="n">Write-Output</span><span class="w"> </span><span class="s2">"Time: </span><span class="nv">$DateTimeNow</span><span class="s2">"</span><span class="w">
+</span><span class="nv">$APICallParams</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+    </span><span class="nx">Method</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s1">'GET'</span><span class="w">
+    </span><span class="nx">Headers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$AuthorizationToken</span><span class="w">
+    </span><span class="nx">Uri</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"</span><span class="nv">$GraphUrl</span><span class="s2">/</span><span class="nv">$GraphVersion</span><span class="s2">/</span><span class="nv">$Resource</span><span class="s2">"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="n">Write-Output</span><span class="w"> </span><span class="s1">'Checking for Windows Autopilot new devices...'</span><span class="w">
+</span><span class="nv">$WindowsAutopilotEnrolledDevices</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Invoke-RestMethod</span><span class="w"> </span><span class="err">@</span><span class="nx">APICallParams</span><span class="p">)</span><span class="o">.</span><span class="nf">value</span><span class="w">
+</span></code></pre></div></div>
+
+<p>That way you will also get <code class="language-plaintext highlighter-rouge">userPrincipalName</code> of the user that started deployment!</p>
+
+<p>To make assignment of the configuration profiles based on the user I came up with a design to have two groups:</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2022-07-25/userap19.png" alt="AP19" /></p>
+
+<p>One for the users and another with resembling name for the devices where devices group is assigned to the domain join profile in Intune</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2022-07-25/userap20.png" alt="AP20" /></p>
+
+<p>With just another API call we get user membership</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$APICallParams</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+    </span><span class="nx">Method</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s1">'GET'</span><span class="w">
+    </span><span class="nx">Headers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$AuthorizationToken</span><span class="w">
+    </span><span class="nx">Uri</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"</span><span class="nv">$GraphUrl</span><span class="s2">/</span><span class="nv">$GraphVersion</span><span class="s2">/users/</span><span class="si">$(</span><span class="nv">$Device</span><span class="o">.</span><span class="nf">userid</span><span class="si">)</span><span class="s2">/memberOf"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="nv">$UserGroups</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Invoke-RestMethod</span><span class="w"> </span><span class="err">@</span><span class="nx">APICallParams</span><span class="p">)</span><span class="o">.</span><span class="nf">value</span><span class="w">
+</span><span class="nv">$DeviceGroupsFromUserGroups</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$UserGroups</span><span class="o">.</span><span class="nf">Where</span><span class="p">({</span><span class="w"> </span><span class="bp">$PSItem</span><span class="o">.</span><span class="nf">displayName</span><span class="w"> </span><span class="o">-like</span><span class="w"> </span><span class="s1">'*-Users_AzA'</span><span class="w"> </span><span class="p">})</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Later on user group names are transformed to device groups and to proceed further we need <code class="language-plaintext highlighter-rouge">group object ID</code></p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$DeviceGroup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"</span><span class="si">$(</span><span class="nv">$DeviceGroup</span><span class="o">.</span><span class="nf">displayName</span><span class="o">.</span><span class="nf">split</span><span class="p">(</span><span class="s1">'-'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="si">)</span><span class="s2">-Computers"</span><span class="w">
+</span><span class="nv">$RequestSplat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+    </span><span class="nx">Headers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$AuthorizationToken</span><span class="w"> </span><span class="err">+</span><span class="w"> </span><span class="p">@{</span><span class="s1">'ConsistencyLevel'</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'eventual'</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="nx">Uri</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"</span><span class="nv">$GraphUrl</span><span class="s2">/</span><span class="nv">$GraphVersion</span><span class="s2">/groups?</span><span class="se">`$</span><span class="s2">filter=displayname eq '</span><span class="nv">$DeviceGroup</span><span class="s2">'"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="nv">$AADGroupObject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Invoke-RestMethod</span><span class="w"> </span><span class="err">@</span><span class="nx">RequestSplat</span><span class="p">)</span><span class="o">.</span><span class="nf">value</span><span class="w">
+</span></code></pre></div></div>
+
+<p>To assign <code class="language-plaintext highlighter-rouge">Azure AD group</code> to the <code class="language-plaintext highlighter-rouge">Azure AD device object</code> you also need <code class="language-plaintext highlighter-rouge">device object id</code> which should not be confused with <code class="language-plaintext highlighter-rouge">device id</code></p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2022-07-25/userap12.png" alt="AP12" /></p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2022-07-25/userap21.png" alt="AP21" /></p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#Get Intune device details</span><span class="w">
+</span><span class="nv">$APICallParams</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+    </span><span class="nx">Method</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s1">'GET'</span><span class="w">
+    </span><span class="nx">Headers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$AuthorizationToken</span><span class="w">
+    </span><span class="nx">Uri</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"</span><span class="nv">$GraphUrl</span><span class="s2">/</span><span class="nv">$GraphVersion</span><span class="s2">/deviceManagement/manageddevices('</span><span class="si">$(</span><span class="nv">$Device</span><span class="o">.</span><span class="nf">id</span><span class="si">)</span><span class="s2">')"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="nv">$IntuneDeviceDetails</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Invoke-RestMethod</span><span class="w"> </span><span class="err">@</span><span class="nx">APICallParams</span><span class="w">
+
+</span><span class="c">#Get AAD object from Intune object</span><span class="w">
+</span><span class="nv">$RequestSplat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+    </span><span class="nx">Headers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$AuthorizationToken</span><span class="w"> </span><span class="err">+</span><span class="w"> </span><span class="p">@{</span><span class="s1">'ConsistencyLevel'</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'eventual'</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="nx">Uri</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"</span><span class="nv">$GraphUrl</span><span class="s2">/</span><span class="nv">$GraphVersion</span><span class="s2">/devices?</span><span class="se">`$</span><span class="s2">filter=deviceId eq '</span><span class="si">$(</span><span class="nv">$IntuneDeviceDetails</span><span class="o">.</span><span class="nf">azureADDeviceId</span><span class="si">)</span><span class="s2">' or id eq '</span><span class="si">$(</span><span class="nv">$IntuneDeviceDetails</span><span class="o">.</span><span class="nf">azureADDeviceId</span><span class="si">)</span><span class="s2">'"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="nv">$AADDeviceObject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Invoke-RestMethod</span><span class="w"> </span><span class="err">@</span><span class="nx">RequestSplat</span><span class="p">)</span><span class="o">.</span><span class="nf">value</span><span class="w">
+</span></code></pre></div></div>
+
+<p>That was the last piece of our puzzle.
+Now you can proceed with adding Autopilot device to <code class="language-plaintext highlighter-rouge">Azure AD group</code> that will apply domain join profile policy</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$APICallParams</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+    </span><span class="nx">Uri</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"</span><span class="nv">$GraphUrl</span><span class="s2">/</span><span class="nv">$GraphVersion</span><span class="s2">/groups/</span><span class="si">$(</span><span class="nv">$AADGroupObject</span><span class="o">.</span><span class="nf">id</span><span class="si">)</span><span class="s2">/members/</span><span class="se">`$</span><span class="s2">ref"</span><span class="w">
+    </span><span class="nx">Body</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+        </span><span class="s1">'@odata.id'</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"</span><span class="nv">$GraphUrl</span><span class="s2">/</span><span class="nv">$GraphVersion</span><span class="s2">/devices/</span><span class="si">$(</span><span class="nv">$AADDeviceObject</span><span class="o">.</span><span class="nf">id</span><span class="si">)</span><span class="s2">"</span><span class="w">
+    </span><span class="p">}</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="nx">ConvertTo</span><span class="err">-</span><span class="nx">Json</span><span class="w">
+    </span><span class="nx">Method</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s1">'POST'</span><span class="w">
+    </span><span class="nx">Headers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$AuthorizationToken</span><span class="w"> </span><span class="err">+</span><span class="w"> </span><span class="p">@{</span><span class="s1">'Content-Type'</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'application/json'</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="n">Invoke-RestMethod</span><span class="w"> </span><span class="err">@</span><span class="nx">APICallParams</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="http://localhost:4000/assets/images/posts/2022-07-25/userap17.png" alt="AP17" /></p>
+
+<p>The whole script looks as follows:</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Set-Item</span><span class="w"> </span><span class="nx">Env:\SupressAzurePowerShellBreakingChangeWarnings</span><span class="w"> </span><span class="s1">'true'</span><span class="w">
+</span><span class="nv">$</span><span class="nn">Global</span><span class="p">:</span><span class="nv">ErrorActionPreference</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Stop'</span><span class="w">
+</span><span class="p">[</span><span class="n">Net.ServicePointManager</span><span class="p">]::</span><span class="n">SecurityProtocol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">Net.SecurityProtocolType</span><span class="p">]::</span><span class="n">Tls12</span><span class="w">
+
+</span><span class="nv">$Autopilot_UserGroups_Connection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-AutomationPSCredential</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="s1">'CREDENTIAL_NAME'</span><span class="w">
+
+</span><span class="nv">$Token</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-MsalToken</span><span class="w"> </span><span class="nt">-ClientId</span><span class="w"> </span><span class="nv">$Autopilot_UserGroups_Connection</span><span class="o">.</span><span class="nf">UserName</span><span class="w"> </span><span class="nt">-ClientSecret</span><span class="w"> </span><span class="nv">$Autopilot_UserGroups_Connection</span><span class="o">.</span><span class="nf">Password</span><span class="w"> </span><span class="nt">-TenantId</span><span class="w"> </span><span class="s1">'YOUR TENANT ID'</span><span class="w">
+</span><span class="nv">$AuthorizationToken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="nx">Authorization</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Bearer </span><span class="si">$(</span><span class="nv">$Token</span><span class="o">.</span><span class="nf">AccessToken</span><span class="si">)</span><span class="s2">"</span><span class="w"> </span><span class="p">}</span><span class="w">
+
+</span><span class="nv">$GraphUrl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'https://graph.microsoft.com'</span><span class="w">
+</span><span class="nv">$GraphVersion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'beta'</span><span class="w">
+</span><span class="nv">$DateTimeNow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Get-Date</span><span class="p">)</span><span class="o">.</span><span class="nf">ToUniversalTime</span><span class="p">()</span><span class="o">.</span><span class="nf">ToString</span><span class="p">(</span><span class="s1">'yyyy-MM-ddTHH:mm:ss.fffK'</span><span class="p">)</span><span class="w">
+</span><span class="nv">$DateTimeNowM10</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Get-Date</span><span class="p">)</span><span class="o">.</span><span class="nf">addhours</span><span class="p">(</span><span class="nt">-2</span><span class="p">)</span><span class="o">.</span><span class="nf">ToUniversalTime</span><span class="p">()</span><span class="o">.</span><span class="nf">ToString</span><span class="p">(</span><span class="s1">'yyyy-MM-ddTHH:mm:ss.fffK'</span><span class="p">)</span><span class="w">
+</span><span class="nv">$Resource</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"deviceManagement/managedDevices?</span><span class="se">`$</span><span class="s2">filter=(Notes%20eq%20%27bc3e5c73-e224-4e63-9b2b-0c36784b7e80%27)%20and%20((enrolleddatetime%20lt%20</span><span class="nv">$DateTimeNow</span><span class="s2">)%20and%20(enrolleddatetime%20gt%20</span><span class="nv">$DateTimeNowM10</span><span class="s2">)%20and%20((deviceType%20eq%20%27desktop%27)%20or%20(deviceType%20eq%20%27windowsRT%27)))&amp;</span><span class="se">`$</span><span class="s2">top=25&amp;</span><span class="se">`$</span><span class="s2">skipToken=Skip=%270%27&amp;</span><span class="se">`$</span><span class="s2">select=deviceName,managementAgent,ownerType,complianceState,deviceType,userId,userPrincipalName,osVersion,lastSyncDateTime,userPrincipalName,id,deviceRegistrationState,managementState,exchangeAccessState,exchangeAccessStateReason,deviceActionResults,deviceEnrollmentType"</span><span class="w">
+</span><span class="n">Write-Output</span><span class="w"> </span><span class="s2">"Time: </span><span class="nv">$DateTimeNow</span><span class="s2">"</span><span class="w">
+</span><span class="nv">$APICallParams</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+    </span><span class="nx">Method</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s1">'GET'</span><span class="w">
+    </span><span class="nx">Headers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$AuthorizationToken</span><span class="w">
+    </span><span class="nx">Uri</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"</span><span class="nv">$GraphUrl</span><span class="s2">/</span><span class="nv">$GraphVersion</span><span class="s2">/</span><span class="nv">$Resource</span><span class="s2">"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="n">Write-Output</span><span class="w"> </span><span class="s1">'Checking for Windows Autopilot new devices...'</span><span class="w">
+</span><span class="kr">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nv">$WindowsAutopilotEnrolledDevices</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Invoke-RestMethod</span><span class="w"> </span><span class="err">@</span><span class="nx">APICallParams</span><span class="p">)</span><span class="o">.</span><span class="nf">value</span><span class="w">
+    </span><span class="nv">$WindowsAutopilotDevicesCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="err">$</span><span class="p">(</span><span class="nv">$WindowsAutopilotEnrolledDevices</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Measure-Object</span><span class="p">)</span><span class="o">.</span><span class="nf">Count</span><span class="p">)</span><span class="w">
+    </span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$WindowsAutopilotDevicesCount</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="n">Write-Warning</span><span class="w"> </span><span class="s1">'No new Autopilot devices found'</span><span class="w">
+        </span><span class="n">Write-Warning</span><span class="w"> </span><span class="s1">'Terminating script'</span><span class="w">
+    </span><span class="p">}</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="n">Write-Output</span><span class="w"> </span><span class="s2">"</span><span class="nv">$WindowsAutopilotDevicesCount</span><span class="s2"> found"</span><span class="w">
+        </span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$Device</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$WindowsAutopilotEnrolledDevices</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="n">Write-Output</span><span class="w"> </span><span class="s2">"Processing </span><span class="si">$(</span><span class="nv">$Device</span><span class="o">.</span><span class="nf">DeviceName</span><span class="si">)</span><span class="s2">"</span><span class="w">
+
+            </span><span class="c">#Get AAD User details</span><span class="w">
+            </span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="bp">$null</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="nv">$Device</span><span class="o">.</span><span class="nf">userid</span><span class="w"> </span><span class="o">-or</span><span class="w"> </span><span class="nv">$Device</span><span class="o">.</span><span class="nf">userId</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="s1">''</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="n">Write-Warning</span><span class="w"> </span><span class="s1">'Device user is null!!'</span><span class="w">
+                </span><span class="n">Write-Warning</span><span class="w"> </span><span class="s1">'Skipping Device'</span><span class="w">
+                </span><span class="kr">Continue</span><span class="w">
+            </span><span class="p">}</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nv">$APICallParams</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+                    </span><span class="nx">Method</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s1">'GET'</span><span class="w">
+                    </span><span class="nx">Headers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$AuthorizationToken</span><span class="w">
+                    </span><span class="nx">Uri</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"</span><span class="nv">$GraphUrl</span><span class="s2">/</span><span class="nv">$GraphVersion</span><span class="s2">/users/</span><span class="si">$(</span><span class="nv">$Device</span><span class="o">.</span><span class="nf">userid</span><span class="si">)</span><span class="s2">/memberOf"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+                </span><span class="nv">$UserGroups</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Invoke-RestMethod</span><span class="w"> </span><span class="err">@</span><span class="nx">APICallParams</span><span class="p">)</span><span class="o">.</span><span class="nf">value</span><span class="w">
+                </span><span class="nv">$DeviceGroupsFromUserGroups</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$UserGroups</span><span class="o">.</span><span class="nf">Where</span><span class="p">({</span><span class="w"> </span><span class="bp">$PSItem</span><span class="o">.</span><span class="nf">displayName</span><span class="w"> </span><span class="o">-like</span><span class="w"> </span><span class="s1">'*-Users_AzA'</span><span class="w"> </span><span class="p">})</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+            </span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="bp">$null</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="nv">$DeviceGroupsFromUserGroups</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="n">Write-Warning</span><span class="w"> </span><span class="s2">"</span><span class="si">$(</span><span class="nv">$Device</span><span class="o">.</span><span class="nf">userDisplayName</span><span class="si">)</span><span class="s2"> has no Users_AzA groups!"</span><span class="w">
+                </span><span class="n">Write-Warning</span><span class="w"> </span><span class="s1">'Skipping Device'</span><span class="w">
+                </span><span class="kr">Continue</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+   
+            </span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$DeviceGroup</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$DeviceGroupsFromUserGroups</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="c">#Get device group ID</span><span class="w">
+                </span><span class="nv">$DeviceGroup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"</span><span class="si">$(</span><span class="nv">$DeviceGroup</span><span class="o">.</span><span class="nf">displayName</span><span class="o">.</span><span class="nf">split</span><span class="p">(</span><span class="s1">'-'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="si">)</span><span class="s2">-Computers"</span><span class="w">
+                </span><span class="nv">$RequestSplat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+                    </span><span class="nx">Headers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$AuthorizationToken</span><span class="w"> </span><span class="err">+</span><span class="w"> </span><span class="p">@{</span><span class="s1">'ConsistencyLevel'</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'eventual'</span><span class="w"> </span><span class="p">}</span><span class="w">
+                    </span><span class="nx">Uri</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"</span><span class="nv">$GraphUrl</span><span class="s2">/</span><span class="nv">$GraphVersion</span><span class="s2">/groups?</span><span class="se">`$</span><span class="s2">filter=displayname eq '</span><span class="nv">$DeviceGroup</span><span class="s2">'"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+                </span><span class="nv">$AADGroupObject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Invoke-RestMethod</span><span class="w"> </span><span class="err">@</span><span class="nx">RequestSplat</span><span class="p">)</span><span class="o">.</span><span class="nf">value</span><span class="w">
+
+                </span><span class="c">#Get AAD group members</span><span class="w">
+                </span><span class="nv">$APICallParams</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+                    </span><span class="nx">Method</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s1">'GET'</span><span class="w">
+                    </span><span class="nx">Headers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$AuthorizationToken</span><span class="w">
+                    </span><span class="nx">Uri</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"</span><span class="nv">$GraphUrl</span><span class="s2">/</span><span class="nv">$GraphVersion</span><span class="s2">/groups/</span><span class="si">$(</span><span class="nv">$AADGroupObject</span><span class="o">.</span><span class="nf">id</span><span class="si">)</span><span class="s2">/members"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+                </span><span class="nv">$GroupMembers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Invoke-RestMethod</span><span class="w"> </span><span class="err">@</span><span class="nx">APICallParams</span><span class="p">)</span><span class="o">.</span><span class="nf">value</span><span class="w">
+            
+                </span><span class="c">#Get Intune device details</span><span class="w">
+                </span><span class="nv">$APICallParams</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+                    </span><span class="nx">Method</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s1">'GET'</span><span class="w">
+                    </span><span class="nx">Headers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$AuthorizationToken</span><span class="w">
+                    </span><span class="nx">Uri</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"</span><span class="nv">$GraphUrl</span><span class="s2">/</span><span class="nv">$GraphVersion</span><span class="s2">/deviceManagement/manageddevices('</span><span class="si">$(</span><span class="nv">$Device</span><span class="o">.</span><span class="nf">id</span><span class="si">)</span><span class="s2">')"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+                </span><span class="nv">$IntuneDeviceDetails</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Invoke-RestMethod</span><span class="w"> </span><span class="err">@</span><span class="nx">APICallParams</span><span class="w">
+            
+                </span><span class="c">#Get AAD object from Intune object</span><span class="w">
+                </span><span class="nv">$RequestSplat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+                    </span><span class="nx">Headers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$AuthorizationToken</span><span class="w"> </span><span class="err">+</span><span class="w"> </span><span class="p">@{</span><span class="s1">'ConsistencyLevel'</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'eventual'</span><span class="w"> </span><span class="p">}</span><span class="w">
+                    </span><span class="nx">Uri</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"</span><span class="nv">$GraphUrl</span><span class="s2">/</span><span class="nv">$GraphVersion</span><span class="s2">/devices?</span><span class="se">`$</span><span class="s2">filter=deviceId eq '</span><span class="si">$(</span><span class="nv">$IntuneDeviceDetails</span><span class="o">.</span><span class="nf">azureADDeviceId</span><span class="si">)</span><span class="s2">' or id eq '</span><span class="si">$(</span><span class="nv">$IntuneDeviceDetails</span><span class="o">.</span><span class="nf">azureADDeviceId</span><span class="si">)</span><span class="s2">'"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+                </span><span class="nv">$AADDeviceObject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Invoke-RestMethod</span><span class="w"> </span><span class="err">@</span><span class="nx">RequestSplat</span><span class="p">)</span><span class="o">.</span><span class="nf">value</span><span class="w">
+            
+                </span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$GroupMembers</span><span class="o">.</span><span class="nf">id</span><span class="w"> </span><span class="o">-notcontains</span><span class="w"> </span><span class="nv">$AADDeviceObject</span><span class="o">.</span><span class="nf">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+                
+                    </span><span class="nv">$APICallParams</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+                        </span><span class="nx">Uri</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"</span><span class="nv">$GraphUrl</span><span class="s2">/</span><span class="nv">$GraphVersion</span><span class="s2">/groups/</span><span class="si">$(</span><span class="nv">$AADGroupObject</span><span class="o">.</span><span class="nf">id</span><span class="si">)</span><span class="s2">/members/</span><span class="se">`$</span><span class="s2">ref"</span><span class="w">
+                        </span><span class="nx">Body</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="p">@{</span><span class="w">
+                            </span><span class="s1">'@odata.id'</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"</span><span class="nv">$GraphUrl</span><span class="s2">/</span><span class="nv">$GraphVersion</span><span class="s2">/devices/</span><span class="si">$(</span><span class="nv">$AADDeviceObject</span><span class="o">.</span><span class="nf">id</span><span class="si">)</span><span class="s2">"</span><span class="w">
+                        </span><span class="p">}</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="nx">ConvertTo</span><span class="err">-</span><span class="nx">Json</span><span class="w">
+                        </span><span class="nx">Method</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s1">'POST'</span><span class="w">
+                        </span><span class="nx">Headers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$AuthorizationToken</span><span class="w"> </span><span class="err">+</span><span class="w"> </span><span class="p">@{</span><span class="s1">'Content-Type'</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'application/json'</span><span class="w"> </span><span class="p">}</span><span class="w">
+                    </span><span class="p">}</span><span class="w">
+                    </span><span class="n">Invoke-RestMethod</span><span class="w"> </span><span class="err">@</span><span class="nx">APICallParams</span><span class="w">
+                    </span><span class="n">Write-Output</span><span class="w"> </span><span class="s2">"Device - </span><span class="si">$(</span><span class="nv">$AADDeviceObject</span><span class="o">.</span><span class="nf">displayName</span><span class="si">)</span><span class="s2"> added as a member"</span><span class="w">
+                </span><span class="p">}</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="n">Write-Warning</span><span class="w"> </span><span class="s2">"Device - </span><span class="si">$(</span><span class="nv">$AADDeviceObject</span><span class="o">.</span><span class="nf">displayName</span><span class="si">)</span><span class="s2"> already a member"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w"> </span><span class="kr">catch</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">Write-Error</span><span class="w"> </span><span class="s2">"
+        ScriptLineNumber </span><span class="si">$(</span><span class="bp">$_</span><span class="o">.</span><span class="nf">InvocationInfo</span><span class="o">.</span><span class="nf">ScriptLineNumber</span><span class="si">)</span><span class="s2">
+        OffsetInLine </span><span class="si">$(</span><span class="bp">$_</span><span class="o">.</span><span class="nf">InvocationInfo</span><span class="o">.</span><span class="nf">OffsetInLine</span><span class="si">)</span><span class="s2">"</span><span class="w">
+    </span><span class="nv">$ex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">$_</span><span class="o">.</span><span class="nf">Exception</span><span class="w">
+    </span><span class="nv">$errorResponse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$ex</span><span class="o">.</span><span class="nf">Response</span><span class="o">.</span><span class="nf">GetResponseStream</span><span class="p">()</span><span class="w">
+    </span><span class="nv">$reader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">New-Object</span><span class="w"> </span><span class="nx">System.IO.StreamReader</span><span class="p">(</span><span class="nv">$errorResponse</span><span class="p">)</span><span class="w">
+    </span><span class="nv">$reader</span><span class="o">.</span><span class="nf">BaseStream</span><span class="o">.</span><span class="nf">Position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="nv">$reader</span><span class="o">.</span><span class="nf">DiscardBufferedData</span><span class="p">()</span><span class="w">
+    </span><span class="nv">$responseBody</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$reader</span><span class="o">.</span><span class="nf">ReadToEnd</span><span class="p">();</span><span class="w">
+    </span><span class="n">Write-Error</span><span class="w"> </span><span class="s2">"Response content: </span><span class="nv">$responseBody</span><span class="s2">"</span><span class="w">
+    </span><span class="n">Write-Error</span><span class="w"> </span><span class="s2">"Request to </span><span class="nv">$Uri</span><span class="s2"> failed with HTTP Status </span><span class="si">$(</span><span class="nv">$ex</span><span class="o">.</span><span class="nf">Response</span><span class="o">.</span><span class="nf">StatusCode</span><span class="si">)</span><span class="s2"> </span><span class="si">$(</span><span class="nv">$ex</span><span class="o">.</span><span class="nf">Response</span><span class="o">.</span><span class="nf">StatusDescription</span><span class="si">)</span><span class="s2">"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="http://localhost:4000/assets/images/posts/2022-07-25/userap3.png" alt="AP3" /></p>
+
+<h1 id="autopilot-in-action">Autopilot in action</h1>
+
+<p>User unboxes device, connects it to the Internet and deployment profile is downloaded.
+After authenticating with work account device is enrolled into Intune.</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2022-07-25/userap1.png" alt="AP1" /></p>
+
+<p>Then configuration profiles are applied and device object is created in Intune.</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2022-07-25/userap11.png" alt="AP11" /></p>
+
+<p>Device will wait around 25-30 minutes for domain join profile.</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2022-07-25/userap2.png" alt="AP2" /></p>
+
+<p>When profile arrives and ODJ request is raised then device is renamed.</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2022-07-25/userap16.png" alt="AP16" /></p>
+
+<p>Deployment will continue after reboot</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2022-07-25/userap5.png" alt="AP5" /></p>
+
+<p>Then the rest of configurations are applied</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2022-07-25/userap7.png" alt="AP7" /></p>
+
+<p>After ESP user can sign-in using domain credentials</p>
+
+<p><img src="http://localhost:4000/assets/images/posts/2022-07-25/userap18.png" alt="AP18" /></p>
+
+<p>And that is it!</p>
+
+<h1 id="summary">Summary</h1>
+
+<p>Described process is a little bit risky due to possible latency of runbook schedule, Azure group membership sync, device sync with Intune, etc.</p>
+
+<p>But unless there will be some other way to archive the result of building devices based on the user account it seems like using <strong>PowerShell</strong> and <strong>Graph</strong> is the easiest and coolest option.</p>
+
+<p>See you in next! 😉 🧠</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#azure-automation" class="page__taxonomy-item" rel="tag">Azure Automation</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#intune" class="page__taxonomy-item" rel="tag">Intune</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#microsoft-graph" class="page__taxonomy-item" rel="tag">Microsoft Graph</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#powershell" class="page__taxonomy-item" rel="tag">Powershell</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#windows-autopilot" class="page__taxonomy-item" rel="tag">Windows Autopilot</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#intune" class="page__taxonomy-item" rel="tag">Intune</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2022-07-25T00:00:00+02:00">July 25, 2022</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=UniverseCitiz3n&text=Truly+user-driven+Windows+Autopilot%20http%3A%2F%2Flocalhost%3A4000%2Fintune%2FUser-driven-Autopilot%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fintune%2FUser-driven-Autopilot%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fintune%2FUser-driven-Autopilot%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/intune/SettingsCatalog-PowerShell/" class="pagination--pager" title="Export, Fix, Import - Settings Catalog
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You may also enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/intune/SettingsCatalog-PowerShell/" rel="permalink">Export, Fix, Import - Settings Catalog
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">At first it looked easy but then…
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/intune/IntuneSecurityBaseline-Move/" rel="permalink">How to easily move MDM Security Baseline profile
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">This is a game changer for me 😲
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/powershell/SettingsCatalog-Move/" rel="permalink">How to easily move Settings Catalog profile
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">With this simple trick, you can save a lot of time 😁
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/assets/head_image_sized.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/intune/Edge-allowed-cookies/" rel="permalink">How to bypass Settings catalog limitation
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">I needed to configure quite a long list of allowed urls but then I hit a wall
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/UniverseCitiz3n" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/UniverseCitiz3n" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2022 Maciej Horbacz. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "http://localhost:4000/intune/User-driven-Autopilot/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/intune/User-driven-Autopilot"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://uc3n.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>
